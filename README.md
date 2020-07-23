@@ -1,39 +1,39 @@
-[![Build Status](https://travis-ci.org/ignitionrobotics/ros_ign.svg?branch=ros2)](https://travis-ci.org/ignitionrobotics/ros_ign/branches)
+# ROS + Ignition Gazebo
 
-* ROS 1 branches:
-    * [melodic](https://github.com/ignitionrobotics/ros_ign/tree/melodic)
-        * Blueprint and Citadel
-        * Melodic
-* ROS 2 branches:
-    * [dashing](https://github.com/ignitionrobotics/ros_ign/tree/dashing)
-        * Blueprint and Citadel
-        * Dashing and Eloquent
-    * [ros2](https://github.com/osrf/ros_ign/tree/ros2)
-        * Citadel
-        * Foxy
+This package contains things that make it convenient to integrate ROS with Ignition, such as:
 
-# Integration between ROS and Ignition
+ - Launch files
+ - ROS-enabled executables
 
-This repository holds packages that provide integration between
-[ROS](http://www.ros.org/) and [Ignition](https://ignitionrobotics.org):
+### Run Ignition Gazebo
 
-* [ros_ign](https://github.com/ignitionrobotics/ros_ign/tree/dashing/ros_ign):
-  Metapackage which provides all the other packages.
-* [ros_ign_image](https://github.com/ignitionrobotics/ros_ign/tree/dashing/ros_ign_image):
-  Unidirectional transport bridge for images from
-  [Ignition Transport](https://ignitionrobotics.org/libs/transport)
-  to ROS using
-  [image_transport](http://wiki.ros.org/image_transport).
-* [ros_ign_bridge](https://github.com/ignitionrobotics/ros_ign/tree/dashing/ros_ign_bridge):
-  Bidirectional transport bridge between
-  [Ignition Transport](https://ignitionrobotics.org/libs/transport)
-  and ROS.
-* [ros_ign_gazebo](https://github.com/ignitionrobotics/ros_ign/tree/dashing/ros_ign_gazebo):
-  Convenient launch files and executables for using
-  [Ignition Gazebo](https://ignitionrobotics.org/libs/gazebo)
-  with ROS.
-* [ros_ign_gazebo_demos](https://github.com/ignitionrobotics/ros_ign/tree/dashing/ros_ign_gazebo_demos):
-  Demos using the ROS-Ignition integration.
-* [ros_ign_point_cloud](https://github.com/ignitionrobotics/ros_ign/tree/dashing/ros_ign_point_cloud):
-  Plugins for publishing point clouds to ROS from
-  [Ignition Gazebo](https://ignitionrobotics.org/libs/gazebo) simulations.
+There's a convenient launch file, try for example:
+
+```bash
+ros2 launch ros_ign_gazebo ign_gazebo.launch.py ign_args:="shapes.sdf"
+```
+
+### Spawn entities
+
+The `create` executable can be used to spawn SDF or URDF entities from:
+
+ - A file on disk or from Ignition Fuel
+ - A ROS parameter
+
+For example, start Ignition Gazebo:
+
+```
+ros2 launch ros_ign_gazebo ign_gazebo.launch.py
+```
+
+then spawn a model:
+
+```
+ros2 run ros_ign_gazebo create -world default -file 'https://fuel.ignitionrobotics.org/1.0/openrobotics/models/Gazebo'
+```
+
+See more options with:
+
+```
+ros2 run ros_ign_gazebo create --helpshort
+```
