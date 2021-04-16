@@ -1,0 +1,12 @@
+Source: ros-rolling-ros-ign-image
+Section: misc
+Priority: optional
+Maintainer: Louise Poubel <louise@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), libignition-msgs7-dev, libignition-transport10-dev, pkg-config, ros-rolling-ament-cmake, ros-rolling-ament-lint-auto, ros-rolling-ament-lint-common, ros-rolling-image-transport, ros-rolling-rclcpp, ros-rolling-ros-ign-bridge, ros-rolling-sensor-msgs, ros-rolling-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-rolling-ros-ign-image
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libignition-msgs7-dev, libignition-transport10-dev, ros-rolling-image-transport, ros-rolling-rclcpp, ros-rolling-ros-ign-bridge, ros-rolling-sensor-msgs, ros-rolling-ros-workspace
+Description: Image utilities for Ignition simulation with ROS.
