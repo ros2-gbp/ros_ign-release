@@ -105,6 +105,24 @@ convert_ign_to_ros(
 template<>
 void
 convert_ros_to_ign(
+  const std_msgs::msg::Float64 & ros_msg,
+  ignition::msgs::Double & ign_msg)
+{
+  ign_msg.set_data(ros_msg.data);
+}
+
+template<>
+void
+convert_ign_to_ros(
+  const ignition::msgs::Double & ign_msg,
+  std_msgs::msg::Float64 & ros_msg)
+{
+  ros_msg.data = ign_msg.data();
+}
+
+template<>
+void
+convert_ros_to_ign(
   const std_msgs::msg::Header & ros_msg,
   ignition::msgs::Header & ign_msg)
 {
@@ -341,6 +359,39 @@ convert_ign_to_ros(
       ros_msg.child_frame_id = frame_id_ign_to_ros(aPair.value(0));
       break;
     }
+  }
+}
+
+template<>
+void
+convert_ros_to_ign(
+  const tf2_msgs::msg::TFMessage & ros_msg,
+  ignition::msgs::Pose_V & ign_msg)
+{
+  ign_msg.clear_pose();
+  for (auto const & t : ros_msg.transforms) {
+    auto p = ign_msg.add_pose();
+    convert_ros_to_ign(t, *p);
+  }
+
+  if (!ros_msg.transforms.empty()) {
+    convert_ros_to_ign(
+      ros_msg.transforms[0].header,
+      (*ign_msg.mutable_header()));
+  }
+}
+
+template<>
+void
+convert_ign_to_ros(
+  const ignition::msgs::Pose_V & ign_msg,
+  tf2_msgs::msg::TFMessage & ros_msg)
+{
+  ros_msg.transforms.clear();
+  for (auto const & p : ign_msg.pose()) {
+    geometry_msgs::msg::TransformStamped tf;
+    convert_ign_to_ros(p, tf);
+    ros_msg.transforms.push_back(tf);
   }
 }
 
@@ -1002,6 +1053,91 @@ convert_ign_to_ros(
   ros_msg.power_supply_technology =
     sensor_msgs::msg::BatteryState::POWER_SUPPLY_TECHNOLOGY_UNKNOWN;
   ros_msg.present = true;
+}
+
+template<>
+void
+convert_ros_to_ign(
+  const trajectory_msgs::msg::JointTrajectoryPoint & ros_msg,
+  ignition::msgs::JointTrajectoryPoint & ign_msg)
+{
+  for (const auto & ros_position : ros_msg.positions) {
+    ign_msg.add_positions(ros_position);
+  }
+  for (const auto & ros_velocity : ros_msg.velocities) {
+    ign_msg.add_velocities(ros_velocity);
+  }
+  for (const auto & ros_acceleration : ros_msg.accelerations) {
+    ign_msg.add_accelerations(ros_acceleration);
+  }
+  for (const auto & ros_effort : ros_msg.effort) {
+    ign_msg.add_effort(ros_effort);
+  }
+
+  ignition::msgs::Duration * ign_duration = ign_msg.mutable_time_from_start();
+  ign_duration->set_sec(ros_msg.time_from_start.sec);
+  ign_duration->set_nsec(ros_msg.time_from_start.nanosec);
+}
+
+template<>
+void
+convert_ign_to_ros(
+  const ignition::msgs::JointTrajectoryPoint & ign_msg,
+  trajectory_msgs::msg::JointTrajectoryPoint & ros_msg)
+{
+  for (auto i = 0; i < ign_msg.positions_size(); ++i) {
+    ros_msg.positions.push_back(ign_msg.positions(i));
+  }
+  for (auto i = 0; i < ign_msg.velocities_size(); ++i) {
+    ros_msg.velocities.push_back(ign_msg.velocities(i));
+  }
+  for (auto i = 0; i < ign_msg.accelerations_size(); ++i) {
+    ros_msg.accelerations.push_back(ign_msg.accelerations(i));
+  }
+  for (auto i = 0; i < ign_msg.effort_size(); ++i) {
+    ros_msg.effort.push_back(ign_msg.effort(i));
+  }
+
+  ros_msg.time_from_start = rclcpp::Duration(
+    ign_msg.time_from_start().sec(),
+    ign_msg.time_from_start().nsec());
+}
+
+template<>
+void
+convert_ros_to_ign(
+  const trajectory_msgs::msg::JointTrajectory & ros_msg,
+  ignition::msgs::JointTrajectory & ign_msg)
+{
+  convert_ros_to_ign(ros_msg.header, (*ign_msg.mutable_header()));
+
+  for (const auto & ros_joint_name : ros_msg.joint_names) {
+    ign_msg.add_joint_names(ros_joint_name);
+  }
+
+  for (const auto & ros_point : ros_msg.points) {
+    ignition::msgs::JointTrajectoryPoint * ign_point = ign_msg.add_points();
+    convert_ros_to_ign(ros_point, (*ign_point));
+  }
+}
+
+template<>
+void
+convert_ign_to_ros(
+  const ignition::msgs::JointTrajectory & ign_msg,
+  trajectory_msgs::msg::JointTrajectory & ros_msg)
+{
+  convert_ign_to_ros(ign_msg.header(), ros_msg.header);
+
+  for (auto i = 0; i < ign_msg.joint_names_size(); ++i) {
+    ros_msg.joint_names.push_back(ign_msg.joint_names(i));
+  }
+
+  for (auto i = 0; i < ign_msg.points_size(); ++i) {
+    trajectory_msgs::msg::JointTrajectoryPoint ros_point;
+    convert_ign_to_ros(ign_msg.points(i), ros_point);
+    ros_msg.points.push_back(ros_point);
+  }
 }
 
 }  // namespace ros_ign_bridge
