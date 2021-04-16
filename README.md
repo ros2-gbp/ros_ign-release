@@ -1,3 +1,31 @@
+## ros_ign (rolling) - 0.233.1-4
+
+The packages in the `ros_ign` repository were released into the `rolling` distro by running `/usr/bin/bloom-release --rosdistro rolling --track rolling ros_ign --debug` on `Fri, 16 Apr 2021 21:45:29 -0000`
+
+These packages were released:
+- `ros_ign`
+- `ros_ign_bridge`
+- `ros_ign_gazebo`
+- `ros_ign_gazebo_demos`
+- `ros_ign_image`
+
+Version of package(s) in repository `ros_ign`:
+
+- upstream repository: https://github.com/ignitionrobotics/ros_ign
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `0.233.1-3`
+- new version: `0.233.1-4`
+
+Versions of tools used:
+
+- bloom version: `0.10.6`
+- catkin_pkg version: `0.4.23`
+- rosdep version: `0.20.0`
+- rosdistro version: `0.8.3`
+- vcstools version: `0.1.42`
+
+
 ## ros_ign (rolling) - 0.233.1-3
 
 The packages in the `ros_ign` repository were released into the `rolling` distro by running `/usr/bin/bloom-release --rosdistro rolling --track rolling ros_ign --edit --debug` on `Fri, 16 Apr 2021 21:33:14 -0000`
