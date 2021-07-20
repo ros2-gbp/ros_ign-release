@@ -1,0 +1,12 @@
+Source: ros-galactic-ros-ign
+Section: misc
+Priority: optional
+Maintainer: Louise Poubel <louise@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), ros-galactic-ament-cmake, ros-galactic-ament-lint-auto, ros-galactic-ament-lint-common, ros-galactic-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-galactic-ros-ign
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-galactic-ros-ign-bridge, ros-galactic-ros-ign-gazebo, ros-galactic-ros-ign-gazebo-demos, ros-galactic-ros-ign-image, ros-galactic-ros-workspace
+Description: Meta-package containing interfaces for using ROS 2 with Ignition simulation.
