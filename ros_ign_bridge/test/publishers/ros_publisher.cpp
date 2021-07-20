@@ -35,8 +35,11 @@
 #include <std_msgs/msg/bool.hpp>
 #include <std_msgs/msg/empty.hpp>
 #include <std_msgs/msg/float32.hpp>
+#include <std_msgs/msg/float64.hpp>
 #include <std_msgs/msg/header.hpp>
 #include <std_msgs/msg/string.hpp>
+#include <tf2_msgs/msg/tf_message.hpp>
+#include <trajectory_msgs/msg/joint_trajectory.hpp>
 #include "../test_utils.hpp"
 
 //////////////////////////////////////////////////
@@ -59,6 +62,11 @@ int main(int argc, char ** argv)
   auto float_pub = node->create_publisher<std_msgs::msg::Float32>("float", 1000);
   std_msgs::msg::Float32 float_msg;
   ros_ign_bridge::testing::createTestMsg(float_msg);
+
+  // std_msgs::Float64.
+  auto double_pub = node->create_publisher<std_msgs::msg::Float64>("double", 1000);
+  std_msgs::msg::Float64 double_msg;
+  ros_ign_bridge::testing::createTestMsg(double_msg);
 
   // std_msgs::msg::Header.
   auto header_pub = node->create_publisher<std_msgs::msg::Header>("header", 1000);
@@ -123,6 +131,12 @@ int main(int argc, char ** argv)
     node->create_publisher<geometry_msgs::msg::Twist>("twist", 1000);
   geometry_msgs::msg::Twist twist_msg;
   ros_ign_bridge::testing::createTestMsg(twist_msg);
+
+  auto tf2_message_pub =
+    node->create_publisher<tf2_msgs::msg::TFMessage>("tf2_message", 1000);
+  tf2_msgs::msg::TFMessage tf2_msg;
+  ros_ign_bridge::testing::createTestMsg(tf2_msg);
+
 
   // // mav_msgs::msg::Actuators.
   // auto actuators_pub =
@@ -190,11 +204,18 @@ int main(int argc, char ** argv)
   sensor_msgs::msg::BatteryState battery_state_msg;
   ros_ign_bridge::testing::createTestMsg(battery_state_msg);
 
+  // trajectory_msgs::msg::JointTrajectory.
+  auto joint_trajectory_pub =
+    node->create_publisher<trajectory_msgs::msg::JointTrajectory>("joint_trajectory", 1000);
+  trajectory_msgs::msg::JointTrajectory joint_trajectory_msg;
+  ros_ign_bridge::testing::createTestMsg(joint_trajectory_msg);
+
   while (rclcpp::ok()) {
     // Publish all messages.
     bool_pub->publish(bool_msg);
     empty_pub->publish(empty_msg);
     float_pub->publish(float_msg);
+    double_pub->publish(double_msg);
     header_pub->publish(header_msg);
     string_pub->publish(string_msg);
     quaternion_pub->publish(quaternion_msg);
@@ -205,6 +226,7 @@ int main(int argc, char ** argv)
     pose_stamped_pub->publish(pose_stamped_msg);
     transform_pub->publish(transform_msg);
     transform_stamped_pub->publish(transform_stamped_msg);
+    tf2_message_pub->publish(tf2_msg);
     twist_pub->publish(twist_msg);
     // actuators_pub->publish(actuators_msg);
     odometry_pub->publish(odometry_msg);
@@ -217,6 +239,7 @@ int main(int argc, char ** argv)
     joint_states_pub->publish(joint_states_msg);
     pointcloud2_pub->publish(pointcloud2_msg);
     battery_state_pub->publish(battery_state_msg);
+    joint_trajectory_pub->publish(joint_trajectory_msg);
 
     rclcpp::spin_some(node);
     loop_rate.sleep();

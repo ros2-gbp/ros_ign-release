@@ -12,8 +12,6 @@ There's a convenient launch file, try for example:
 
 ## Air pressure
 
-*TODO*: Pending bridge for `sensor_msgs/msg/FluidPressure`, [issue](https://github.com/osrf/ros_ign/issues/78).
-
 Publishes fluid pressure readings.
 
     ros2 launch ros_ign_gazebo_demos air_pressure.launch.py
@@ -57,7 +55,7 @@ Depth camera data can be obtained as:
 
 Using the image bridge (unidirectional, uses [image_transport](http://wiki.ros.org/image_transport)):
 
-    ros2 launch ros_ign_gazebo_demos image_bridge.launch.py
+    ros2 launch ros_ign_gazebo_demos image_bridge.launch.py image_topic:=/depth_camera
 
 *TODO*: Blocked by `ros_ign_point_cloud` [issue](https://github.com/osrf/ros_ign/issues/40).
 
@@ -113,7 +111,10 @@ RGBD camera data can be obtained as:
 
 Using the image bridge (unidirectional, uses [image_transport](http://wiki.ros.org/image_transport)):
 
-    ros2 launch ros_ign_gazebo_demos image_bridge.launch.py
+    # RGB image
+    ros2 launch ros_ign_gazebo_demos image_bridge.launch.py image_topic:=/rgbd_camera/image
+    # Depth image
+    ros2 launch ros_ign_gazebo_demos image_bridge.launch.py image_topic:=/rgbd_camera/depth_image
 
 Using the regular bridge:
 
@@ -138,3 +139,23 @@ Then send a command so the vehicle moves and drains the battery
     ros2 topic pub /model/vehicle_blue/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 5.0}, angular: {z: 0.5}}"
 
 ![](images/battery_demo.png)
+
+## Robot description publisher
+
+Leverage the robot description publisher to spawn a new urdf model in gazebo and
+show it in rviz2.
+To try the demo launch:
+
+    ros2 launch ros_ign_gazebo_demos robot_description_publisher.launch.py
+
+![](images/robot_state_publisher_demo.png)
+
+## Joint States Publisher
+
+Publishes joint states of the robot.
+
+To try the demo launch:
+
+    ros2 launch ros_ign_gazebo_demos joint_states.launch.py
+
+![](images/joint_states.png)
