@@ -39,8 +39,11 @@
 #include <std_msgs/msg/bool.hpp>
 #include <std_msgs/msg/empty.hpp>
 #include <std_msgs/msg/float32.hpp>
+#include <std_msgs/msg/float64.hpp>
 #include <std_msgs/msg/int32.hpp>
 #include <std_msgs/msg/string.hpp>
+#include <tf2_msgs/msg/tf_message.hpp>
+#include <trajectory_msgs/msg/joint_trajectory.hpp>
 
 // Ignition messages
 #include <ignition/msgs.hh>
@@ -86,6 +89,18 @@ void
 convert_ign_to_ros(
   const ignition::msgs::Float & ign_msg,
   std_msgs::msg::Float32 & ros_msg);
+
+template<>
+void
+convert_ros_to_ign(
+  const std_msgs::msg::Float64 & ros_msg,
+  ignition::msgs::Double & ign_msg);
+
+template<>
+void
+convert_ign_to_ros(
+  const ignition::msgs::Double & ign_msg,
+  std_msgs::msg::Float64 & ros_msg);
 
 template<>
 void
@@ -220,6 +235,18 @@ void
 convert_ign_to_ros(
   const ignition::msgs::Pose & ign_msg,
   geometry_msgs::msg::TransformStamped & ros_msg);
+
+template<>
+void
+convert_ros_to_ign(
+  const tf2_msgs::msg::TFMessage & ros_msg,
+  ignition::msgs::Pose_V & ign_msg);
+
+template<>
+void
+convert_ign_to_ros(
+  const ignition::msgs::Pose_V & ign_msg,
+  tf2_msgs::msg::TFMessage & ros_msg);
 
 template<>
 void
@@ -369,6 +396,32 @@ void
 convert_ign_to_ros(
   const ignition::msgs::BatteryState & ign_msg,
   sensor_msgs::msg::BatteryState & ros_msg);
+
+// trajectory_msgs
+template<>
+void
+convert_ros_to_ign(
+  const trajectory_msgs::msg::JointTrajectoryPoint & ros_msg,
+  ignition::msgs::JointTrajectoryPoint & ign_msg);
+
+template<>
+void
+convert_ign_to_ros(
+  const ignition::msgs::JointTrajectoryPoint & ign_msg,
+  trajectory_msgs::msg::JointTrajectoryPoint & ros_msg);
+
+template<>
+void
+convert_ros_to_ign(
+  const trajectory_msgs::msg::JointTrajectory & ros_msg,
+  ignition::msgs::JointTrajectory & ign_msg);
+
+template<>
+void
+convert_ign_to_ros(
+  const ignition::msgs::JointTrajectory & ign_msg,
+  trajectory_msgs::msg::JointTrajectory & ros_msg);
+
 
 }  // namespace ros_ign_bridge
 

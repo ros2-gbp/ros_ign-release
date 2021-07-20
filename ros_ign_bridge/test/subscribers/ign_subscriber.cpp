@@ -92,6 +92,18 @@ TEST(IgnSubscriberTest, Float)
 }
 
 /////////////////////////////////////////////////
+TEST(IgnSubscriberTest, Double)
+{
+  MyTestClass<ignition::msgs::Double> client("double");
+
+  using namespace std::chrono_literals;
+  ros_ign_bridge::testing::waitUntilBoolVar(
+    client.callbackExecuted, 100ms, 200);
+
+  EXPECT_TRUE(client.callbackExecuted);
+}
+
+/////////////////////////////////////////////////
 TEST(IgnSubscriberTest, Header)
 {
   MyTestClass<ignition::msgs::Header> client("header");
@@ -207,6 +219,18 @@ TEST(IgnSubscriberTest, TransformStamped)
   using namespace std::chrono_literals;
   ros_ign_bridge::testing::waitUntilBoolVar(
     client.callbackExecuted, 100ms, 200);
+
+  EXPECT_TRUE(client.callbackExecuted);
+}
+
+/////////////////////////////////////////////////
+TEST(IgnSubscriberTest, TF2Message)
+{
+  MyTestClass<ignition::msgs::Pose_V> client("tf2_message");
+
+  using namespace std::chrono_literals;
+  ros_ign_bridge::testing::waitUntilBoolVar(
+    client.callbackExecuted, 10ms, 200);
 
   EXPECT_TRUE(client.callbackExecuted);
 }
@@ -347,6 +371,18 @@ TEST(IgnSubscriberTest, PointCloudPacked)
 TEST(IgnSubscriberTest, BatteryState)
 {
   MyTestClass<ignition::msgs::BatteryState> client("battery_state");
+
+  using namespace std::chrono_literals;
+  ros_ign_bridge::testing::waitUntilBoolVar(
+    client.callbackExecuted, 100ms, 200);
+
+  EXPECT_TRUE(client.callbackExecuted);
+}
+
+/////////////////////////////////////////////////
+TEST(IgnSubscriberTest, JointTrajectory)
+{
+  MyTestClass<ignition::msgs::JointTrajectory> client("joint_trajectory");
 
   using namespace std::chrono_literals;
   ros_ign_bridge::testing::waitUntilBoolVar(
