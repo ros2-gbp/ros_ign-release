@@ -1,0 +1,12 @@
+Source: ros-foxy-ros-ign-gazebo
+Section: misc
+Priority: optional
+Maintainer: Alejandro Hernandez <ahcorde@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), libgflags-dev, libignition-gazebo3-dev, libignition-math6-dev, pkg-config, ros-foxy-ament-cmake, ros-foxy-ament-lint-auto, ros-foxy-ament-lint-common, ros-foxy-rclcpp, ros-foxy-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-foxy-ros-ign-gazebo
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libgflags-dev, libignition-gazebo3-dev, libignition-math6-dev, ros-foxy-rclcpp, ros-foxy-ros-workspace
+Description: Tools for using Ignition Gazebo simulation with ROS.
