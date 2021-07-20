@@ -2,9 +2,16 @@
 Changelog for package ros_ign_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.221.2 (2021-07-20)
+0.233.2 (2021-07-20)
 --------------------
-* [foxy] Edifice support (`#140 <https://github.com/osrf/ros_ign/issues/140>`_)
+* [ros2] Update version docs, add Galactic and Fortress (`#164 <https://github.com/osrf/ros_ign/issues/164>`_)
+* Contributors: Louise Poubel
+
+0.233.1 (2021-04-16)
+--------------------
+* Default to Edifice for Rolling (`#150 <https://github.com/osrf/ros_ign/issues/150>`_)
+* Edifice support (`#140 <https://github.com/osrf/ros_ign/issues/140>`_)
+  Co-authored-by: Alejandro Hernández <ahcorde@gmail.com>
 * Add topic flag to create robot  (`#128 <https://github.com/osrf/ros_ign/issues/128>`_)
   Now it is possible to run ros_ign_gazebo create specifying a topic as
   source of the robot description
@@ -19,7 +26,7 @@ Changelog for package ros_ign_gazebo
   - This allows use of ign_gazebo.launch.py with custom gazebo plugins
 * Changed for loading xml from ROS param(`#119 <https://github.com/osrf/ros_ign/issues/119>`_) (`#120 <https://github.com/osrf/ros_ign/issues/120>`_)
 * ros_ign_gazebo exec depend on ign-gazebo (`#110 <https://github.com/osrf/ros_ign/issues/110>`_)
-* [ros2] Update releases (`#108 <https://github.com/osrf/ros_ign/issues/108>`_)
+* Update releases (`#108 <https://github.com/osrf/ros_ign/issues/108>`_)
 * Add support for Dome (`#103 <https://github.com/osrf/ros_ign/issues/103>`_)
 * Contributors: Andrej Orsula, Louise Poubel, Luca Della Vedova, Valerio Magnago, chama1176
 

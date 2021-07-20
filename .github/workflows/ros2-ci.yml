@@ -1,4 +1,4 @@
-name: Foxy CI
+name: ROS2 CI
 
 on: [push, pull_request]
 
@@ -10,14 +10,14 @@ jobs:
       matrix:
         include:
           - docker-image: "ubuntu:20.04"
-            ignition-version: "citadel"
-            ros-distro: "foxy"
-          - docker-image: "ubuntu:20.04"
-            ignition-version: "dome"
-            ros-distro: "foxy"
+            ignition-version: "edifice"
+            ros-distro: "galactic"
           - docker-image: "ubuntu:20.04"
             ignition-version: "edifice"
-            ros-distro: "foxy"
+            ros-distro: "rolling"
+          - docker-image: "ubuntu:20.04"
+            ignition-version: "fortress"
+            ros-distro: "rolling"
     container:
       image: ${{ matrix.docker-image }}
     steps:

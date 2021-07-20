@@ -2,17 +2,24 @@
 Changelog for package ros1_ign_gazebo_demos
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.221.2 (2021-07-20)
+0.233.2 (2021-07-20)
 --------------------
+* [ros2] Add exec depend on xacro for demos (`#170 <https://github.com/osrf/ros_ign/issues/170>`_)
+* [ros2] Update version docs, add Galactic and Fortress (`#164 <https://github.com/osrf/ros_ign/issues/164>`_)
 * Joint states tutorial (`#156 <https://github.com/osrf/ros_ign/issues/156>`_)
   Adds an rrbot model to demos and shows the usage of joint_states plugin.
-* [ros2] Minor updates for demos (`#144 <https://github.com/osrf/ros_ign/issues/144>`_)
+* Contributors: Louise Poubel, Vatan Aksoy Tezer
+
+0.233.1 (2021-04-16)
+--------------------
+* Default to Edifice for Rolling (`#150 <https://github.com/osrf/ros_ign/issues/150>`_)
+* Minor updates for demos (`#144 <https://github.com/osrf/ros_ign/issues/144>`_)
   * Re-enable air pressure demo
   - Resolves https://github.com/ignitionrobotics/ros_ign/issues/78
   * Add RQt topic viewer to IMU demo
   * Add image_topic argument for image_bridge demo
   * Do not normalize depth image in RViz2
-* [foxy] Edifice support (`#140 <https://github.com/osrf/ros_ign/issues/140>`_)
+* Edifice support (`#140 <https://github.com/osrf/ros_ign/issues/140>`_)
 * Add topic flag to create robot  (`#128 <https://github.com/osrf/ros_ign/issues/128>`_)
   Now it is possible to run ros_ign_gazebo create specifying a topic as
   source of the robot description
@@ -21,7 +28,7 @@ Changelog for package ros1_ign_gazebo_demos
   the robot description
   The newly created demo introduce a dependency on the robot_state_publisher package
 * [ros2] Update releases (`#108 <https://github.com/osrf/ros_ign/issues/108>`_)
-* Contributors: Andrej Orsula, Louise Poubel, Valerio Magnago, Vatan Aksoy Tezer
+* Contributors: Andrej Orsula, Louise Poubel, Valerio Magnago
 
 0.221.1 (2020-08-19)
 --------------------

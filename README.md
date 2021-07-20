@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/ignitionrobotics/ros_ign/actions/workflows/foxy-ci.yml/badge.svg?branch=foxy)](https://github.com/ignitionrobotics/ros_ign/actions/workflows/foxy-ci.yml)
+[![Build Status](https://github.com/ignitionrobotics/ros_ign/actions/workflows/ros2-ci.yml/badge.svg?branch=ros2)](https://github.com/ignitionrobotics/ros_ign/actions/workflows/ros2-ci.yml)
 
 ROS version | Ignition version | Branch | Binaries hosted at
 -- | -- | -- | --
@@ -24,34 +24,34 @@ Rolling | Fortress (not released) | [ros2](https://github.com/osrf/ros_ign/tree/
 This repository holds packages that provide integration between
 [ROS](http://www.ros.org/) and [Ignition](https://ignitionrobotics.org):
 
-* [ros_ign](https://github.com/ignitionrobotics/ros_ign/tree/foxy/ros_ign):
+* [ros_ign](https://github.com/ignitionrobotics/ros_ign/tree/ros2/ros_ign):
   Metapackage which provides all the other packages.
-* [ros_ign_image](https://github.com/ignitionrobotics/ros_ign/tree/foxy/ros_ign_image):
+* [ros_ign_image](https://github.com/ignitionrobotics/ros_ign/tree/ros2/ros_ign_image):
   Unidirectional transport bridge for images from
   [Ignition Transport](https://ignitionrobotics.org/libs/transport)
   to ROS using
   [image_transport](http://wiki.ros.org/image_transport).
-* [ros_ign_bridge](https://github.com/ignitionrobotics/ros_ign/tree/foxy/ros_ign_bridge):
+* [ros_ign_bridge](https://github.com/ignitionrobotics/ros_ign/tree/ros2/ros_ign_bridge):
   Bidirectional transport bridge between
   [Ignition Transport](https://ignitionrobotics.org/libs/transport)
   and ROS.
-* [ros_ign_gazebo](https://github.com/ignitionrobotics/ros_ign/tree/foxy/ros_ign_gazebo):
+* [ros_ign_gazebo](https://github.com/ignitionrobotics/ros_ign/tree/ros2/ros_ign_gazebo):
   Convenient launch files and executables for using
   [Ignition Gazebo](https://ignitionrobotics.org/libs/gazebo)
   with ROS.
-* [ros_ign_gazebo_demos](https://github.com/ignitionrobotics/ros_ign/tree/foxy/ros_ign_gazebo_demos):
+* [ros_ign_gazebo_demos](https://github.com/ignitionrobotics/ros_ign/tree/ros2/ros_ign_gazebo_demos):
   Demos using the ROS-Ignition integration.
-* [ros_ign_point_cloud](https://github.com/ignitionrobotics/ros_ign/tree/foxy/ros_ign_point_cloud):
+* [ros_ign_point_cloud](https://github.com/ignitionrobotics/ros_ign/tree/ros2/ros_ign_point_cloud):
   Plugins for publishing point clouds to ROS from
   [Ignition Gazebo](https://ignitionrobotics.org/libs/gazebo) simulations.
 
 ## Install
 
-This branch supports ROS Foxy. See above for other ROS versions.
+This branch supports ROS Galactic and Rolling. See above for other ROS versions.
 
 ### Binaries
 
-Foxy binaries are only available for Citadel.
+Galactic and Rolling binaries are available for Edifice.
 They are hosted at https://packages.ros.org.
 
 1. Add https://packages.ros.org
@@ -62,24 +62,26 @@ They are hosted at https://packages.ros.org.
 
 1. Install `ros_ign`
 
-        sudo apt install ros-foxy-ros-ign
+        sudo apt install ros-<distro>-ros-ign
+
+    Where `<distro>` can be `galactic` or `rolling`.
 
 ### From source
 
 #### ROS
 
 Be sure you've installed
-[ROS Foxy or Rolling](https://index.ros.org/doc/ros2/Installation/)
+[ROS Galactic or Rolling](https://index.ros.org/doc/ros2/Installation/)
 (at least ROS-Base). More ROS dependencies will be installed below.
 
 #### Ignition
 
-Install either [Citadel, Dome or Edifice](https://ignitionrobotics.org/docs).
+Install either [Edifice or Fortress](https://ignitionrobotics.org/docs).
 
 Set the `IGNITION_VERSION` environment variable to the Ignition version you'd
 like to compile against. For example:
 
-    export IGNITION_VERSION=citadel
+    export IGNITION_VERSION=edifice
 
 > You only need to set this variable when compiling, not when running.
 
@@ -95,15 +97,17 @@ The following steps are for Linux and OSX.
     cd ~/ws/src
 
     # Download needed software
-    git clone https://github.com/osrf/ros_ign.git -b foxy
+    git clone https://github.com/osrf/ros_ign.git -b ros2
     ```
 
 1. Install dependencies (this may also install Ignition):
 
     ```
     cd ~/ws
-    rosdep install -r --from-paths src -i -y --rosdistro foxy
+    rosdep install -r --from-paths src -i -y --rosdistro <distro>
     ```
+
+    Where `<distro>` can be `galactic` or `rolling`.
 
     > If `rosdep` fails to install Ignition libraries and you have not installed them before, please follow [Ignition installation instructions](https://ignitionrobotics.org/docs/latest/install).
 
@@ -111,7 +115,7 @@ The following steps are for Linux and OSX.
 
     ```
     # Source ROS distro's setup.bash
-    source /opt/ros/foxy/setup.bash
+    source /opt/ros/<distro>/setup.bash
 
     # Build and install into workspace
     cd ~/ws
