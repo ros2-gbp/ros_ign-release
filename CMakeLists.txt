@@ -17,22 +17,36 @@ find_package(rclcpp REQUIRED)
 find_package(rosgraph_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(tf2_msgs REQUIRED)
+find_package(trajectory_msgs REQUIRED)
 
-# Citadel
-find_package(ignition-transport8 QUIET)
-if(ignition-transport8_FOUND)
+# Edifice
+if("$ENV{IGNITION_VERSION}" STREQUAL "edifice")
+  find_package(ignition-transport10 REQUIRED)
+  set(IGN_TRANSPORT_VER ${ignition-transport10_VERSION_MAJOR})
+
+  find_package(ignition-msgs7 REQUIRED)
+  set(IGN_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
+
+  message(STATUS "Compiling against Ignition Edifice")
+# Dome
+elseif("$ENV{IGNITION_VERSION}" STREQUAL "dome")
+  find_package(ignition-transport9 REQUIRED)
+  set(IGN_TRANSPORT_VER ${ignition-transport9_VERSION_MAJOR})
+
+  find_package(ignition-msgs6 REQUIRED)
+  set(IGN_MSGS_VER ${ignition-msgs6_VERSION_MAJOR})
+
+  message(STATUS "Compiling against Ignition Dome")
+# Default to Citadel
+else()
+  find_package(ignition-transport8 REQUIRED)
   set(IGN_TRANSPORT_VER ${ignition-transport8_VERSION_MAJOR})
 
   find_package(ignition-msgs5 REQUIRED)
   set(IGN_MSGS_VER ${ignition-msgs5_VERSION_MAJOR})
 
-# Blueprint
-else()
-  find_package(ignition-transport7 REQUIRED)
-  set(IGN_TRANSPORT_VER ${ignition-transport7_VERSION_MAJOR})
-
-  find_package(ignition-msgs4 REQUIRED)
-  set(IGN_MSGS_VER ${ignition-msgs4_VERSION_MAJOR})
+  message(STATUS "Compiling against Ignition Citadel")
 endif()
 
 include_directories(include)
@@ -66,6 +80,8 @@ ament_target_dependencies(${bridge_lib}
   "rosgraph_msgs"
   "sensor_msgs"
   "std_msgs"
+  "tf2_msgs"
+  "trajectory_msgs"
 )
 
 install(TARGETS ${bridge_lib}
@@ -97,6 +113,8 @@ foreach(bridge ${bridge_executables})
     "rosgraph_msgs"
     "sensor_msgs"
     "std_msgs"
+    "tf2_msgs"
+    "trajectory_msgs"
   )
   install(TARGETS ${bridge}
     DESTINATION lib/${PROJECT_NAME}
@@ -119,6 +137,8 @@ if(BUILD_TESTING)
     rosgraph_msgs
     sensor_msgs
     std_msgs
+    tf2_msgs
+    trajectory_msgs
   )
   target_link_libraries(test_ros_publisher
     ${GTEST_LIBRARIES}
@@ -135,6 +155,8 @@ if(BUILD_TESTING)
     rosgraph_msgs
     sensor_msgs
     std_msgs
+    tf2_msgs
+    trajectory_msgs
   )
 
   target_link_libraries(test_ros_subscriber
