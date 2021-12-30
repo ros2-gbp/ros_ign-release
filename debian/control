@@ -1,0 +1,12 @@
+Source: ros-galactic-ros-ign-image
+Section: misc
+Priority: optional
+Maintainer: Louise Poubel <louise@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), libignition-msgs7-dev, libignition-transport10-dev, pkg-config, ros-galactic-ament-cmake, ros-galactic-ament-lint-auto, ros-galactic-ament-lint-common, ros-galactic-image-transport, ros-galactic-rclcpp, ros-galactic-ros-ign-bridge, ros-galactic-sensor-msgs, ros-galactic-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-galactic-ros-ign-image
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libignition-msgs7-dev, libignition-transport10-dev, ros-galactic-image-transport, ros-galactic-rclcpp, ros-galactic-ros-ign-bridge, ros-galactic-sensor-msgs, ros-galactic-ros-workspace
+Description: Image utilities for Ignition simulation with ROS.
