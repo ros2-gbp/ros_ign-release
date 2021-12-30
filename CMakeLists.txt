@@ -14,41 +14,15 @@ find_package(ament_cmake REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(ros_ign_interfaces REQUIRED)
 find_package(rosgraph_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(tf2_msgs REQUIRED)
 find_package(trajectory_msgs REQUIRED)
 
-# Citadel
-if("$ENV{IGNITION_VERSION}" STREQUAL "citadel")
-  find_package(ignition-transport8 REQUIRED)
-  set(IGN_TRANSPORT_VER ${ignition-transport8_VERSION_MAJOR})
-
-  find_package(ignition-msgs5 REQUIRED)
-  set(IGN_MSGS_VER ${ignition-msgs5_VERSION_MAJOR})
-
-  message(STATUS "Compiling against Ignition Citadel")
-# Dome
-elseif("$ENV{IGNITION_VERSION}" STREQUAL "dome")
-  find_package(ignition-transport9 REQUIRED)
-  set(IGN_TRANSPORT_VER ${ignition-transport9_VERSION_MAJOR})
-
-  find_package(ignition-msgs6 REQUIRED)
-  set(IGN_MSGS_VER ${ignition-msgs6_VERSION_MAJOR})
-
-  message(STATUS "Compiling against Ignition Dome")
-# Fortress
-elseif("$ENV{IGNITION_VERSION}" STREQUAL "fortress")
-  find_package(ignition-transport11 REQUIRED)
-  set(IGN_TRANSPORT_VER ${ignition-transport11_VERSION_MAJOR})
-
-  find_package(ignition-msgs8 REQUIRED)
-  set(IGN_MSGS_VER ${ignition-msgs8_VERSION_MAJOR})
-
-  message(STATUS "Compiling against Ignition Fortress")
-# Default to Edifice
-else()
+# Edifice
+if("$ENV{IGNITION_VERSION}" STREQUAL "edifice")
   find_package(ignition-transport10 REQUIRED)
   set(IGN_TRANSPORT_VER ${ignition-transport10_VERSION_MAJOR})
 
@@ -56,14 +30,59 @@ else()
   set(IGN_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
 
   message(STATUS "Compiling against Ignition Edifice")
+# Default to Fortress
+else()
+  find_package(ignition-transport11 REQUIRED)
+  set(IGN_TRANSPORT_VER ${ignition-transport11_VERSION_MAJOR})
+
+  find_package(ignition-msgs8 REQUIRED)
+  set(IGN_MSGS_VER ${ignition-msgs8_VERSION_MAJOR})
+
+  message(STATUS "Compiling against Ignition Fortress")
 endif()
 
-include_directories(include)
-
-set(common_sources
-  src/convert.cpp
-  src/factories.cpp
+set(PACKAGES
+  std_msgs
+  geometry_msgs
+  nav_msgs
+  tf2_msgs
+  ros_ign_interfaces
+  rosgraph_msgs
+  sensor_msgs
+  trajectory_msgs
 )
+
+add_library(bridge_utils
+  STATIC
+  src/convert/utils.cpp
+)
+target_include_directories(bridge_utils
+  PRIVATE src
+)
+set_target_properties(bridge_utils PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
+foreach(PKG ${PACKAGES})
+  add_library(${PKG}_bridge
+    STATIC
+    src/convert/${PKG}.cpp
+    src/factories/${PKG}.cpp
+  )
+  target_include_directories(${PKG}_bridge
+    PUBLIC include
+    PRIVATE src
+  )
+  ament_target_dependencies(${PKG}_bridge
+    "${PKG}"
+  )
+  target_link_libraries(${PKG}_bridge
+    bridge_utils
+    ignition-msgs${IGN_MSGS_VER}::core
+    ignition-transport${IGN_TRANSPORT_VER}::core
+  )
+  set_target_properties(${PKG}_bridge
+    PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
+endforeach()
 
 set(bridge_executables
   parameter_bridge
@@ -75,23 +94,18 @@ set(bridge_lib
 )
 
 add_library(${bridge_lib}
-  ${common_sources}
+  SHARED
+  src/factories.cpp
 )
 
-target_link_libraries(${bridge_lib}
-  ignition-msgs${IGN_MSGS_VER}::core
-  ignition-transport${IGN_TRANSPORT_VER}::core
+target_include_directories(${bridge_lib}
+  PUBLIC include
+  PRIVATE src
 )
-ament_target_dependencies(${bridge_lib}
-  "geometry_msgs"
-  "nav_msgs"
-  "rclcpp"
-  "rosgraph_msgs"
-  "sensor_msgs"
-  "std_msgs"
-  "tf2_msgs"
-  "trajectory_msgs"
-)
+
+foreach(PKG ${PACKAGES})
+  target_link_libraries(${bridge_lib} ${PKG}_bridge)
+endforeach()
 
 install(TARGETS ${bridge_lib}
         ARCHIVE DESTINATION lib
@@ -109,21 +123,15 @@ ament_export_libraries(${bridge_lib})
 foreach(bridge ${bridge_executables})
   add_executable(${bridge}
     src/${bridge}.cpp
-    ${common_sources}
   )
   target_link_libraries(${bridge}
+    ${bridge_lib}
     ignition-msgs${IGN_MSGS_VER}::core
     ignition-transport${IGN_TRANSPORT_VER}::core
   )
   ament_target_dependencies(${bridge}
-    "geometry_msgs"
-    "nav_msgs"
     "rclcpp"
-    "rosgraph_msgs"
-    "sensor_msgs"
-    "std_msgs"
-    "tf2_msgs"
-    "trajectory_msgs"
+    ${PACKAGES}
   )
   install(TARGETS ${bridge}
     DESTINATION lib/${PROJECT_NAME}
@@ -143,6 +151,7 @@ if(BUILD_TESTING)
     geometry_msgs
     nav_msgs
     rclcpp
+    ros_ign_interfaces
     rosgraph_msgs
     sensor_msgs
     std_msgs
@@ -156,11 +165,12 @@ if(BUILD_TESTING)
   )
   target_include_directories(test_ros_publisher PUBLIC ${GTEST_INCLUDE_DIRS})
 
-  add_executable(test_ros_subscriber test/subscribers/ign_subscriber.cpp)
+  add_executable(test_ros_subscriber test/subscribers/ros_subscriber.cpp)
   ament_target_dependencies(test_ros_subscriber
     geometry_msgs
     nav_msgs
     rclcpp
+    ros_ign_interfaces
     rosgraph_msgs
     sensor_msgs
     std_msgs
@@ -177,6 +187,7 @@ if(BUILD_TESTING)
 
   add_executable(test_ign_publisher test/publishers/ign_publisher.cpp)
   ament_target_dependencies(test_ign_publisher
+    ros_ign_interfaces
     rclcpp
   )
   target_link_libraries(test_ign_publisher
@@ -188,6 +199,7 @@ if(BUILD_TESTING)
 
   add_executable(test_ign_subscriber test/subscribers/ign_subscriber.cpp)
   ament_target_dependencies(test_ign_subscriber
+    ros_ign_interfaces
     rclcpp
   )
   target_link_libraries(test_ign_subscriber
@@ -213,5 +225,10 @@ if(BUILD_TESTING)
     TIMEOUT 200
   )
 endif()
+
+ament_export_dependencies(
+  rclcpp
+  ${PACKAGES}
+)
 
 ament_package()

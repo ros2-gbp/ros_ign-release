@@ -9,12 +9,15 @@ service calls. Its support is limited to only the following message types:
 | ROS type                             | Ignition Transport type              |
 |--------------------------------------|:------------------------------------:|
 | std_msgs/msg/Bool                    | ignition::msgs::Boolean              |
+| std_msgs/msg/ColorRGBA               | ignition::msgs::Color                |
 | std_msgs/msg/Empty                   | ignition::msgs::Empty                |
 | std_msgs/msg/Float32                 | ignition::msgs::Float                |
 | std_msgs/msg/Float64                 | ignition::msgs::Double               |
 | std_msgs/msg/Header                  | ignition::msgs::Header               |
 | std_msgs/msg/Int32                   | ignition::msgs::Int32                |
+| std_msgs/msg/UInt32                  | ignition::msgs::UInt32               |
 | std_msgs/msg/String                  | ignition::msgs::StringMsg            |
+| geometry_msgs/msg/Wrench             | ignition::msgs::Wrench               |
 | geometry_msgs/msg/Quaternion         | ignition::msgs::Quaternion           |
 | geometry_msgs/msg/Vector3            | ignition::msgs::Vector3d             |
 | geometry_msgs/msg/Point              | ignition::msgs::Vector3d             |
@@ -25,6 +28,11 @@ service calls. Its support is limited to only the following message types:
 | geometry_msgs/msg/Twist              | ignition::msgs::Twist                |
 | mav_msgs/msg/Actuators (TODO)        | ignition::msgs::Actuators (TODO)     |
 | nav_msgs/msg/Odometry                | ignition::msgs::Odometry             |
+| ros_ign_interfaces/msg/Contact       | ignition::msgs::Contact              |
+| ros_ign_interfaces/msg/Contacts      | ignition::msgs::Contacts             |
+| ros_ign_interfaces/msg/Entity        | ignition::msgs::Entity               |
+| ros_ign_interfaces/msg/JointWrench   | ignition::msgs::JointWrench          |
+| ros_ign_interfaces/msg/Light         | ignition::msgs::Light                |
 | rosgraph_msgs/msg/Clock              | ignition::msgs::Clock                |
 | sensor_msgs/msg/BatteryState         | ignition::msgs::BatteryState         |
 | sensor_msgs/msg/CameraInfo           | ignition::msgs::CameraInfo           |
@@ -54,7 +62,7 @@ Now we start the ROS listener.
 
 ```
 # Shell B:
-. /opt/ros/foxy/setup.bash
+. /opt/ros/galactic/setup.bash
 ros2 topic echo /chatter
 ```
 
@@ -86,7 +94,7 @@ Now we start the ROS talker.
 
 ```
 # Shell C:
-. /opt/ros/foxy/setup.bash
+. /opt/ros/galactic/setup.bash
 ros2 topic pub /chatter std_msgs/msg/String "data: 'Hi'" --once
 ```
 
@@ -124,7 +132,7 @@ Now we start the ROS GUI:
 
 ```
 # Shell C:
-. /opt/ros/foxy/setup.bash
+. /opt/ros/galactic/setup.bash
 ros2 run rqt_image_view rqt_image_view /rgbd_camera/image
 ```
 
@@ -132,7 +140,7 @@ You should see the current images in `rqt_image_view` which are coming from
 Gazebo (published as Ignition Msgs over Ignition Transport).
 
 The screenshot shows all the shell windows and their expected content
-(it was taken using ROS 2 Foxy and Ignition Edifice):
+(it was taken using ROS 2 Galactic and Ignition Fortress):
 
 ![Ignition Transport images and ROS rqt](images/bridge_image_exchange.png)
 
