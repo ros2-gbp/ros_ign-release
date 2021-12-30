@@ -40,9 +40,11 @@ def generate_test_description():
         executable='parameter_bridge',
         arguments=[
           '/bool@std_msgs/msg/Bool@ignition.msgs.Boolean',
+          '/color@std_msgs/msg/ColorRGBA@ignition.msgs.Color',
           '/empty@std_msgs/msg/Empty@ignition.msgs.Empty',
           '/float@std_msgs/msg/Float32@ignition.msgs.Float',
           '/double@std_msgs/msg/Float64@ignition.msgs.Double',
+          '/uint32@std_msgs/msg/UInt32@ignition.msgs.UInt32',
           '/header@std_msgs/msg/Header@ignition.msgs.Header',
           '/string@std_msgs/msg/String@ignition.msgs.StringMsg',
           '/quaternion@geometry_msgs/msg/Quaternion@ignition.msgs.Quaternion',
@@ -55,6 +57,12 @@ def generate_test_description():
           '/tf2_message@tf2_msgs/msg/TFMessage@ignition.msgs.Pose_V',
           '/transform_stamped@geometry_msgs/msg/TransformStamped@ignition.msgs.Pose',
           '/twist@geometry_msgs/msg/Twist@ignition.msgs.Twist',
+          '/wrench@geometry_msgs/msg/Wrench@ignition.msgs.Wrench',
+          '/joint_wrench@ros_ign_interfaces/msg/JointWrench@ignition.msgs.JointWrench',
+          '/entity@ros_ign_interfaces/msg/Entity@ignition.msgs.Entity',
+          '/contact@ros_ign_interfaces/msg/Contact@ignition.msgs.Contact',
+          '/contacts@ros_ign_interfaces/msg/Contacts@ignition.msgs.Contacts',
+          '/light@ros_ign_interfaces/msg/Light@ignition.msgs.Light',
           '/image@sensor_msgs/msg/Image@ignition.msgs.Image',
           '/camera_info@sensor_msgs/msg/CameraInfo@ignition.msgs.CameraInfo',
           '/fluid_pressure@sensor_msgs/msg/FluidPressure@ignition.msgs.FluidPressure',
@@ -79,14 +87,14 @@ def generate_test_description():
     ]), locals()
 
 
-class IgnSubscriberTest(unittest.TestCase):
+class ROSSubscriberTest(unittest.TestCase):
 
     def test_termination(self, process_under_test, proc_info):
         proc_info.assertWaitForShutdown(process=process_under_test, timeout=200)
 
 
 @launch_testing.post_shutdown_test()
-class IgnSubscriberTestAfterShutdown(unittest.TestCase):
+class ROSSubscriberTestAfterShutdown(unittest.TestCase):
 
     def test_exit_code(self, process_under_test, proc_info):
         launch_testing.asserts.assertExitCodes(
