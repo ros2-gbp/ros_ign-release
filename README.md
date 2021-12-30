@@ -1,118 +1,181 @@
-[![Build Status](https://github.com/ignitionrobotics/ros_ign/actions/workflows/ros2-ci.yml/badge.svg?branch=ros2)](https://github.com/ignitionrobotics/ros_ign/actions/workflows/ros2-ci.yml)
+# ROS + Ignition Gazebo demos
 
-ROS version | Ignition version | Branch | Binaries hosted at
--- | -- | -- | --
-Melodic | Citadel | [melodic](https://github.com/osrf/ros_ign/tree/melodic) | only from source
-Melodic | Fortress | [melodic](https://github.com/osrf/ros_ign/tree/melodic) | only from source
-Noetic | Citadel | [noetic](https://github.com/osrf/ros_ign/tree/noetic) | https://packages.ros.org
-Noetic | Edifice | [noetic](https://github.com/osrf/ros_ign/tree/noetic) | only from source
-Noetic | Fortress | [noetic](https://github.com/osrf/ros_ign/tree/noetic) | only from source
-Foxy | Citadel | [foxy](https://github.com/osrf/ros_ign/tree/foxy) | https://packages.ros.org
-Foxy | Edifice | [foxy](https://github.com/osrf/ros_ign/tree/foxy) | only from source
-Galactic | Edifice | [galactic](https://github.com/osrf/ros_ign/tree/galactic) | https://packages.ros.org
-Galactic | Fortress | [galactic](https://github.com/osrf/ros_ign/tree/galactic) | only from source
-Rolling | Edifice | [ros2](https://github.com/osrf/ros_ign/tree/ros2) | only from source
-Rolling | Fortress | [ros2](https://github.com/osrf/ros_ign/tree/ros2) | https://packages.ros.org
+This package contains demos showing how to use Ignition Gazebo with ROS.
 
-> Please [ticket an issue](https://github.com/ignitionrobotics/ros_ign/issues/) if you'd like support to be added for some combination.
+## Run Ignition Gazebo
 
-# Integration between ROS and Ignition
+There's a convenient launch file, try for example:
 
-## Packages
+    ros2 launch ros_ign_gazebo ign_gazebo.launch.py ign_args:="shapes.sdf"
 
-This repository holds packages that provide integration between
-[ROS](http://www.ros.org/) and [Ignition](https://ignitionrobotics.org):
+![](images/shapes_demo.png)
 
-* [ros_ign](https://github.com/ignitionrobotics/ros_ign/tree/ros2/ros_ign):
-  Metapackage which provides all the other packages.
-* [ros_ign_image](https://github.com/ignitionrobotics/ros_ign/tree/ros2/ros_ign_image):
-  Unidirectional transport bridge for images from
-  [Ignition Transport](https://ignitionrobotics.org/libs/transport)
-  to ROS using
-  [image_transport](http://wiki.ros.org/image_transport).
-* [ros_ign_bridge](https://github.com/ignitionrobotics/ros_ign/tree/ros2/ros_ign_bridge):
-  Bidirectional transport bridge between
-  [Ignition Transport](https://ignitionrobotics.org/libs/transport)
-  and ROS.
-* [ros_ign_gazebo](https://github.com/ignitionrobotics/ros_ign/tree/ros2/ros_ign_gazebo):
-  Convenient launch files and executables for using
-  [Ignition Gazebo](https://ignitionrobotics.org/libs/gazebo)
-  with ROS.
-* [ros_ign_gazebo_demos](https://github.com/ignitionrobotics/ros_ign/tree/ros2/ros_ign_gazebo_demos):
-  Demos using the ROS-Ignition integration.
-* [ros_ign_point_cloud](https://github.com/ignitionrobotics/ros_ign/tree/ros2/ros_ign_point_cloud):
-  Plugins for publishing point clouds to ROS from
-  [Ignition Gazebo](https://ignitionrobotics.org/libs/gazebo) simulations.
+## Air pressure
 
-## Install
+Publishes fluid pressure readings.
 
-This branch supports ROS Rolling. See above for other ROS versions.
+    ros2 launch ros_ign_gazebo_demos air_pressure.launch.py
 
-### Binaries
+This demo also shows the use of custom QoS parameters. The sensor data is
+published as as "best-effort", so trying to subscribe to "reliable" data won't
+work. See the difference between:
 
-Rolling binaries are available for Fortress.
-They are hosted at https://packages.ros.org.
+    ros2 topic echo /air_pressure --qos-reliability best_effort
 
-1. Add https://packages.ros.org
+And
 
-        sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
-        curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
-        sudo apt-get update
+    ros2 topic echo /air_pressure --qos-reliability reliable
 
-1. Install `ros_ign`
+![](images/air_pressure_demo.png)
 
-        sudo apt install ros-rolling-ros-ign
+## Camera
 
-### From source
+Publishes RGB camera image and info.
 
-#### ROS
+Images can be exposed to ROS through `ros_ign_bridge` or `ros_ign_image`.
 
-Be sure you've installed
-[ROS Rolling](https://index.ros.org/doc/ros2/Installation/)
-(at least ROS-Base). More ROS dependencies will be installed below.
+Using the image bridge (unidirectional, uses [image_transport](http://wiki.ros.org/image_transport)):
 
-#### Ignition
+    ros2 launch ros_ign_gazebo_demos image_bridge.launch.py
 
-Install either [Edifice or Fortress](https://ignitionrobotics.org/docs).
+Using the regular bridge:
 
-Set the `IGNITION_VERSION` environment variable to the Ignition version you'd
-like to compile against. For example:
+    ros2 launch ros_ign_gazebo_demos camera.launch.py
 
-    export IGNITION_VERSION=edifice
+![](images/camera_demo.png)
 
-> You only need to set this variable when compiling, not when running.
+## Diff drive
 
-#### Compile ros_ign
+Send commands to a differential drive vehicle and listen to its odometry.
 
-The following steps are for Linux and OSX.
+    ros2 launch ros_ign_gazebo_demos diff_drive.launch.py
 
-1. Create a colcon workspace:
+Then unpause and send a command
 
-    ```
-    # Setup the workspace
-    mkdir -p ~/ws/src
-    cd ~/ws/src
+    ros2 topic pub /model/vehicle_blue/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 5.0}, angular: {z: 0.5}}"
 
-    # Download needed software
-    git clone https://github.com/osrf/ros_ign.git -b ros2
-    ```
+This demo also shows the use of custom QoS parameters. The commands are
+subscribed to as "reliable", so trying to publish "best-effort" commands
+won't work. See the difference between:
 
-1. Install dependencies (this may also install Ignition):
+    ros2 topic pub /model/vehicle_blue/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 5.0}, angular: {z: 0.0}}" --qos-reliability reliable
 
-    ```
-    cd ~/ws
-    rosdep install -r --from-paths src -i -y --rosdistro rolling
-    ```
+And
 
-    > If `rosdep` fails to install Ignition libraries and you have not installed them before, please follow [Ignition installation instructions](https://ignitionrobotics.org/docs/latest/install).
+    ros2 topic pub /model/vehicle_blue/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 5.0}, angular: {z: 0.0}}" --qos-reliability best_effort
 
-1. Build the workspace:
+![](images/diff_drive_demo.png)
 
-    ```
-    # Source ROS distro's setup.bash
-    source /opt/ros/<distro>/setup.bash
+## Depth camera
 
-    # Build and install into workspace
-    cd ~/ws
-    colcon build
-    ```
+Depth camera data can be obtained as:
+
+* `sensor_msgs/msg/Image`, through `ros_ign_bridge` or `ros_ign_image`
+* `sensor_msgs/msg/PointCloud2`, through `ros_ign_point_cloud`
+
+Using the image bridge (unidirectional, uses [image_transport](http://wiki.ros.org/image_transport)):
+
+    ros2 launch ros_ign_gazebo_demos image_bridge.launch.py image_topic:=/depth_camera
+
+*TODO*: Blocked by `ros_ign_point_cloud` [issue](https://github.com/osrf/ros_ign/issues/40).
+
+Using Ignition Gazebo plugin:
+
+    ros2 launch ros_ign_gazebo_demos depth_camera.launch.py
+
+![](images/depth_camera_demo.png)
+
+## GPU lidar
+
+GPU lidar data can be obtained as:
+
+* `sensor_msgs/msg/LaserScan`, through the `ros_ign_bridge`
+* `sensor_msgs/msg/PointCloud2`, through the `ros_ign_bridge` or `ros_ign_point_cloud`
+
+Using the bridge:
+
+    ros2 launch ros_ign_gazebo_demos gpu_lidar_bridge.launch.py
+
+*TODO*: Blocked by `ros_ign_point_cloud` [issue](https://github.com/osrf/ros_ign/issues/40).
+
+Using Ignition Gazebo plugin:
+
+    ros2 launch ros_ign_gazebo_demos gpu_lidar.launch.py
+
+![](images/gpu_lidar_demo.png)
+
+## IMU
+
+Publishes IMU readings.
+
+    ros2 launch ros_ign_gazebo_demos imu.launch.py
+
+![](images/imu_demo.png)
+
+*TODO*: IMU display missing for RViz2
+
+## Magnetometer
+
+Publishes magnetic field readings.
+
+    ros2 launch ros_ign_gazebo_demos magnetometer.launch.py
+
+![](images/magnetometer_demo.png)
+
+## RGBD camera
+
+RGBD camera data can be obtained as:
+
+* `sensor_msgs/msg/Image`, through `ros_ign_bridge` or `ros_ign_image`
+* `sensor_msgs/msg/PointCloud2`, through `ros_ign_bridge` or `ros_ign_point_cloud`
+
+Using the image bridge (unidirectional, uses [image_transport](http://wiki.ros.org/image_transport)):
+
+    # RGB image
+    ros2 launch ros_ign_gazebo_demos image_bridge.launch.py image_topic:=/rgbd_camera/image
+    # Depth image
+    ros2 launch ros_ign_gazebo_demos image_bridge.launch.py image_topic:=/rgbd_camera/depth_image
+
+Using the regular bridge:
+
+    ros2 launch ros_ign_gazebo_demos rgbd_camera_bridge.launch.py
+
+*TODO*: Blocked by `ros_ign_point_cloud` [issue](https://github.com/osrf/ros_ign/issues/40).
+
+Using Ignition Gazebo plugin:
+
+    ros2 launch ros_ign_gazebo_demos rgbd_camera.launch.py
+
+![](images/rgbd_camera_demo.png)
+
+## Battery
+
+Get the current state of a battery.
+
+    ros2 launch ros_ign_gazebo_demos battery.launch.py
+
+Then send a command so the vehicle moves and drains the battery
+
+    ros2 topic pub /model/vehicle_blue/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 5.0}, angular: {z: 0.5}}"
+
+![](images/battery_demo.png)
+
+## Robot description publisher
+
+Leverage the robot description publisher to spawn a new urdf model in gazebo and
+show it in rviz2.
+To try the demo launch:
+
+    ros2 launch ros_ign_gazebo_demos robot_description_publisher.launch.py
+
+![](images/robot_state_publisher_demo.png)
+
+## Joint States Publisher
+
+Publishes joint states of the robot.
+
+To try the demo launch:
+
+    ros2 launch ros_ign_gazebo_demos joint_states.launch.py
+
+![](images/joint_states.png)
