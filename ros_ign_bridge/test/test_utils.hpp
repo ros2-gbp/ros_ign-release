@@ -23,9 +23,11 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/bool.hpp>
+#include <std_msgs/msg/color_rgba.hpp>
 #include <std_msgs/msg/empty.hpp>
 #include <std_msgs/msg/float32.hpp>
 #include <std_msgs/msg/float64.hpp>
+#include <std_msgs/msg/u_int32.hpp>
 #include <std_msgs/msg/header.hpp>
 #include <std_msgs/msg/string.hpp>
 #include <geometry_msgs/msg/point.hpp>
@@ -36,8 +38,14 @@
 #include <geometry_msgs/msg/twist.hpp>
 #include <geometry_msgs/msg/quaternion.hpp>
 #include <geometry_msgs/msg/vector3.hpp>
+#include <geometry_msgs/msg/wrench.hpp>
 // #include <mav_msgs/msg/Actuators.hpp>
 #include <nav_msgs/msg/odometry.hpp>
+#include <ros_ign_interfaces/msg/entity.hpp>
+#include <ros_ign_interfaces/msg/joint_wrench.hpp>
+#include <ros_ign_interfaces/msg/light.hpp>
+#include <ros_ign_interfaces/msg/contact.hpp>
+#include <ros_ign_interfaces/msg/contacts.hpp>
 #include <rosgraph_msgs/msg/clock.hpp>
 #include <sensor_msgs/msg/battery_state.hpp>
 #include <sensor_msgs/msg/camera_info.hpp>
@@ -113,6 +121,29 @@ void waitUntilBoolVarAndSpin(
 
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
+void createTestMsg(std_msgs::msg::ColorRGBA & _msg)
+{
+  _msg.r = 0.2;
+  _msg.g = 0.4;
+  _msg.b = 0.6;
+  _msg.a = 0.8;
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<std_msgs::msg::ColorRGBA> & _msg)
+{
+  std_msgs::msg::ColorRGBA expected_msg;
+  createTestMsg(expected_msg);
+
+  EXPECT_FLOAT_EQ(expected_msg.r, _msg->r);
+  EXPECT_FLOAT_EQ(expected_msg.g, _msg->g);
+  EXPECT_FLOAT_EQ(expected_msg.b, _msg->b);
+  EXPECT_FLOAT_EQ(expected_msg.a, _msg->a);
+}
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
 void createTestMsg(std_msgs::msg::Bool & _msg)
 {
   _msg.data = true;
@@ -163,6 +194,24 @@ void createTestMsg(std_msgs::msg::Float64 & _msg)
 void compareTestMsg(const std::shared_ptr<std_msgs::msg::Float64> & _msg)
 {
   std_msgs::msg::Float64 expected_msg;
+  createTestMsg(expected_msg);
+
+  EXPECT_FLOAT_EQ(expected_msg.data, _msg->data);
+}
+
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(std_msgs::msg::UInt32 & _msg)
+{
+  _msg.data = 1;
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<std_msgs::msg::UInt32> & _msg)
+{
+  std_msgs::msg::UInt32 expected_msg;
   createTestMsg(expected_msg);
 
   EXPECT_FLOAT_EQ(expected_msg.data, _msg->data);
@@ -425,12 +474,12 @@ void createTestMsg(tf2_msgs::msg::TFMessage & _msg)
 
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
-void compareTestMsg(const tf2_msgs::msg::TFMessage & _msg)
+void compareTestMsg(const std::shared_ptr<tf2_msgs::msg::TFMessage> & _msg)
 {
   tf2_msgs::msg::TFMessage expected_msg;
   createTestMsg(expected_msg);
 
-  compareTestMsg(std::make_shared<geometry_msgs::msg::TransformStamped>(_msg.transforms[0]));
+  compareTestMsg(std::make_shared<geometry_msgs::msg::TransformStamped>(_msg->transforms[0]));
 }
 
 /// \brief Create a message used for testing.
@@ -447,6 +496,203 @@ void compareTestMsg(const std::shared_ptr<geometry_msgs::msg::Twist> & _msg)
 {
   compareTestMsg(std::make_shared<geometry_msgs::msg::Vector3>(_msg->linear));
   compareTestMsg(std::make_shared<geometry_msgs::msg::Vector3>(_msg->angular));
+}
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(geometry_msgs::msg::Wrench & _msg)
+{
+  createTestMsg(_msg.force);
+  createTestMsg(_msg.torque);
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<geometry_msgs::msg::Wrench> & _msg)
+{
+  compareTestMsg(std::make_shared<geometry_msgs::msg::Vector3>(_msg->force));
+  compareTestMsg(std::make_shared<geometry_msgs::msg::Vector3>(_msg->torque));
+}
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ros_ign_interfaces::msg::JointWrench & _msg)
+{
+  createTestMsg(_msg.header);
+  _msg.body_1_name.data = "body1";
+  _msg.body_2_name.data = "body2";
+  _msg.body_1_id.data = 1;
+  _msg.body_2_id.data = 2;
+  createTestMsg(_msg.body_1_wrench);
+  createTestMsg(_msg.body_2_wrench);
+}
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ros_ign_interfaces::msg::Light & _msg)
+{
+  createTestMsg(_msg.header);
+
+  _msg.name = "test_light";
+  _msg.type = 1;
+
+  createTestMsg(_msg.pose);
+  createTestMsg(_msg.diffuse);
+  createTestMsg(_msg.specular);
+  _msg.attenuation_constant = 0.2;
+  _msg.attenuation_linear = 0.4;
+  _msg.attenuation_quadratic = 0.6;
+  createTestMsg(_msg.direction);
+  _msg.range = 25.0;
+  _msg.cast_shadows = true;
+  _msg.spot_inner_angle = 0.3;
+  _msg.spot_outer_angle = 0.6;
+  _msg.spot_falloff = 10.0;
+
+  _msg.id = 24;
+
+  _msg.parent_id = 6;
+
+  _msg.intensity = 125.0;
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ros_ign_interfaces::msg::Light> & _msg)
+{
+  ros_ign_interfaces::msg::Light expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(_msg->header);
+
+  EXPECT_EQ(expected_msg.name, _msg->name);
+  EXPECT_EQ(expected_msg.type, _msg->type);
+
+  compareTestMsg(std::make_shared<geometry_msgs::msg::Pose>(_msg->pose));
+  compareTestMsg(std::make_shared<std_msgs::msg::ColorRGBA>(_msg->diffuse));
+  compareTestMsg(std::make_shared<std_msgs::msg::ColorRGBA>(_msg->specular));
+  EXPECT_FLOAT_EQ(expected_msg.attenuation_constant, _msg->attenuation_constant);
+  EXPECT_FLOAT_EQ(expected_msg.attenuation_linear, _msg->attenuation_linear);
+  EXPECT_FLOAT_EQ(expected_msg.attenuation_quadratic, _msg->attenuation_quadratic);
+  compareTestMsg(std::make_shared<geometry_msgs::msg::Vector3>(_msg->direction));
+  EXPECT_FLOAT_EQ(expected_msg.range, _msg->range);
+  EXPECT_EQ(expected_msg.cast_shadows, _msg->cast_shadows);
+  EXPECT_FLOAT_EQ(expected_msg.spot_inner_angle, _msg->spot_inner_angle);
+  EXPECT_FLOAT_EQ(expected_msg.spot_outer_angle, _msg->spot_outer_angle);
+  EXPECT_FLOAT_EQ(expected_msg.spot_falloff, _msg->spot_falloff);
+
+  EXPECT_EQ(expected_msg.id, _msg->id);
+
+  EXPECT_EQ(expected_msg.parent_id, _msg->parent_id);
+
+  EXPECT_FLOAT_EQ(expected_msg.intensity, _msg->intensity);
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ros_ign_interfaces::msg::JointWrench> & _msg)
+{
+  ros_ign_interfaces::msg::JointWrench expected_msg;
+  createTestMsg(expected_msg);
+
+  EXPECT_EQ(expected_msg.body_1_name, _msg->body_1_name);
+  EXPECT_EQ(expected_msg.body_2_name, _msg->body_2_name);
+  EXPECT_EQ(expected_msg.body_1_id, _msg->body_1_id);
+  EXPECT_EQ(expected_msg.body_2_id, _msg->body_2_id);
+
+  compareTestMsg(_msg->header);
+  compareTestMsg(std::make_shared<geometry_msgs::msg::Wrench>(_msg->body_1_wrench));
+  compareTestMsg(std::make_shared<geometry_msgs::msg::Wrench>(_msg->body_2_wrench));
+}
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ros_ign_interfaces::msg::Entity & _msg)
+{
+  _msg.id = 1;
+  _msg.name = "entity";
+  _msg.type = ros_ign_interfaces::msg::Entity::VISUAL;
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ros_ign_interfaces::msg::Entity> & _msg)
+{
+  ros_ign_interfaces::msg::Entity expected_msg;
+  createTestMsg(expected_msg);
+
+  EXPECT_EQ(expected_msg.id, _msg->id);
+  EXPECT_EQ(expected_msg.name, _msg->name);
+  EXPECT_EQ(expected_msg.type, _msg->type);
+}
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ros_ign_interfaces::msg::Contact & _msg)
+{
+  createTestMsg(_msg.collision1);
+  createTestMsg(_msg.collision2);
+
+  geometry_msgs::msg::Vector3 vector_msg;
+  createTestMsg(vector_msg);
+
+  ros_ign_interfaces::msg::JointWrench joint_wrench_msg;
+  createTestMsg(joint_wrench_msg);
+
+  for (int i = 0; i < 10; i++) {
+    _msg.depths.push_back(i);
+    _msg.positions.push_back(vector_msg);
+    _msg.normals.push_back(vector_msg);
+    _msg.wrenches.push_back(joint_wrench_msg);
+  }
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ros_ign_interfaces::msg::Contact> & _msg)
+{
+  ros_ign_interfaces::msg::Contact expected_msg;
+  createTestMsg(expected_msg);
+  compareTestMsg(std::make_shared<ros_ign_interfaces::msg::Entity>(_msg->collision1));
+  compareTestMsg(std::make_shared<ros_ign_interfaces::msg::Entity>(_msg->collision2));
+  EXPECT_EQ(expected_msg.depths.size(), _msg->depths.size());
+  EXPECT_EQ(expected_msg.positions.size(), _msg->positions.size());
+  EXPECT_EQ(expected_msg.normals.size(), _msg->normals.size());
+  EXPECT_EQ(expected_msg.wrenches.size(), _msg->wrenches.size());
+  for (size_t i = 0; i < _msg->depths.size(); i++) {
+    EXPECT_EQ(expected_msg.depths.at(i), _msg->depths.at(i));
+    compareTestMsg(std::make_shared<geometry_msgs::msg::Vector3>(_msg->positions.at(i)));
+    compareTestMsg(std::make_shared<geometry_msgs::msg::Vector3>(_msg->normals.at(i)));
+    compareTestMsg(std::make_shared<ros_ign_interfaces::msg::JointWrench>(_msg->wrenches.at(i)));
+  }
+}
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ros_ign_interfaces::msg::Contacts & _msg)
+{
+  createTestMsg(_msg.header);
+
+  ros_ign_interfaces::msg::Contact contact_msg;
+  createTestMsg(contact_msg);
+
+  for (int i = 0; i < 10; i++) {
+    _msg.contacts.push_back(contact_msg);
+  }
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ros_ign_interfaces::msg::Contacts> & _msg)
+{
+  ros_ign_interfaces::msg::Contacts expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(_msg->header);
+  EXPECT_EQ(expected_msg.contacts.size(), _msg->contacts.size());
+  for (size_t i = 0; i < _msg->contacts.size(); i++) {
+    compareTestMsg(std::make_shared<ros_ign_interfaces::msg::Contact>(_msg->contacts.at(i)));
+  }
 }
 
 // /// \brief Create a message used for testing.
@@ -653,11 +899,8 @@ void createTestMsg(sensor_msgs::msg::Imu & _msg)
 
   _msg.header = header_msg;
   _msg.orientation = quaternion_msg;
-  _msg.orientation_covariance = {1, 2, 3, 4, 5, 6, 7, 8, 9};
   _msg.angular_velocity = vector3_msg;
-  _msg.angular_velocity_covariance = {1, 2, 3, 4, 5, 6, 7, 8, 9};
   _msg.linear_acceleration = vector3_msg;
-  _msg.linear_acceleration_covariance = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 }
 
 /// \brief Compare a message with the populated for testing.
@@ -668,12 +911,6 @@ void compareTestMsg(const std::shared_ptr<sensor_msgs::msg::Imu> & _msg)
   compareTestMsg(_msg->orientation);
   compareTestMsg(std::make_shared<geometry_msgs::msg::Vector3>(_msg->angular_velocity));
   compareTestMsg(std::make_shared<geometry_msgs::msg::Vector3>(_msg->linear_acceleration));
-
-  for (auto i = 0; i < 9; ++i) {
-    EXPECT_FLOAT_EQ(i + 1, _msg->orientation_covariance[i]);
-    EXPECT_FLOAT_EQ(i + 1, _msg->angular_velocity_covariance[i]);
-    EXPECT_FLOAT_EQ(i + 1, _msg->linear_acceleration_covariance[i]);
-  }
 }
 
 /// \brief Create a message used for testing.
@@ -717,7 +954,6 @@ void compareTestMsg(const std::shared_ptr<sensor_msgs::msg::JointState> & _msg)
 void createTestMsg(sensor_msgs::msg::LaserScan & _msg)
 {
   const unsigned int num_readings = 100u;
-  const double laser_frequency = 40;
 
   std_msgs::msg::Header header_msg;
   createTestMsg(header_msg);
@@ -726,7 +962,6 @@ void createTestMsg(sensor_msgs::msg::LaserScan & _msg)
   _msg.angle_min = -1.57;
   _msg.angle_max = 1.57;
   _msg.angle_increment = 3.14 / num_readings;
-  _msg.time_increment = (1 / laser_frequency) / (num_readings);
   _msg.scan_time = 0;
   _msg.range_min = 1;
   _msg.range_max = 2;
@@ -745,7 +980,6 @@ void compareTestMsg(const std::shared_ptr<sensor_msgs::msg::LaserScan> & _msg)
   EXPECT_FLOAT_EQ(expected_msg.angle_min, _msg->angle_min);
   EXPECT_FLOAT_EQ(expected_msg.angle_max, _msg->angle_max);
   EXPECT_FLOAT_EQ(expected_msg.angle_increment, _msg->angle_increment);
-  EXPECT_FLOAT_EQ(0.00025000001, _msg->time_increment);
   EXPECT_FLOAT_EQ(0, _msg->scan_time);
   EXPECT_FLOAT_EQ(expected_msg.range_min, _msg->range_min);
   EXPECT_FLOAT_EQ(expected_msg.range_max, _msg->range_max);
@@ -770,7 +1004,6 @@ void createTestMsg(sensor_msgs::msg::MagneticField & _msg)
 
   _msg.header = header_msg;
   _msg.magnetic_field = vector3_msg;
-  _msg.magnetic_field_covariance = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 }
 
 /// \brief Compare a message with the populated for testing.
@@ -779,10 +1012,6 @@ void compareTestMsg(const std::shared_ptr<sensor_msgs::msg::MagneticField> & _ms
 {
   compareTestMsg(_msg->header);
   compareTestMsg(std::make_shared<geometry_msgs::msg::Vector3>(_msg->magnetic_field));
-
-  for (auto i = 0u; i < 9; ++i) {
-    EXPECT_FLOAT_EQ(i + 1, _msg->magnetic_field_covariance[i]);
-  }
 }
 
 /// \brief Create a message used for testing.
@@ -971,6 +1200,29 @@ void compareTestMsg(const std::shared_ptr<trajectory_msgs::msg::JointTrajectory>
 
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
+void createTestMsg(ignition::msgs::Color & _msg)
+{
+  _msg.set_r(0.2);
+  _msg.set_g(0.4);
+  _msg.set_b(0.6);
+  _msg.set_a(0.8);
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ignition::msgs::Color> & _msg)
+{
+  ignition::msgs::Color expected_msg;
+  createTestMsg(expected_msg);
+
+  EXPECT_EQ(expected_msg.r(), _msg->r());
+  EXPECT_EQ(expected_msg.g(), _msg->g());
+  EXPECT_EQ(expected_msg.b(), _msg->b());
+  EXPECT_EQ(expected_msg.a(), _msg->a());
+}
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
 void createTestMsg(ignition::msgs::Boolean & _msg)
 {
   _msg.set_data(true);
@@ -1021,6 +1273,23 @@ void createTestMsg(ignition::msgs::Double & _msg)
 void compareTestMsg(const std::shared_ptr<ignition::msgs::Double> & _msg)
 {
   ignition::msgs::Double expected_msg;
+  createTestMsg(expected_msg);
+
+  EXPECT_DOUBLE_EQ(expected_msg.data(), _msg->data());
+}
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ignition::msgs::UInt32 & _msg)
+{
+  _msg.set_data(1);
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ignition::msgs::UInt32> & _msg)
+{
+  ignition::msgs::UInt32 expected_msg;
   createTestMsg(expected_msg);
 
   EXPECT_DOUBLE_EQ(expected_msg.data(), _msg->data());
@@ -1228,6 +1497,186 @@ void compareTestMsg(const std::shared_ptr<ignition::msgs::Twist> & _msg)
 {
   compareTestMsg(std::make_shared<ignition::msgs::Vector3d>(_msg->linear()));
   compareTestMsg(std::make_shared<ignition::msgs::Vector3d>(_msg->angular()));
+}
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ignition::msgs::Wrench & _msg)
+{
+  ignition::msgs::Header header_msg;
+  ignition::msgs::Vector3d force_msg;
+  ignition::msgs::Vector3d torque_msg;
+
+  createTestMsg(header_msg);
+  createTestMsg(force_msg);
+  createTestMsg(torque_msg);
+
+  _msg.mutable_header()->CopyFrom(header_msg);
+  _msg.mutable_force()->CopyFrom(force_msg);
+  _msg.mutable_torque()->CopyFrom(torque_msg);
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ignition::msgs::Wrench> & _msg)
+{
+  compareTestMsg(std::make_shared<ignition::msgs::Vector3d>(_msg->force()));
+  compareTestMsg(std::make_shared<ignition::msgs::Vector3d>(_msg->torque()));
+}
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ignition::msgs::JointWrench & _msg)
+{
+  ignition::msgs::Header header_msg;
+  ignition::msgs::Wrench body_1_wrench_msg;
+  ignition::msgs::Wrench body_2_wrench_msg;
+
+  createTestMsg(header_msg);
+  createTestMsg(body_1_wrench_msg);
+  createTestMsg(body_2_wrench_msg);
+
+  _msg.mutable_header()->CopyFrom(header_msg);
+  _msg.set_body_1_name("body1");
+  _msg.set_body_2_name("body2");
+  _msg.set_body_1_id(1);
+  _msg.set_body_2_id(2);
+  _msg.mutable_body_1_wrench()->CopyFrom(body_1_wrench_msg);
+  _msg.mutable_body_2_wrench()->CopyFrom(body_2_wrench_msg);
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ignition::msgs::JointWrench> & _msg)
+{
+  ignition::msgs::JointWrench expected_msg;
+  createTestMsg(expected_msg);
+  compareTestMsg(std::make_shared<ignition::msgs::Header>(_msg->header()));
+  EXPECT_EQ(expected_msg.body_1_name(), _msg->body_1_name());
+  EXPECT_EQ(expected_msg.body_2_name(), _msg->body_2_name());
+  EXPECT_EQ(expected_msg.body_1_id(), _msg->body_1_id());
+  EXPECT_EQ(expected_msg.body_2_id(), _msg->body_2_id());
+  compareTestMsg(std::make_shared<ignition::msgs::Wrench>(_msg->body_1_wrench()));
+  compareTestMsg(std::make_shared<ignition::msgs::Wrench>(_msg->body_2_wrench()));
+}
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ignition::msgs::Entity & _msg)
+{
+  _msg.set_id(1);
+  _msg.set_name("entity");
+  _msg.set_type(ignition::msgs::Entity::VISUAL);
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ignition::msgs::Entity> & _msg)
+{
+  ignition::msgs::Entity expected_msg;
+  createTestMsg(expected_msg);
+  EXPECT_EQ(expected_msg.id(), _msg->id());
+  EXPECT_EQ(expected_msg.name(), _msg->name());
+  EXPECT_EQ(expected_msg.type(), _msg->type());
+}
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ignition::msgs::Contact & _msg)
+{
+  ignition::msgs::Entity collision1;
+  ignition::msgs::Entity collision2;
+  ignition::msgs::Vector3d position_msg;
+  ignition::msgs::Vector3d normal_msg;
+  ignition::msgs::JointWrench wrench_msg;
+
+  createTestMsg(collision1);
+  createTestMsg(collision2);
+  createTestMsg(position_msg);
+  createTestMsg(normal_msg);
+  createTestMsg(wrench_msg);
+
+  _msg.clear_position();
+  _msg.clear_normal();
+  _msg.clear_wrench();
+
+  for (int i = 0; i < 10; i++) {
+    _msg.add_depth(i);
+    auto position = _msg.add_position();
+    position->set_x(position_msg.x());
+    position->set_y(position_msg.y());
+    position->set_z(position_msg.z());
+    auto normal = _msg.add_normal();
+    normal->set_x(normal_msg.x());
+    normal->set_y(normal_msg.y());
+    normal->set_z(normal_msg.z());
+    auto wrench = _msg.add_wrench();
+    wrench->mutable_header()->CopyFrom(wrench_msg.header());
+    wrench->set_body_1_name(wrench_msg.body_1_name());
+    wrench->set_body_2_name(wrench_msg.body_2_name());
+    wrench->set_body_1_id(wrench_msg.body_1_id());
+    wrench->set_body_2_id(wrench_msg.body_2_id());
+    wrench->mutable_body_1_wrench()->CopyFrom(wrench_msg.body_1_wrench());
+    wrench->mutable_body_2_wrench()->CopyFrom(wrench_msg.body_2_wrench());
+  }
+  _msg.mutable_collision1()->CopyFrom(collision1);
+  _msg.mutable_collision2()->CopyFrom(collision2);
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ignition::msgs::Contact> & _msg)
+{
+  ignition::msgs::Contact expected_msg;
+  createTestMsg(expected_msg);
+  compareTestMsg(std::make_shared<ignition::msgs::Entity>(_msg->collision1()));
+  compareTestMsg(std::make_shared<ignition::msgs::Entity>(_msg->collision2()));
+  EXPECT_EQ(expected_msg.depth_size(), _msg->depth_size());
+  EXPECT_EQ(expected_msg.position_size(), _msg->position_size());
+  EXPECT_EQ(expected_msg.normal_size(), _msg->normal_size());
+  EXPECT_EQ(expected_msg.wrench_size(), _msg->wrench_size());
+  for (int i = 0; i < expected_msg.depth_size(); i++) {
+    EXPECT_EQ(expected_msg.depth(i), _msg->depth(i));
+    compareTestMsg(std::make_shared<ignition::msgs::Vector3d>(_msg->position(i)));
+    compareTestMsg(std::make_shared<ignition::msgs::Vector3d>(_msg->normal(i)));
+    compareTestMsg(std::make_shared<ignition::msgs::JointWrench>(_msg->wrench(i)));
+  }
+}
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ignition::msgs::Contacts & _msg)
+{
+  ignition::msgs::Header header_msg;
+  ignition::msgs::Contact contact_msg;
+
+  createTestMsg(header_msg);
+  createTestMsg(contact_msg);
+
+  _msg.mutable_header()->CopyFrom(header_msg);
+  _msg.clear_contact();
+  for (int i = 0; i < 10; i++) {
+    auto contact = _msg.add_contact();
+    contact->mutable_collision1()->CopyFrom(contact_msg.collision1());
+    contact->mutable_collision2()->CopyFrom(contact_msg.collision2());
+    contact->mutable_position()->CopyFrom(contact_msg.position());
+    contact->mutable_normal()->CopyFrom(contact_msg.normal());
+    contact->mutable_wrench()->CopyFrom(contact_msg.wrench());
+    contact->mutable_depth()->CopyFrom(contact_msg.depth());
+  }
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ignition::msgs::Contacts> & _msg)
+{
+  ignition::msgs::Contacts expected_msg;
+  createTestMsg(expected_msg);
+  compareTestMsg(std::make_shared<ignition::msgs::Header>(_msg->header()));
+  EXPECT_EQ(expected_msg.contact_size(), _msg->contact_size());
+  for (int i = 0; i < expected_msg.contact_size(); i++) {
+    compareTestMsg(std::make_shared<ignition::msgs::Contact>(_msg->contact(i)));
+  }
 }
 
 /// \brief Create a message used for testing.
@@ -1800,6 +2249,79 @@ void compareTestMsg(const std::shared_ptr<ignition::msgs::JointTrajectory> & _ms
   for (int i = 0; i < _msg->points_size(); ++i) {
     compareTestMsg(std::make_shared<ignition::msgs::JointTrajectoryPoint>(_msg->points(i)));
   }
+}
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ignition::msgs::Light & _msg)
+{
+  ignition::msgs::Header header_msg;
+  ignition::msgs::Pose pose_msg;
+  ignition::msgs::Color diffuse_msg;
+  ignition::msgs::Color specular_msg;
+  ignition::msgs::Vector3d direction_msg;
+
+  createTestMsg(header_msg);
+  createTestMsg(pose_msg);
+  createTestMsg(diffuse_msg);
+  createTestMsg(specular_msg);
+  createTestMsg(direction_msg);
+
+  _msg.mutable_header()->CopyFrom(header_msg);
+  _msg.mutable_pose()->CopyFrom(pose_msg);
+  _msg.mutable_diffuse()->CopyFrom(diffuse_msg);
+  _msg.mutable_specular()->CopyFrom(specular_msg);
+  _msg.mutable_direction()->CopyFrom(direction_msg);
+
+  _msg.set_name("test_light");
+  _msg.set_type(ignition::msgs::Light_LightType::Light_LightType_SPOT);
+
+  _msg.set_attenuation_constant(0.2);
+  _msg.set_attenuation_linear(0.4);
+  _msg.set_attenuation_quadratic(0.6);
+  _msg.set_range(25.0);
+  _msg.set_cast_shadows(true);
+  _msg.set_spot_inner_angle(0.3);
+  _msg.set_spot_outer_angle(0.6);
+  _msg.set_spot_falloff(10.0);
+
+  _msg.set_id(24);
+
+  _msg.set_parent_id(6);
+
+  _msg.set_intensity(125.0);
+}
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ignition::msgs::Light> & _msg)
+{
+  ignition::msgs::Light expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(std::make_shared<ignition::msgs::Header>(_msg->header()));
+  compareTestMsg(std::make_shared<ignition::msgs::Pose>(_msg->pose()));
+  compareTestMsg(std::make_shared<ignition::msgs::Color>(_msg->diffuse()));
+  compareTestMsg(std::make_shared<ignition::msgs::Color>(_msg->specular()));
+  compareTestMsg(std::make_shared<ignition::msgs::Vector3d>(_msg->direction()));
+
+  EXPECT_EQ(expected_msg.name(), _msg->name());
+  EXPECT_EQ(expected_msg.type(), _msg->type());
+
+  EXPECT_FLOAT_EQ(expected_msg.attenuation_constant(), _msg->attenuation_constant());
+  EXPECT_FLOAT_EQ(expected_msg.attenuation_linear(), _msg->attenuation_linear());
+  EXPECT_FLOAT_EQ(expected_msg.attenuation_quadratic(), _msg->attenuation_quadratic());
+  EXPECT_FLOAT_EQ(expected_msg.range(), _msg->range());
+  EXPECT_EQ(expected_msg.cast_shadows(), _msg->cast_shadows());
+  EXPECT_FLOAT_EQ(expected_msg.spot_inner_angle(), _msg->spot_inner_angle());
+  EXPECT_FLOAT_EQ(expected_msg.spot_outer_angle(), _msg->spot_outer_angle());
+  EXPECT_FLOAT_EQ(expected_msg.spot_falloff(), _msg->spot_falloff());
+
+  EXPECT_EQ(expected_msg.id(), _msg->id());
+
+  EXPECT_EQ(expected_msg.parent_id(), _msg->parent_id());
+
+  EXPECT_FLOAT_EQ(expected_msg.intensity(), _msg->intensity());
 }
 
 }  // namespace testing
