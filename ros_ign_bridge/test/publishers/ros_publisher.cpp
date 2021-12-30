@@ -22,6 +22,7 @@
 // #include <mav_msgs/msg/actuators.hpp>
 #include <nav_msgs/msg/odometry.hpp>
 #include <rclcpp/rclcpp.hpp>
+#include <ros_ign_interfaces/msg/light.hpp>
 #include <rosgraph_msgs/msg/clock.hpp>
 #include <sensor_msgs/msg/battery_state.hpp>
 #include <sensor_msgs/msg/camera_info.hpp>
@@ -33,6 +34,7 @@
 #include <sensor_msgs/msg/magnetic_field.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
 #include <std_msgs/msg/bool.hpp>
+#include <std_msgs/msg/color_rgba.hpp>
 #include <std_msgs/msg/empty.hpp>
 #include <std_msgs/msg/float32.hpp>
 #include <std_msgs/msg/float64.hpp>
@@ -49,6 +51,11 @@ int main(int argc, char ** argv)
   auto node = rclcpp::Node::make_shared("ros_string_publisher");
 
   rclcpp::Rate loop_rate(1);
+  // std_msgs::msg::Color.
+  auto color_pub = node->create_publisher<std_msgs::msg::ColorRGBA>("color", 1000);
+  std_msgs::msg::ColorRGBA color_msg;
+  ros_ign_bridge::testing::createTestMsg(color_msg);
+
   // std_msgs::msg::Bool.
   auto bool_pub = node->create_publisher<std_msgs::msg::Bool>("bool", 1000);
   std_msgs::msg::Bool bool_msg;
@@ -67,6 +74,11 @@ int main(int argc, char ** argv)
   auto double_pub = node->create_publisher<std_msgs::msg::Float64>("double", 1000);
   std_msgs::msg::Float64 double_msg;
   ros_ign_bridge::testing::createTestMsg(double_msg);
+
+  // std_msgs::UInt32.
+  auto uint32_pub = node->create_publisher<std_msgs::msg::UInt32>("uint32", 1000);
+  std_msgs::msg::UInt32 uint32_msg;
+  ros_ign_bridge::testing::createTestMsg(uint32_msg);
 
   // std_msgs::msg::Header.
   auto header_pub = node->create_publisher<std_msgs::msg::Header>("header", 1000);
@@ -137,6 +149,41 @@ int main(int argc, char ** argv)
   tf2_msgs::msg::TFMessage tf2_msg;
   ros_ign_bridge::testing::createTestMsg(tf2_msg);
 
+  // geometry_msgs::msg::Wrench.
+  auto wrench_pub =
+    node->create_publisher<geometry_msgs::msg::Wrench>("wrench", 1000);
+  geometry_msgs::msg::Wrench wrench_msg;
+  ros_ign_bridge::testing::createTestMsg(wrench_msg);
+
+  // ros_ign_interfaces::msg::Light.
+  auto light_pub =
+    node->create_publisher<ros_ign_interfaces::msg::Light>("light", 1000);
+  ros_ign_interfaces::msg::Light light_msg;
+  ros_ign_bridge::testing::createTestMsg(light_msg);
+
+  // ros_ign_interfaces::msg::JointWrench.
+  auto joint_wrench_pub =
+    node->create_publisher<ros_ign_interfaces::msg::JointWrench>("joint_wrench", 1000);
+  ros_ign_interfaces::msg::JointWrench joint_wrench_msg;
+  ros_ign_bridge::testing::createTestMsg(joint_wrench_msg);
+
+  // ros_ign_interfaces::msg::Entity.
+  auto entity_pub =
+    node->create_publisher<ros_ign_interfaces::msg::Entity>("entity", 1000);
+  ros_ign_interfaces::msg::Entity entity_msg;
+  ros_ign_bridge::testing::createTestMsg(entity_msg);
+
+  // ros_ign_interfaces::msg::Contact.
+  auto contact_pub =
+    node->create_publisher<ros_ign_interfaces::msg::Contact>("contact", 1000);
+  ros_ign_interfaces::msg::Contact contact_msg;
+  ros_ign_bridge::testing::createTestMsg(contact_msg);
+
+  // ros_ign_interfaces::msg::Contacts.
+  auto contacts_pub =
+    node->create_publisher<ros_ign_interfaces::msg::Contacts>("contacts", 1000);
+  ros_ign_interfaces::msg::Contacts contacts_msg;
+  ros_ign_bridge::testing::createTestMsg(contacts_msg);
 
   // // mav_msgs::msg::Actuators.
   // auto actuators_pub =
@@ -212,10 +259,12 @@ int main(int argc, char ** argv)
 
   while (rclcpp::ok()) {
     // Publish all messages.
+    color_pub->publish(color_msg);
     bool_pub->publish(bool_msg);
     empty_pub->publish(empty_msg);
     float_pub->publish(float_msg);
     double_pub->publish(double_msg);
+    uint32_pub->publish(uint32_msg);
     header_pub->publish(header_msg);
     string_pub->publish(string_msg);
     quaternion_pub->publish(quaternion_msg);
@@ -228,6 +277,12 @@ int main(int argc, char ** argv)
     transform_stamped_pub->publish(transform_stamped_msg);
     tf2_message_pub->publish(tf2_msg);
     twist_pub->publish(twist_msg);
+    wrench_pub->publish(wrench_msg);
+    light_pub->publish(light_msg);
+    joint_wrench_pub->publish(joint_wrench_msg);
+    entity_pub->publish(entity_msg);
+    contact_pub->publish(contact_msg);
+    contacts_pub->publish(contacts_msg);
     // actuators_pub->publish(actuators_msg);
     odometry_pub->publish(odometry_msg);
     image_pub->publish(image_msg);
