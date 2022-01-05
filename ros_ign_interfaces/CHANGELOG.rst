@@ -2,6 +2,9 @@
 Changelog for package ros_ign_interfaces
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.244.1 (2022-01-04)
+--------------------
+
 0.244.0 (2021-12-30)
 --------------------
 * New Light Message, also bridge Color (`#187 <https://github.com/osrf/ros_ign/issues/187>`_)
