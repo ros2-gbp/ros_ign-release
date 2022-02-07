@@ -1,3 +1,32 @@
+## ros_ign (galactic) - 0.233.4-1
+
+The packages in the `ros_ign` repository were released into the `galactic` distro by running `/usr/bin/bloom-release -r galactic ros_ign` on `Mon, 07 Feb 2022 19:33:34 -0000`
+
+These packages were released:
+- `ros_ign`
+- `ros_ign_bridge`
+- `ros_ign_gazebo`
+- `ros_ign_gazebo_demos`
+- `ros_ign_image`
+- `ros_ign_interfaces`
+
+Version of package(s) in repository `ros_ign`:
+
+- upstream repository: https://github.com/ignitionrobotics/ros_ign
+- release repository: https://github.com/ros2-gbp/ros_ign-release.git
+- rosdistro version: `0.233.3-1`
+- old version: `0.233.3-1`
+- new version: `0.233.4-1`
+
+Versions of tools used:
+
+- bloom version: `0.10.7`
+- catkin_pkg version: `0.4.23`
+- rosdep version: `0.21.0`
+- rosdistro version: `0.8.3`
+- vcstools version: `0.1.42`
+
+
 ## ros_ign (rolling) - 0.244.1-1
 
 The packages in the `ros_ign` repository were released into the `rolling` distro by running `/usr/bin/bloom-release --rosdistro rolling --track rolling ros_ign` on `Wed, 05 Jan 2022 01:56:04 -0000`
