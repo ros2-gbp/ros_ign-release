@@ -2,14 +2,20 @@
 Changelog for package ros_ign_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.244.1 (2022-01-04)
+0.233.4 (2022-02-07)
 --------------------
+* [galactic] backport test memory usage improvements (`#215 <https://github.com/ignitionrobotics/ros_ign/issues/215>`_)
+  - Improve modularity of ign/ros publisher tests (`#194 <https://github.com/ignitionrobotics/ros_ign/issues/194>`_)
+  - Break apart ros_subscriber test translation unit (`#212 <https://github.com/ignitionrobotics/ros_ign/issues/212>`_)
+  - Fix deprecated parameter declaration
+  Co-authored-by: Louise Poubel <louise@openrobotics.org>
+* Contributors: Michael Carroll
 
-0.244.0 (2021-12-30)
+0.233.3 (2021-12-30)
 --------------------
-* Default to Fortress for Rolling (future Humble) (`#195 <https://github.com/osrf/ros_ign/issues/195>`_)
+* Separate galactic branch from ros2 branch (`#201 <https://github.com/osrf/ros_ign/issues/201>`_)
 * [ros2] 🏁 Dome EOL (`#199 <https://github.com/osrf/ros_ign/issues/199>`_)
-* Contributors: Guillaume Doisy, Louise Poubel
+* Contributors: Louise Poubel
 
 0.233.2 (2021-07-20)
 --------------------

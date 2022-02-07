@@ -11,8 +11,8 @@ Foxy | Citadel | [foxy](https://github.com/osrf/ros_ign/tree/foxy) | https://pac
 Foxy | Edifice | [foxy](https://github.com/osrf/ros_ign/tree/foxy) | only from source
 Galactic | Edifice | [galactic](https://github.com/osrf/ros_ign/tree/galactic) | https://packages.ros.org
 Galactic | Fortress | [galactic](https://github.com/osrf/ros_ign/tree/galactic) | only from source
-Rolling | Edifice | [ros2](https://github.com/osrf/ros_ign/tree/ros2) | only from source
-Rolling | Fortress | [ros2](https://github.com/osrf/ros_ign/tree/ros2) | https://packages.ros.org
+Rolling | Edifice | [ros2](https://github.com/osrf/ros_ign/tree/ros2) | https://packages.ros.org
+Rolling | Fortress | [ros2](https://github.com/osrf/ros_ign/tree/ros2) | only from source
 
 > Please [ticket an issue](https://github.com/ignitionrobotics/ros_ign/issues/) if you'd like support to be added for some combination.
 
@@ -46,11 +46,11 @@ This repository holds packages that provide integration between
 
 ## Install
 
-This branch supports ROS Rolling. See above for other ROS versions.
+This branch supports ROS Galactic. See above for other ROS versions.
 
 ### Binaries
 
-Rolling binaries are available for Fortress.
+Galactic binaries are available for Edifice.
 They are hosted at https://packages.ros.org.
 
 1. Add https://packages.ros.org
@@ -61,14 +61,14 @@ They are hosted at https://packages.ros.org.
 
 1. Install `ros_ign`
 
-        sudo apt install ros-rolling-ros-ign
+        sudo apt install ros-galactic-ros-ign
 
 ### From source
 
 #### ROS
 
 Be sure you've installed
-[ROS Rolling](https://index.ros.org/doc/ros2/Installation/)
+[ROS Galactic](https://index.ros.org/doc/ros2/Installation/)
 (at least ROS-Base). More ROS dependencies will be installed below.
 
 #### Ignition
@@ -101,7 +101,7 @@ The following steps are for Linux and OSX.
 
     ```
     cd ~/ws
-    rosdep install -r --from-paths src -i -y --rosdistro rolling
+    rosdep install -r --from-paths src -i -y --rosdistro galactic
     ```
 
     > If `rosdep` fails to install Ignition libraries and you have not installed them before, please follow [Ignition installation instructions](https://ignitionrobotics.org/docs/latest/install).
@@ -110,7 +110,7 @@ The following steps are for Linux and OSX.
 
     ```
     # Source ROS distro's setup.bash
-    source /opt/ros/<distro>/setup.bash
+    source /opt/ros/galactic/setup.bash
 
     # Build and install into workspace
     cd ~/ws

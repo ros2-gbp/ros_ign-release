@@ -21,17 +21,8 @@ find_package(std_msgs REQUIRED)
 find_package(tf2_msgs REQUIRED)
 find_package(trajectory_msgs REQUIRED)
 
-# Edifice
-if("$ENV{IGNITION_VERSION}" STREQUAL "edifice")
-  find_package(ignition-transport10 REQUIRED)
-  set(IGN_TRANSPORT_VER ${ignition-transport10_VERSION_MAJOR})
-
-  find_package(ignition-msgs7 REQUIRED)
-  set(IGN_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
-
-  message(STATUS "Compiling against Ignition Edifice")
-# Default to Fortress
-else()
+# Fortress
+if("$ENV{IGNITION_VERSION}" STREQUAL "fortress")
   find_package(ignition-transport11 REQUIRED)
   set(IGN_TRANSPORT_VER ${ignition-transport11_VERSION_MAJOR})
 
@@ -39,6 +30,15 @@ else()
   set(IGN_MSGS_VER ${ignition-msgs8_VERSION_MAJOR})
 
   message(STATUS "Compiling against Ignition Fortress")
+# Default to Edifice
+else()
+  find_package(ignition-transport10 REQUIRED)
+  set(IGN_TRANSPORT_VER ${ignition-transport10_VERSION_MAJOR})
+
+  find_package(ignition-msgs7 REQUIRED)
+  set(IGN_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
+
+  message(STATUS "Compiling against Ignition Edifice")
 endif()
 
 set(PACKAGES
@@ -174,7 +174,16 @@ if(BUILD_TESTING)
   add_executable(test_ros_publisher test/publishers/ros_publisher.cpp)
   target_link_libraries(test_ros_publisher test_utils)
 
-  add_executable(test_ros_subscriber test/subscribers/ros_subscriber.cpp)
+  add_executable(test_ros_subscriber
+        test/subscribers/ros_subscriber/ros_subscriber.cpp
+        test/subscribers/ros_subscriber/geometry_msgs_subscriber.cpp
+        test/subscribers/ros_subscriber/nav_msgs_subscriber.cpp
+        test/subscribers/ros_subscriber/ros_ign_interfaces_subscriber.cpp
+        test/subscribers/ros_subscriber/rosgraph_msgs_subscriber.cpp
+        test/subscribers/ros_subscriber/sensor_msgs_subscriber.cpp
+        test/subscribers/ros_subscriber/std_msgs_subscriber.cpp
+        test/subscribers/ros_subscriber/trajectory_msgs_subscriber.cpp)
+
   target_link_libraries(test_ros_subscriber test_utils)
 
   add_executable(test_ign_publisher test/publishers/ign_publisher.cpp)

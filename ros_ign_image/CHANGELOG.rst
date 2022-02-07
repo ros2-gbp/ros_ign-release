@@ -2,15 +2,15 @@
 Changelog for package ros1_ign_image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.244.1 (2022-01-04)
+0.233.4 (2022-02-07)
 --------------------
 
-0.244.0 (2021-12-30)
+0.233.3 (2021-12-30)
 --------------------
-* Default to Fortress for Rolling (future Humble) (`#195 <https://github.com/osrf/ros_ign/issues/195>`_)
+* Separate galactic branch from ros2 branch (`#201 <https://github.com/osrf/ros_ign/issues/201>`_)
 * [ros2] 🏁 Dome EOL (`#199 <https://github.com/osrf/ros_ign/issues/199>`_)
 * Statically link each translation unit (`#193 <https://github.com/osrf/ros_ign/issues/193>`_)
-* Contributors: Guillaume Doisy, Louise Poubel, Michael Carroll
+* Contributors: Louise Poubel, Michael Carroll
 
 0.233.2 (2021-07-20)
 --------------------
