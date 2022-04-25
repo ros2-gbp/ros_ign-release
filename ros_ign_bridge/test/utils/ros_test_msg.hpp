@@ -15,6 +15,9 @@
 #ifndef UTILS__ROS_TEST_MSG_HPP_
 #define UTILS__ROS_TEST_MSG_HPP_
 
+#include <memory>
+
+#include <builtin_interfaces/msg/time.hpp>
 #include <std_msgs/msg/bool.hpp>
 #include <std_msgs/msg/color_rgba.hpp>
 #include <std_msgs/msg/empty.hpp>
@@ -34,10 +37,14 @@
 #include <geometry_msgs/msg/wrench.hpp>
 #include <nav_msgs/msg/odometry.hpp>
 #include <ros_ign_interfaces/msg/entity.hpp>
+#include <ros_ign_interfaces/msg/gui_camera.hpp>
 #include <ros_ign_interfaces/msg/joint_wrench.hpp>
 #include <ros_ign_interfaces/msg/contact.hpp>
 #include <ros_ign_interfaces/msg/contacts.hpp>
 #include <ros_ign_interfaces/msg/light.hpp>
+#include <ros_ign_interfaces/msg/string_vec.hpp>
+#include <ros_ign_interfaces/msg/track_visual.hpp>
+#include <ros_ign_interfaces/msg/video_record.hpp>
 #include <rosgraph_msgs/msg/clock.hpp>
 #include <sensor_msgs/msg/battery_state.hpp>
 #include <sensor_msgs/msg/camera_info.hpp>
@@ -52,8 +59,6 @@
 #include <tf2_msgs/msg/tf_message.hpp>
 #include <trajectory_msgs/msg/joint_trajectory.hpp>
 
-#include <memory>
-
 namespace ros_ign_bridge
 {
 namespace testing
@@ -62,6 +67,16 @@ namespace testing
 //////////////////////////////////////////////////
 /// ROS test utils
 //////////////////////////////////////////////////
+
+/// builtin_interfaces
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(builtin_interfaces::msg::Time & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<builtin_interfaces::msg::Time> & _msg);
 
 /// std_msgs
 
@@ -290,6 +305,38 @@ void createTestMsg(ros_ign_interfaces::msg::Contacts & _msg);
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<ros_ign_interfaces::msg::Contacts> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ros_ign_interfaces::msg::GuiCamera & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ros_ign_interfaces::msg::GuiCamera> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ros_ign_interfaces::msg::StringVec & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ros_ign_interfaces::msg::StringVec> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ros_ign_interfaces::msg::TrackVisual & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ros_ign_interfaces::msg::TrackVisual> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ros_ign_interfaces::msg::VideoRecord & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ros_ign_interfaces::msg::VideoRecord> & _msg);
 
 /// sensor_msgs
 
