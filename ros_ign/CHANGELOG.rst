@@ -2,6 +2,11 @@
 Changelog for package ros_ign
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.244.2 (2022-04-25)
+--------------------
+* Galactic changelog
+* Contributors: Louise Poubel, Michael Carroll
+
 0.244.1 (2022-01-04)
 --------------------
 

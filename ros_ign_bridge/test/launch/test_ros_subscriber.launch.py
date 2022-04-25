@@ -39,6 +39,7 @@ def generate_test_description():
         package='ros_ign_bridge',
         executable='parameter_bridge',
         arguments=[
+          '/time@builtin_interfaces/msg/Time@ignition.msgs.Time',
           '/bool@std_msgs/msg/Bool@ignition.msgs.Boolean',
           '/color@std_msgs/msg/ColorRGBA@ignition.msgs.Color',
           '/empty@std_msgs/msg/Empty@ignition.msgs.Empty',
@@ -63,6 +64,10 @@ def generate_test_description():
           '/contact@ros_ign_interfaces/msg/Contact@ignition.msgs.Contact',
           '/contacts@ros_ign_interfaces/msg/Contacts@ignition.msgs.Contacts',
           '/light@ros_ign_interfaces/msg/Light@ignition.msgs.Light',
+          '/gui_camera@ros_ign_interfaces/msg/GuiCamera@ignition.msgs.GUICamera',
+          '/stringmsg_v@ros_ign_interfaces/msg/StringVec@ignition.msgs.StringMsg_V',
+          '/track_visual@ros_ign_interfaces/msg/TrackVisual@ignition.msgs.TrackVisual',
+          '/video_record@ros_ign_interfaces/msg/VideoRecord@ignition.msgs.VideoRecord',
           '/image@sensor_msgs/msg/Image@ignition.msgs.Image',
           '/camera_info@sensor_msgs/msg/CameraInfo@ignition.msgs.CameraInfo',
           '/fluid_pressure@sensor_msgs/msg/FluidPressure@ignition.msgs.FluidPressure',
