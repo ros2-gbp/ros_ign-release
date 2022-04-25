@@ -23,6 +23,11 @@ int main(int argc, char ** argv)
   auto node = rclcpp::Node::make_shared("ros_string_publisher");
 
   rclcpp::Rate loop_rate(1);
+  // builtin_interfaces::msg::Time.
+  auto time_pub = node->create_publisher<builtin_interfaces::msg::Time>("time", 1000);
+  builtin_interfaces::msg::Time time_msg;
+  ros_ign_bridge::testing::createTestMsg(time_msg);
+
   // std_msgs::msg::Color.
   auto color_pub = node->create_publisher<std_msgs::msg::ColorRGBA>("color", 1000);
   std_msgs::msg::ColorRGBA color_msg;
@@ -157,6 +162,30 @@ int main(int argc, char ** argv)
   ros_ign_interfaces::msg::Contacts contacts_msg;
   ros_ign_bridge::testing::createTestMsg(contacts_msg);
 
+  // ros_ign_interfaces::msg::GuiCamera.
+  auto gui_camera_pub =
+    node->create_publisher<ros_ign_interfaces::msg::GuiCamera>("gui_camera", 1000);
+  ros_ign_interfaces::msg::GuiCamera gui_camera_msg;
+  ros_ign_bridge::testing::createTestMsg(gui_camera_msg);
+
+  // ros_ign_interfaces::msg::StringVec.
+  auto stringmsg_v_pub =
+    node->create_publisher<ros_ign_interfaces::msg::StringVec>("stringmsg_v", 1000);
+  ros_ign_interfaces::msg::StringVec stringmsg_v_msg;
+  ros_ign_bridge::testing::createTestMsg(stringmsg_v_msg);
+
+  // ros_ign_interfaces::msg::TrackVisual.
+  auto track_visual_pub =
+    node->create_publisher<ros_ign_interfaces::msg::TrackVisual>("track_visual", 1000);
+  ros_ign_interfaces::msg::TrackVisual track_visual_msg;
+  ros_ign_bridge::testing::createTestMsg(track_visual_msg);
+
+  // ros_ign_interfaces::msg::VideoRecord.
+  auto video_record_pub =
+    node->create_publisher<ros_ign_interfaces::msg::VideoRecord>("video_record", 1000);
+  ros_ign_interfaces::msg::VideoRecord video_record_msg;
+  ros_ign_bridge::testing::createTestMsg(video_record_msg);
+
   // // mav_msgs::msg::Actuators.
   // auto actuators_pub =
   //   node->create_publisher<mav_msgs::msg::Actuators>("actuators", 1000);
@@ -231,6 +260,7 @@ int main(int argc, char ** argv)
 
   while (rclcpp::ok()) {
     // Publish all messages.
+    time_pub->publish(time_msg);
     color_pub->publish(color_msg);
     bool_pub->publish(bool_msg);
     empty_pub->publish(empty_msg);
@@ -267,6 +297,10 @@ int main(int argc, char ** argv)
     pointcloud2_pub->publish(pointcloud2_msg);
     battery_state_pub->publish(battery_state_msg);
     joint_trajectory_pub->publish(joint_trajectory_msg);
+    gui_camera_pub->publish(gui_camera_msg);
+    stringmsg_v_pub->publish(stringmsg_v_msg);
+    track_visual_pub->publish(track_visual_msg);
+    video_record_pub->publish(video_record_msg);
 
     rclcpp::spin_some(node);
     loop_rate.sleep();

@@ -1,4 +1,4 @@
-// Copyright 2018 Open Source Robotics Foundation, Inc.
+// Copyright 2021 Open Source Robotics Foundation, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,29 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef FACTORIES_HPP_
-#define FACTORIES_HPP_
-
-#include <memory>
-#include <string>
-
 #include "factory_interface.hpp"
-#include "service_factory_interface.hpp"
 
 namespace ros_ign_bridge
 {
 
-std::shared_ptr<FactoryInterface>
-get_factory(
-  const std::string & ros_type_name,
-  const std::string & ign_type_name);
-
-std::shared_ptr<ServiceFactoryInterface>
-get_service_factory(
-  const std::string & ros_type_name,
-  const std::string & ign_req_type_name,
-  const std::string & ign_rep_type_name);
+FactoryInterface::~FactoryInterface()
+{
+}
 
 }  // namespace ros_ign_bridge
-
-#endif  // FACTORIES_HPP_

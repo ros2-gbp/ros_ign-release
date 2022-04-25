@@ -1,4 +1,4 @@
-// Copyright 2018 Open Source Robotics Foundation, Inc.
+// Copyright 2022 Open Source Robotics Foundation, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,29 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef FACTORIES_HPP_
-#define FACTORIES_HPP_
-
-#include <memory>
-#include <string>
-
-#include "factory_interface.hpp"
-#include "service_factory_interface.hpp"
+#include "ros_ign_bridge/convert/builtin_interfaces.hpp"
 
 namespace ros_ign_bridge
 {
+template<>
+void
+convert_ros_to_ign(
+  const builtin_interfaces::msg::Time & ros_msg,
+  ignition::msgs::Time & ign_msg)
+{
+  ign_msg.set_sec(ros_msg.sec);
+  ign_msg.set_nsec(ros_msg.nanosec);
+}
 
-std::shared_ptr<FactoryInterface>
-get_factory(
-  const std::string & ros_type_name,
-  const std::string & ign_type_name);
-
-std::shared_ptr<ServiceFactoryInterface>
-get_service_factory(
-  const std::string & ros_type_name,
-  const std::string & ign_req_type_name,
-  const std::string & ign_rep_type_name);
-
+template<>
+void
+convert_ign_to_ros(
+  const ignition::msgs::Time & ign_msg,
+  builtin_interfaces::msg::Time & ros_msg)
+{
+  ros_msg.sec = ign_msg.sec();
+  ros_msg.nanosec = ign_msg.nsec();
+}
 }  // namespace ros_ign_bridge
-
-#endif  // FACTORIES_HPP_
