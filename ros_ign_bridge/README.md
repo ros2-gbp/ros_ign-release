@@ -8,6 +8,7 @@ service calls. Its support is limited to only the following message types:
 
 | ROS type                             | Ignition Transport type              |
 |--------------------------------------|:------------------------------------:|
+| builtin_interfaces/msg/Time          | ignition::msgs::Time                 |
 | std_msgs/msg/Bool                    | ignition::msgs::Boolean              |
 | std_msgs/msg/ColorRGBA               | ignition::msgs::Color                |
 | std_msgs/msg/Empty                   | ignition::msgs::Empty                |
@@ -31,8 +32,13 @@ service calls. Its support is limited to only the following message types:
 | ros_ign_interfaces/msg/Contact       | ignition::msgs::Contact              |
 | ros_ign_interfaces/msg/Contacts      | ignition::msgs::Contacts             |
 | ros_ign_interfaces/msg/Entity        | ignition::msgs::Entity               |
+| ros_ign_interfaces/msg/GuiCamera     | ignition::msgs::GUICamera            |
 | ros_ign_interfaces/msg/JointWrench   | ignition::msgs::JointWrench          |
 | ros_ign_interfaces/msg/Light         | ignition::msgs::Light                |
+| ros_ign_interfaces/msg/StringVec     | ignition::msgs::StringMsg_V          |
+| ros_ign_interfaces/msg/TrackVisual   | ignition::msgs::TrackVisual          |
+| ros_ign_interfaces/msg/VideoRecord   | ignition::msgs::VideoRecord          |
+| ros_ign_interfaces/msg/WorldControl  | ignition::msgs::WorldControl         |
 | rosgraph_msgs/msg/Clock              | ignition::msgs::Clock                |
 | sensor_msgs/msg/BatteryState         | ignition::msgs::BatteryState         |
 | sensor_msgs/msg/CameraInfo           | ignition::msgs::CameraInfo           |
@@ -70,7 +76,7 @@ Now we start the Ignition Transport talker.
 
 ```
 # Shell C:
-ign topic pub -t /chatter -m ignition.msgs.StringMsg -p 'data:"Hello"'
+ign topic -t /chatter -m ignition.msgs.StringMsg -p 'data:"Hello"'
 ```
 
 ## Example 1b: ROS 2 talker and Ignition Transport listener
@@ -104,7 +110,7 @@ In this example, we're going to generate Ignition Transport images using
 Ignition Gazebo, that will be converted into ROS images, and visualized with
 `rqt_image_viewer`.
 
-First we start Ignition Gazebo.
+First we start Ignition Gazebo (don't forget to hit play, or Ignition Gazebo won't generate any images).
 
 ```
 # Shell A:
@@ -166,7 +172,7 @@ On terminal B, we start a ROS 2 listener:
 
 And terminal C, publish an Ignition message:
 
-`ign topic pub -t /chatter -m ignition.msgs.StringMsg -p 'data:"Hello"'`
+`ign topic -t /chatter -m ignition.msgs.StringMsg -p 'data:"Hello"'`
 
 At this point, you should see the ROS 2 listener echoing the message.
 
