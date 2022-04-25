@@ -11,6 +11,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake REQUIRED)
+find_package(builtin_interfaces REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -42,13 +43,14 @@ else()
 endif()
 
 set(PACKAGES
-  std_msgs
+  builtin_interfaces
   geometry_msgs
   nav_msgs
-  tf2_msgs
   ros_ign_interfaces
   rosgraph_msgs
   sensor_msgs
+  std_msgs
+  tf2_msgs
   trajectory_msgs
 )
 
@@ -78,6 +80,7 @@ foreach(PKG ${PACKAGES})
     bridge_utils
     ignition-msgs${IGN_MSGS_VER}::core
     ignition-transport${IGN_TRANSPORT_VER}::core
+    rclcpp::rclcpp
   )
   set_target_properties(${PKG}_bridge
     PROPERTIES POSITION_INDEPENDENT_CODE ON)
@@ -96,6 +99,8 @@ set(bridge_lib
 add_library(${bridge_lib}
   SHARED
   src/factories.cpp
+  src/factory_interface.cpp
+  src/service_factories/ros_ign_interfaces.cpp
 )
 
 target_include_directories(${bridge_lib}
@@ -160,6 +165,7 @@ if(BUILD_TESTING)
     ignition-transport${IGN_TRANSPORT_VER}::core
   )
   ament_target_dependencies(test_utils
+    builtin_interfaces
     geometry_msgs
     nav_msgs
     rclcpp
@@ -174,7 +180,17 @@ if(BUILD_TESTING)
   add_executable(test_ros_publisher test/publishers/ros_publisher.cpp)
   target_link_libraries(test_ros_publisher test_utils)
 
-  add_executable(test_ros_subscriber test/subscribers/ros_subscriber.cpp)
+  add_executable(test_ros_subscriber
+        test/subscribers/ros_subscriber/ros_subscriber.cpp
+        test/subscribers/ros_subscriber/builtin_interfaces_subscriber.cpp
+        test/subscribers/ros_subscriber/geometry_msgs_subscriber.cpp
+        test/subscribers/ros_subscriber/nav_msgs_subscriber.cpp
+        test/subscribers/ros_subscriber/ros_ign_interfaces_subscriber.cpp
+        test/subscribers/ros_subscriber/rosgraph_msgs_subscriber.cpp
+        test/subscribers/ros_subscriber/sensor_msgs_subscriber.cpp
+        test/subscribers/ros_subscriber/std_msgs_subscriber.cpp
+        test/subscribers/ros_subscriber/trajectory_msgs_subscriber.cpp)
+
   target_link_libraries(test_ros_subscriber test_utils)
 
   add_executable(test_ign_publisher test/publishers/ign_publisher.cpp)
@@ -183,10 +199,18 @@ if(BUILD_TESTING)
   add_executable(test_ign_subscriber test/subscribers/ign_subscriber.cpp)
   target_link_libraries(test_ign_subscriber test_utils)
 
+  add_executable(test_ign_server test/serverclient/ign_server.cpp)
+  target_link_libraries(test_ign_server test_utils)
+
+  add_executable(test_ros_client test/serverclient/ros_client.cpp)
+  target_link_libraries(test_ros_client test_utils)
+
   install(TARGETS
+    test_ros_client
     test_ros_publisher
     test_ros_subscriber
     test_ign_publisher
+    test_ign_server
     test_ign_subscriber
     DESTINATION lib/${PROJECT_NAME}
   )
@@ -196,6 +220,10 @@ if(BUILD_TESTING)
   )
 
   add_launch_test(test/launch/test_ign_subscriber.launch.py
+    TIMEOUT 200
+  )
+
+  add_launch_test(test/launch/test_ign_server.launch.py
     TIMEOUT 200
   )
 endif()
