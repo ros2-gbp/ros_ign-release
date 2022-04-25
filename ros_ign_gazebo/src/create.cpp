@@ -17,11 +17,13 @@
 #include <ignition/msgs/entity_factory.pb.h>
 #include <ignition/msgs/Utility.hh>
 #include <ignition/transport/Node.hh>
-#include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/string.hpp>
 
 #include <sstream>
 #include <string>
+
+#include <rclcpp/rclcpp.hpp>
+#include <std_msgs/msg/string.hpp>
+
 
 DEFINE_string(world, "", "World name.");
 DEFINE_string(file, "", "Load XML from a file.");
@@ -47,9 +49,9 @@ int main(int _argc, char ** _argv)
 
   gflags::AllowCommandLineReparsing();
   gflags::SetUsageMessage(
-    R"(Usage: create -world [arg] [-file FILE] [-param PARAM] [-topic TOPIC]
-                       [-string STRING] [-name NAME] [-X X] [-Y Y] [-Z Z]
-                       [-Roll ROLL] [-Pitch PITCH] [-Yaw YAW])");
+    R"(Usage: create -world [arg] [-file FILE] [-param PARAM] [-topic TOPIC] 
+                       [-string STRING] [-name NAME] [-allow_renaming RENAMING] [-x X] [-y Y] [-z Z]
+                       [-R ROLL] [-P PITCH] [-Y YAW])");
   gflags::ParseCommandLineFlags(&_argc, &_argv, true);
 
   // World

@@ -2,20 +2,26 @@
 Changelog for package ros_ign_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.233.4 (2022-02-07)
+0.244.2 (2022-04-25)
 --------------------
-* [galactic] backport test memory usage improvements (`#215 <https://github.com/ignitionrobotics/ros_ign/issues/215>`_)
-  - Improve modularity of ign/ros publisher tests (`#194 <https://github.com/ignitionrobotics/ros_ign/issues/194>`_)
-  - Break apart ros_subscriber test translation unit (`#212 <https://github.com/ignitionrobotics/ros_ign/issues/212>`_)
-  - Fix deprecated parameter declaration
-  Co-authored-by: Louise Poubel <louise@openrobotics.org>
-* Contributors: Michael Carroll
-
-0.233.3 (2021-12-30)
---------------------
+* Support bridging services (`#211 <https://github.com/osrf/ros_ign/issues/211>`_)
+* Add std_msgs as dependency of ros_ign_gazebo (`#242 <https://github.com/osrf/ros_ign/issues/242>`_)
+* Fixed ros_ign_gazebo launch file install directory (`#229 <https://github.com/osrf/ros_ign/issues/229>`_) (`#230 <https://github.com/osrf/ros_ign/issues/230>`_)
+* Added ign_version launch argument to set ignition gazebo version (`#226 <https://github.com/osrf/ros_ign/issues/226>`_)
+* Bring ros2 branch up-to-date with Rolling (`#213 <https://github.com/osrf/ros_ign/issues/213>`_)
+* create.cpp usage message fixed for ros2 branch (`#207 <https://github.com/osrf/ros_ign/issues/207>`_)
 * Separate galactic branch from ros2 branch (`#201 <https://github.com/osrf/ros_ign/issues/201>`_)
+* 🏁 Dome EOL (`#198 <https://github.com/osrf/ros_ign/issues/198>`_)
+* Contributors: Alejandro Hernández Cordero, Aryaman Shardul, Ivan Santiago Paunovic, Kenji Brameld, Louise Poubel, Michael Carroll, ahcorde
+
+0.244.1 (2022-01-04)
+--------------------
+
+0.244.0 (2021-12-30)
+--------------------
+* Default to Fortress for Rolling (future Humble) (`#195 <https://github.com/osrf/ros_ign/issues/195>`_)
 * [ros2] 🏁 Dome EOL (`#199 <https://github.com/osrf/ros_ign/issues/199>`_)
-* Contributors: Louise Poubel
+* Contributors: Guillaume Doisy, Louise Poubel
 
 0.233.2 (2021-07-20)
 --------------------

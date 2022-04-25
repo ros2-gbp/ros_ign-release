@@ -19,6 +19,7 @@
 #include <string>
 
 #include "factory_interface.hpp"
+#include "service_factory_interface.hpp"
 
 namespace ros_ign_bridge
 {
@@ -27,6 +28,12 @@ std::shared_ptr<FactoryInterface>
 get_factory(
   const std::string & ros_type_name,
   const std::string & ign_type_name);
+
+std::shared_ptr<ServiceFactoryInterface>
+get_service_factory(
+  const std::string & ros_type_name,
+  const std::string & ign_req_type_name,
+  const std::string & ign_rep_type_name);
 
 }  // namespace ros_ign_bridge
 

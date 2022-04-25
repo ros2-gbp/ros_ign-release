@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>ros_ign_bridge</name>
-  <version>0.233.4</version>
+  <version>0.244.2</version>
   <description>Bridge communication between ROS and Ignition Transport</description>
   <maintainer email="louise@openrobotics.org">Louise Poubel</maintainer>
 
@@ -23,14 +23,14 @@
   <depend>tf2_msgs</depend>
   <depend>trajectory_msgs</depend>
 
-  <!-- Fortress -->
+  <!-- Fortress (default) -->
   <depend condition="$IGNITION_VERSION == fortress">ignition-msgs8</depend>
   <depend condition="$IGNITION_VERSION == fortress">ignition-transport11</depend>
-  <!-- Edifice (default) -->
+  <depend condition="$IGNITION_VERSION == ''">ignition-msgs8</depend>
+  <depend condition="$IGNITION_VERSION == ''">ignition-transport11</depend>
+  <!-- Edifice -->
   <depend condition="$IGNITION_VERSION == edifice">ignition-msgs7</depend>
   <depend condition="$IGNITION_VERSION == edifice">ignition-transport10</depend>
-  <depend condition="$IGNITION_VERSION == ''">ignition-msgs7</depend>
-  <depend condition="$IGNITION_VERSION == ''">ignition-transport10</depend>
 
   <test_depend>ament_cmake_gtest</test_depend>
   <test_depend>ament_lint_auto</test_depend>
