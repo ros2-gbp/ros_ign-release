@@ -15,11 +15,11 @@
 #ifndef FACTORY_HPP_
 #define FACTORY_HPP_
 
-#include <ignition/transport/Node.hh>
-
 #include <functional>
 #include <memory>
 #include <string>
+
+#include <ignition/transport/Node.hh>
 
 // include ROS 2
 #include <rclcpp/rclcpp.hpp>
@@ -48,8 +48,15 @@ public:
   {
     // Allow QoS overriding
     auto options = rclcpp::PublisherOptions();
-    options.qos_overriding_options =
-      rclcpp::QosOverridingOptions::with_default_policies();
+    options.qos_overriding_options = rclcpp::QosOverridingOptions {
+      {
+        rclcpp::QosPolicyKind::Depth,
+        rclcpp::QosPolicyKind::Durability,
+        rclcpp::QosPolicyKind::History,
+        rclcpp::QosPolicyKind::Reliability
+      },
+    };
+
     std::shared_ptr<rclcpp::Publisher<ROS_T>> publisher =
       ros_node->create_publisher<ROS_T>(
       topic_name, rclcpp::QoS(rclcpp::KeepLast(queue_size)), options);
