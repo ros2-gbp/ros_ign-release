@@ -1,0 +1,12 @@
+Source: ros-rolling-ros-ign-gazebo-demos
+Section: misc
+Priority: optional
+Maintainer: Louise Poubel <louise@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), ros-rolling-ament-cmake, ros-rolling-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-rolling-ros-ign-gazebo-demos
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libignition-gazebo6-dev, ros-rolling-image-transport-plugins, ros-rolling-robot-state-publisher, ros-rolling-ros-ign-bridge, ros-rolling-ros-ign-gazebo, ros-rolling-ros-ign-image, ros-rolling-rqt-image-view, ros-rolling-rqt-plot, ros-rolling-rqt-topic, ros-rolling-rviz2, ros-rolling-xacro, ros-rolling-ros-workspace
+Description: Demos using Ignition Gazebo simulation with ROS.
