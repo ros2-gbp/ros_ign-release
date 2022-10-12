@@ -101,5 +101,5 @@ tracks:
     release_tag: :{version}
     ros_distro: rolling
     vcs_type: git
-    vcs_uri: https://github.com/ignitionrobotics/ros_ign
+    vcs_uri: https://github.com/gazebosim/ros_gz
     version: :{auto}
