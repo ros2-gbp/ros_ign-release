@@ -16,18 +16,22 @@
 #define UTILS__ROS_TEST_MSG_HPP_
 
 #include <memory>
+#include <ros_gz_bridge/ros_gz_bridge.hpp>
 
 #include <builtin_interfaces/msg/time.hpp>
+
 #include <std_msgs/msg/bool.hpp>
 #include <std_msgs/msg/color_rgba.hpp>
 #include <std_msgs/msg/empty.hpp>
 #include <std_msgs/msg/float32.hpp>
 #include <std_msgs/msg/float64.hpp>
+#include <std_msgs/msg/int32.hpp>
 #include <std_msgs/msg/u_int32.hpp>
 #include <std_msgs/msg/header.hpp>
 #include <std_msgs/msg/string.hpp>
 #include <geometry_msgs/msg/point.hpp>
 #include <geometry_msgs/msg/pose.hpp>
+#include <geometry_msgs/msg/pose_array.hpp>
 #include <geometry_msgs/msg/pose_with_covariance.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
 #include <geometry_msgs/msg/transform.hpp>
@@ -43,7 +47,12 @@
 #include <ros_gz_interfaces/msg/joint_wrench.hpp>
 #include <ros_gz_interfaces/msg/contact.hpp>
 #include <ros_gz_interfaces/msg/contacts.hpp>
+#include <ros_gz_interfaces/msg/float32_array.hpp>
+#if HAVE_DATAFRAME
+#include <ros_gz_interfaces/msg/dataframe.hpp>
+#endif  // HAVE_DATAFRAME
 #include <ros_gz_interfaces/msg/light.hpp>
+#include <ros_gz_interfaces/msg/param_vec.hpp>
 #include <ros_gz_interfaces/msg/string_vec.hpp>
 #include <ros_gz_interfaces/msg/track_visual.hpp>
 #include <ros_gz_interfaces/msg/video_record.hpp>
@@ -56,10 +65,12 @@
 #include <sensor_msgs/msg/joint_state.hpp>
 #include <sensor_msgs/msg/laser_scan.hpp>
 #include <sensor_msgs/msg/magnetic_field.hpp>
+#include <sensor_msgs/msg/nav_sat_fix.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
 #include <sensor_msgs/msg/point_field.hpp>
 #include <tf2_msgs/msg/tf_message.hpp>
 #include <trajectory_msgs/msg/joint_trajectory.hpp>
+#include <rcl_interfaces/msg/parameter_value.hpp>
 
 namespace ros_gz_bridge
 {
@@ -98,6 +109,10 @@ void createTestMsg(std_msgs::msg::ColorRGBA & _msg);
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<std_msgs::msg::ColorRGBA> & _msg);
 
+/// \brief Create a message used for testing. Noop for Empty
+/// \param[out] _msg The message populated.
+void createTestMsg(std_msgs::msg::Empty & _msg);
+
 /// \brief Compare a message with the populated for testing. Noop for Empty
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<std_msgs::msg::Empty> &);
@@ -117,6 +132,14 @@ void createTestMsg(std_msgs::msg::Float64 & _msg);
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<std_msgs::msg::Float64> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(std_msgs::msg::Int32 & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<std_msgs::msg::Int32> & _msg);
 
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
@@ -201,6 +224,14 @@ void createTestMsg(geometry_msgs::msg::Pose & _msg);
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<geometry_msgs::msg::Pose> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(geometry_msgs::msg::PoseArray & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<geometry_msgs::msg::PoseArray> & _msg);
 
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
@@ -328,6 +359,16 @@ void createTestMsg(ros_gz_interfaces::msg::Contacts & _msg);
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Contacts> & _msg);
 
+#if HAVE_DATAFRAME
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ros_gz_interfaces::msg::Dataframe & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Dataframe> & _msg);
+#endif  // HAVE_DATAFRAME
+
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
 void createTestMsg(ros_gz_interfaces::msg::GuiCamera & _msg);
@@ -335,6 +376,14 @@ void createTestMsg(ros_gz_interfaces::msg::GuiCamera & _msg);
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::GuiCamera> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ros_gz_interfaces::msg::ParamVec & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::ParamVec> & _msg);
 
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
@@ -359,6 +408,14 @@ void createTestMsg(ros_gz_interfaces::msg::VideoRecord & _msg);
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::VideoRecord> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ros_gz_interfaces::msg::Float32Array & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Float32Array> & _msg);
 
 /// sensor_msgs
 
@@ -420,6 +477,14 @@ void compareTestMsg(const std::shared_ptr<sensor_msgs::msg::MagneticField> & _ms
 
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
+void createTestMsg(sensor_msgs::msg::NavSatFix & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<sensor_msgs::msg::NavSatFix> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
 void createTestMsg(sensor_msgs::msg::PointCloud2 & _msg);
 
 /// \brief Compare a message with the populated for testing.
@@ -451,6 +516,14 @@ void createTestMsg(trajectory_msgs::msg::JointTrajectory & _msg);
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<trajectory_msgs::msg::JointTrajectory> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(rcl_interfaces::msg::ParameterValue & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<rcl_interfaces::msg::ParameterValue> & _msg);
 
 }  // namespace testing
 }  // namespace ros_gz_bridge
