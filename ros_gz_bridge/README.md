@@ -22,23 +22,26 @@ The following message types can be bridged for topics:
 | geometry_msgs/msg/Vector3            | ignition::msgs::Vector3d               |
 | geometry_msgs/msg/Point              | ignition::msgs::Vector3d               |
 | geometry_msgs/msg/Pose               | ignition::msgs::Pose                   |
+| geometry_msgs/msg/PoseArray          | ignition::msgs::Pose_V                 |
 | geometry_msgs/msg/PoseWithCovariance | ignition::msgs::PoseWithCovariance     |
 | geometry_msgs/msg/PoseStamped        | ignition::msgs::Pose                   |
 | geometry_msgs/msg/Transform          | ignition::msgs::Pose                   |
 | geometry_msgs/msg/TransformStamped   | ignition::msgs::Pose                   |
 | geometry_msgs/msg/Twist              | ignition::msgs::Twist                  |
 | geometry_msgs/msg/TwistWithCovariance| ignition::msgs::TwistWithCovariance    |
-| mav_msgs/msg/Actuators (TODO)        | ignition::msgs::Actuators (TODO)       |
 | nav_msgs/msg/Odometry                | ignition::msgs::Odometry               |
 | nav_msgs/msg/Odometry                | ignition::msgs::OdometryWithCovariance |
-| ros_gz_interfaces/msg/Contact       | ignition::msgs::Contact                |
-| ros_gz_interfaces/msg/Contacts      | ignition::msgs::Contacts               |
-| ros_gz_interfaces/msg/Entity        | ignition::msgs::Entity                 |
-| ros_gz_interfaces/msg/GuiCamera     | ignition::msgs::GUICamera              |
-| ros_gz_interfaces/msg/JointWrench   | ignition::msgs::JointWrench            |
-| ros_gz_interfaces/msg/Light         | ignition::msgs::Light                  |
-| ros_gz_interfaces/msg/StringVec     | ignition::msgs::StringMsg_V            |
-| ros_gz_interfaces/msg/TrackVisual   | ignition::msgs::TrackVisual            |
+| rcl_interfaces/msg/ParameterValue    | ignition::msgs::Any                  |
+| ros_gz_interfaces/msg/Contact        | ignition::msgs::Contact                |
+| ros_gz_interfaces/msg/Contacts       | ignition::msgs::Contacts               |
+| ros_gz_interfaces/msg/Dataframe     | ignition::msgs::Dataframe            |
+| ros_gz_interfaces/msg/Entity         | ignition::msgs::Entity                 |
+| ros_gz_interfaces/msg/Float32Array   | ignition::msgs::Float_V                |
+| ros_gz_interfaces/msg/GuiCamera      | ignition::msgs::GUICamera              |
+| ros_gz_interfaces/msg/JointWrench    | ignition::msgs::JointWrench            |
+| ros_gz_interfaces/msg/Light          | ignition::msgs::Light                  |
+| ros_gz_interfaces/msg/StringVec      | ignition::msgs::StringMsg_V            |
+| ros_gz_interfaces/msg/TrackVisual    | ignition::msgs::TrackVisual            |
 | ros_gz_interfaces/msg/VideoRecord   | ignition::msgs::VideoRecord            |
 | ros_gz_interfaces/msg/WorldControl  | ignition::msgs::WorldControl           |
 | rosgraph_msgs/msg/Clock              | ignition::msgs::Clock                  |
@@ -50,6 +53,7 @@ The following message types can be bridged for topics:
 | sensor_msgs/msg/JointState           | ignition::msgs::Model                  |
 | sensor_msgs/msg/LaserScan            | ignition::msgs::LaserScan              |
 | sensor_msgs/msg/MagneticField        | ignition::msgs::Magnetometer           |
+| sensor_msgs/msg/NavSatFixed          | ignition::msgs::NavSat               |
 | sensor_msgs/msg/PointCloud2          | ignition::msgs::PointCloudPacked       |
 | tf2_msgs/msg/TFMessage               | ignition::msgs::Pose_V                 |
 | trajectory_msgs/msg/JointTrajectory  | ignition::msgs::JointTrajectory        |
@@ -213,3 +217,60 @@ On terminal C, make a ROS request to unpause simulation:
 ```
 ros2 service call /world/<world_name>/control ros_gz_interfaces/srv/ControlWorld "{world_control: {pause: false}}"
 ```
+
+## Example 5: Configuring the Bridge via YAML
+
+When configuring many topics, it is easier to use a file-based configuration in a markup
+language. In this case, the `ros_gz` bridge supports using a YAML file to configure the
+various parameters.
+
+The configuration file must be a YAML array of maps.
+An example configuration for 5 bridges is below, showing the various ways that a
+bridge may be specified:
+
+```yaml
+ # Set just topic name, applies to both
+- topic_name: "chatter"
+  ros_type_name: "std_msgs/msg/String"
+  gz_type_name: "ignition.msgs.StringMsg"
+
+# Set just ROS topic name, applies to both
+- ros_topic_name: "chatter_ros"
+  ros_type_name: "std_msgs/msg/String"
+  gz_type_name: "ignition.msgs.StringMsg"
+
+# Set just GZ topic name, applies to both
+- gz_topic_name: "chatter_ign"
+  ros_type_name: "std_msgs/msg/String"
+  gz_type_name: "ignition.msgs.StringMsg"
+
+# Set each topic name explicitly
+- ros_topic_name: "chatter_both_ros"
+  gz_topic_name: "chatter_both_ign"
+  ros_type_name: "std_msgs/msg/String"
+  gz_type_name: "ignition.msgs.StringMsg"
+
+# Full set of configurations
+- ros_topic_name: "ros_chatter"
+  gz_topic_name: "ign_chatter"
+  ros_type_name: "std_msgs/msg/String"
+  gz_type_name: "ignition.msgs.StringMsg"
+  subscriber_queue: 5       # Default 10
+  publisher_queue: 6        # Default 10
+  lazy: true                # Default "false"
+  direction: BIDIRECTIONAL  # Default "BIDIRECTIONAL" - Bridge both directions
+                            # "GZ_TO_ROS" - Bridge Ignition topic to ROS
+                            # "ROS_TO_GZ" - Bridge ROS topic to Ignition
+```
+
+To run the bridge node with the above configuration:
+```bash
+ros2 run ros_gz_bridge parameter_bridge --ros-args -p config_file:=$WORKSPACE/ros_gz/ros_gz_bridge/test/config/full.yaml
+```
+
+## API
+
+ROS 2 Parameters:
+
+ * `subscription_heartbeat` - Period at which the node checks for new subscribers for lazy bridges.
+ * `config_file` - YAML file to be loaded as the bridge configuration
