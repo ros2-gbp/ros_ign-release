@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>ros_gz_bridge</name>
-  <version>0.244.6</version>
+  <version>0.244.7</version>
   <description>Bridge communication between ROS and Gazebo Transport</description>
   <maintainer email="louise@openrobotics.org">Louise Poubel</maintainer>
 
@@ -16,12 +16,14 @@
   <depend>geometry_msgs</depend>
   <depend>nav_msgs</depend>
   <depend>rclcpp</depend>
+  <depend>rclcpp_components</depend>
   <depend>ros_gz_interfaces</depend>
   <depend>rosgraph_msgs</depend>
   <depend>sensor_msgs</depend>
   <depend>std_msgs</depend>
   <depend>tf2_msgs</depend>
   <depend>trajectory_msgs</depend>
+  <depend>yaml_cpp_vendor</depend>
 
   <!-- Garden -->
   <depend condition="$GZ_VERSION == garden or $IGNITION_VERSION == garden">gz-msgs9</depend>

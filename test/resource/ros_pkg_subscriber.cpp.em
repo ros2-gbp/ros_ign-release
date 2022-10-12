@@ -1,4 +1,4 @@
-// Copyright 2022 Open Source Robotics Foundation, Inc.
+// Copyright 2021 Open Source Robotics Foundation, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,14 +11,27 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+//
 
-#include "factory_interface.hpp"
+#include <gtest/gtest.h>
 
-namespace ros_gz_bridge
+#include <chrono>
+
+#include "ros_subscriber.hpp"
+
+using ros_subscriber::MyTestClass;
+
+@[for m in mappings]@
+/////////////////////////////////////////////////
+TEST(ROSSubscriberTest, @(m.unique()))
 {
+  MyTestClass<@(m.ros2_type())> client("@(m.unique())");
 
-FactoryInterface::~FactoryInterface()
-{
+  using namespace std::chrono_literals;
+  ros_gz_bridge::testing::waitUntilBoolVarAndSpin(
+    ros_subscriber::TestNode(), client.callbackExecuted, 10ms, 200);
+
+  EXPECT_TRUE(client.callbackExecuted);
 }
 
-}  // namespace ros_gz_bridge
+@[end for]@

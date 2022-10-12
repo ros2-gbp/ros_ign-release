@@ -12,13 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "factory_interface.hpp"
+#ifndef ROS_GZ_BRIDGE__CONVERT__RCL_INTERFACES_HPP_
+#define ROS_GZ_BRIDGE__CONVERT__RCL_INTERFACES_HPP_
+
+// Ignition messages
+#include <ignition/msgs/any.pb.h>
+
+// ROS 2 messages
+#include <rcl_interfaces/msg/parameter.hpp>
+#include <rcl_interfaces/msg/parameter_type.hpp>
+#include <rcl_interfaces/msg/parameter_value.hpp>
+
+#include <ros_gz_bridge/convert_decl.hpp>
 
 namespace ros_gz_bridge
 {
 
-FactoryInterface::~FactoryInterface()
-{
-}
+template<>
+void
+convert_ros_to_gz(
+  const rcl_interfaces::msg::ParameterValue & ros_msg,
+  ignition::msgs::Any & ign_msg);
+
+template<>
+void
+convert_gz_to_ros(
+  const ignition::msgs::Any & ign_msg,
+  rcl_interfaces::msg::ParameterValue & ros_msg);
 
 }  // namespace ros_gz_bridge
+#endif  // ROS_GZ_BRIDGE__CONVERT__RCL_INTERFACES_HPP_
