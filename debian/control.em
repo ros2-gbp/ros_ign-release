@@ -9,6 +9,7 @@ Standards-Version: 3.9.2
 Package: @(Package.replace('-gz-','-gzgarden-'))
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, @(', '.join(Depends))
+Conflicts: @(Package)
 @[if Conflicts]Conflicts: @(', '.join(Conflicts))@\n@[end if]@
 @[if Replaces]Replaces: @(', '.join(Replaces))@\n@[end if]@
 Description: @(Description)
