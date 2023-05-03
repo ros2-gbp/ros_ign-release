@@ -18,6 +18,7 @@ The following message types can be bridged for topics:
 | std_msgs/msg/UInt32                  | ignition::msgs::UInt32                 |
 | std_msgs/msg/String                  | ignition::msgs::StringMsg              |
 | geometry_msgs/msg/Wrench             | ignition::msgs::Wrench                 |
+| geometry_msgs/msg/WrenchStamped      | ignition::msgs::Wrench                 |
 | geometry_msgs/msg/Quaternion         | ignition::msgs::Quaternion             |
 | geometry_msgs/msg/Vector3            | ignition::msgs::Vector3d               |
 | geometry_msgs/msg/Point              | ignition::msgs::Vector3d               |
@@ -51,6 +52,7 @@ The following message types can be bridged for topics:
 | sensor_msgs/msg/Imu                  | ignition::msgs::IMU                    |
 | sensor_msgs/msg/Image                | ignition::msgs::Image                  |
 | sensor_msgs/msg/JointState           | ignition::msgs::Model                  |
+| sensor_msgs/msg/Joy                  | ignition::msgs::Joy                  |
 | sensor_msgs/msg/LaserScan            | ignition::msgs::LaserScan              |
 | sensor_msgs/msg/MagneticField        | ignition::msgs::Magnetometer           |
 | sensor_msgs/msg/NavSatFixed          | ignition::msgs::NavSat               |
