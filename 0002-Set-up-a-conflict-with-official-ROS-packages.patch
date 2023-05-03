@@ -1,0 +1,24 @@
+From 973c67591ef02d0c707eefd519d7a0e8c65c15fa Mon Sep 17 00:00:00 2001
+From: Jose Luis Rivero <jrivero@osrfoundation.org>
+Date: Wed, 15 Mar 2023 18:42:35 +0100
+Subject: [PATCH 2/3] Set up a conflict with official ROS packages
+
+---
+ debian/control.em | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/debian/control.em b/debian/control.em
+index 45f73a9..dc350db 100644
+--- a/debian/control.em
++++ b/debian/control.em
+@@ -9,6 +9,7 @@ Standards-Version: 3.9.2
+ Package: @(Package.replace('-gz-','-gzgarden-'))
+ Architecture: any
+ Depends: ${shlibs:Depends}, ${misc:Depends}, @(', '.join(Depends))
++Conflicts: @(Package)
+ @[if Conflicts]Conflicts: @(', '.join(Conflicts))@\n@[end if]@
+ @[if Replaces]Replaces: @(', '.join(Replaces))@\n@[end if]@
+ Description: @(Description)
+-- 
+2.34.1
+
