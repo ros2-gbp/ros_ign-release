@@ -39,6 +39,7 @@ MAPPINGS = {
         Mapping('Twist', 'Twist'),
         Mapping('TwistWithCovariance', 'TwistWithCovariance'),
         Mapping('Wrench', 'Wrench'),
+        Mapping('WrenchStamped', 'Wrench'),
         Mapping('Vector3', 'Vector3d'),
     ],
     'nav_msgs': [
@@ -72,6 +73,7 @@ MAPPINGS = {
         Mapping('Image', 'Image'),
         Mapping('Imu', 'IMU'),
         Mapping('JointState', 'Model'),
+        Mapping('Joy', 'Joy'),
         Mapping('LaserScan', 'LaserScan'),
         Mapping('MagneticField', 'Magnetometer'),
         Mapping('NavSatFix', 'NavSat'),
