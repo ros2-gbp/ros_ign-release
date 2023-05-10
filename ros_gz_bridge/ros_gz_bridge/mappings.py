@@ -39,6 +39,7 @@ MAPPINGS = {
         Mapping('Twist', 'Twist'),
         Mapping('TwistWithCovariance', 'TwistWithCovariance'),
         Mapping('Wrench', 'Wrench'),
+        Mapping('WrenchStamped', 'Wrench'),
         Mapping('Vector3', 'Vector3d'),
     ],
     'nav_msgs': [
@@ -51,7 +52,6 @@ MAPPINGS = {
     'ros_gz_interfaces': [
         Mapping('Contact', 'Contact'),
         Mapping('Contacts', 'Contacts'),
-        Mapping('Dataframe', 'Dataframe'),
         Mapping('Entity', 'Entity'),
         Mapping('Float32Array', 'Float_V'),
         Mapping('GuiCamera', 'GUICamera'),
@@ -73,6 +73,7 @@ MAPPINGS = {
         Mapping('Image', 'Image'),
         Mapping('Imu', 'IMU'),
         Mapping('JointState', 'Model'),
+        Mapping('Joy', 'Joy'),
         Mapping('LaserScan', 'LaserScan'),
         Mapping('MagneticField', 'Magnetometer'),
         Mapping('NavSatFix', 'NavSat'),
@@ -94,5 +95,11 @@ MAPPINGS = {
     ],
     'trajectory_msgs': [
         Mapping('JointTrajectory', 'JointTrajectory'),
+    ],
+}
+
+MAPPINGS_8_4_0 = {
+    'ros_gz_interfaces': [
+        Mapping('Dataframe', 'Dataframe'),
     ],
 }
