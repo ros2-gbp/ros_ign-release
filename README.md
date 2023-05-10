@@ -1,4 +1,2 @@
-# ROS-Gazebo packages
-
-`ros_ign` is a metapackage that installs all packages integrating
-[ROS](http://www.ros.org/) and [Gazebo](https://gazebosim.org):
+# This is a shim meta-package
+For [ros_gz](https://github.com/gazebosim/ros_gz/tree/ros2/ros_gz)
