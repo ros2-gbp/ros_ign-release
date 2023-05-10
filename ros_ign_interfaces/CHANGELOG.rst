@@ -2,43 +2,42 @@
 Changelog for package ros_ign_interfaces
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.244.3 (2022-05-19)
---------------------
-* [ros2] README updates (service bridge, Gazebo rename) (`#252 <https://github.com/osrf/ros_ign/issues/252>`_)
-* Contributors: Louise Poubel
+0.244.10 (2023-05-03)
+---------------------
 
-0.244.2 (2022-04-25)
+0.244.9 (2022-11-03)
 --------------------
-* [ros_ign_interfaces] Add GuiCamera, StringVec, TrackVisual, VideoRecord (`#214 <https://github.com/osrf/ros_ign/issues/214>`_)
+
+0.244.8 (2022-10-28)
+--------------------
+
+0.244.7 (2022-10-12)
+--------------------
+* Merge branch 'ros2' into ports/galactic_to_ros2
+* Merge branch 'galactic' into ports/galactic_to_ros2
+* Add ParamVec and bridge from Ignition (`#261 <https://github.com/gazebosim/ros_gz/issues/261>`_)
+  * Introduces `ros_ign_interfaces::msg::ParamVec` for storing a list of Parameters that are int, bool, double, or string.
+  * Introduces bridge for `ignition::msgs::param` to `ros_ign_interfaces::msg::ParamVec`
+  * Introduces bridge for `ignition::msgs::param_v` to `ros_ign_interfaces::msg::ParamVec`
+* Add rssi to Dataframe.msg (`#249 <https://github.com/gazebosim/ros_gz/issues/249>`_)
+  * Adding rssi field to ros_ign_interfaces/Dataframe.msg
+* [galactic] Backport GuiCamera, StringVec, TrackVisual, VideoRecord (`#241 <https://github.com/gazebosim/ros_gz/issues/241>`_)
   * [ros_ign_interfaces] Add more interface definitions.
   * Add converion functions for the added messages
   * Update the factory factory function with the new messages
   * Add new messages to docs
   * Add test cases for the new messages conversions
-* Update maintainer for ros_ign_interfaces (`#204 <https://github.com/osrf/ros_ign/issues/204>`_)
-* [ros2]  new package ros_ign_interfaces, provide some  Ignition-specific ROS messages. (`#152 <https://github.com/osrf/ros_ign/issues/152>`_)
-  * add new package ros_ign_interfaces,provide some Ignition-specific ros .msg and .srv files
-  * modify to match ign-msgs
-  * add author info
-  * modify comments
-  * update code and doc style
-* Contributors: Alejandro Hernández Cordero, Ivan Santiago Paunovic, Louise Poubel, Michael Carroll, ahcorde, gezp
+  Co-authored-by: Ivan Santiago Paunovic <ivanpauno@ekumenlabs.com>
+* Add Dataframe message and bridging (`#239 <https://github.com/gazebosim/ros_gz/issues/239>`_)
+* Contributors: Carlos Agüero, Michael Carroll
 
-0.244.1 (2022-01-04)
+0.244.6 (2022-09-14)
 --------------------
+* Restructured directories (`#296 <https://github.com/gazebosim/ros_gz/issues/296>`_)
+* Contributors: Alejandro Hernández Cordero
 
-0.244.0 (2021-12-30)
+0.244.5 (2022-09-12)
 --------------------
-* New Light Message, also bridge Color (`#187 <https://github.com/osrf/ros_ign/issues/187>`_)
-* Expose Contacts through ROS bridge (`#175 <https://github.com/osrf/ros_ign/issues/175>`_)
-* Contributors: Guillaume Doisy, Vatan Aksoy Tezer, William Lew
-
-0.233.2 (2021-07-20)
---------------------
-* [ros2]  new package ros_ign_interfaces, provide some  Ignition-specific ROS messages. (`#152 <https://github.com/osrf/ros_ign/issues/152>`_)
-  * add new package ros_ign_interfaces,provide some Ignition-specific ros .msg and .srv files
-  * modify to match ign-msgs
-  * add author info
-  * modify comments
-  * update code and doc style
-* Contributors: gezp
+* ign -> gz : ros_gz Migration (Shims) (`#281 <https://github.com/gazebosim/ros_gz/issues/281>`_)
+  Co-authored-by: Louise Poubel <louise@openrobotics.org>
+* Contributors: methylDragon
