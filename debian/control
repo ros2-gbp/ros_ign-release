@@ -1,0 +1,12 @@
+Source: ros-rolling-ros-gz-image
+Section: misc
+Priority: optional
+Maintainer: Louise Poubel <louise@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), libignition-msgs8-dev, libignition-transport11-dev, pkg-config, ros-rolling-ament-cmake, ros-rolling-ament-lint-auto <!nocheck>, ros-rolling-ament-lint-common <!nocheck>, ros-rolling-image-transport, ros-rolling-rclcpp, ros-rolling-ros-gz-bridge, ros-rolling-sensor-msgs, ros-rolling-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-rolling-ros-gz-image
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libignition-msgs8-dev, libignition-transport11-dev, ros-rolling-image-transport, ros-rolling-rclcpp, ros-rolling-ros-gz-bridge, ros-rolling-sensor-msgs, ros-rolling-ros-workspace
+Description: Image utilities for Gazebo simulation with ROS.
