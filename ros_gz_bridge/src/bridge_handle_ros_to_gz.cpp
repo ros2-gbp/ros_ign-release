@@ -14,7 +14,7 @@
 
 #include "bridge_handle_ros_to_gz.hpp"
 
-#include <gz/transport/TopicUtils.hh>
+#include <ignition/transport/TopicUtils.hh>
 
 namespace ros_gz_bridge
 {
