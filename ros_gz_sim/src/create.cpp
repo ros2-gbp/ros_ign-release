@@ -13,14 +13,14 @@
 // limitations under the License.
 
 #include <gflags/gflags.h>
-#include <gz/msgs/entity_factory.pb.h>
+#include <ignition/msgs/entity_factory.pb.h>
 
 #include <sstream>
 #include <string>
 
-#include <gz/math/Pose3.hh>
-#include <gz/msgs/Utility.hh>
-#include <gz/transport/Node.hh>
+#include <ignition/math/Pose3.hh>
+#include <ignition/msgs/Utility.hh>
+#include <ignition/transport/Node.hh>
 
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/string.hpp>
@@ -59,13 +59,13 @@ int main(int _argc, char ** _argv)
   std::string world_name = FLAGS_world;
   if (world_name.empty()) {
     // If caller doesn't provide a world name, get list of worlds from gz-sim server
-    gz::transport::Node node;
+    ignition::transport::Node node;
 
     bool executed{false};
     bool result{false};
     unsigned int timeout{5000};
     std::string service{"/gazebo/worlds"};
-    gz::msgs::StringMsg_V worlds_msg;
+    ignition::msgs::StringMsg_V worlds_msg;
 
     // This loop is here to allow the server time to download resources.
     while (rclcpp::ok() && !executed) {
@@ -88,7 +88,7 @@ int main(int _argc, char ** _argv)
   std::string service{"/world/" + world_name + "/create"};
 
   // Request message
-  gz::msgs::EntityFactory req;
+  ignition::msgs::EntityFactory req;
 
   // File
   if (!FLAGS_file.empty()) {
@@ -142,8 +142,8 @@ int main(int _argc, char ** _argv)
   }
 
   // Pose
-  gz::math::Pose3d pose{FLAGS_x, FLAGS_y, FLAGS_z, FLAGS_R, FLAGS_P, FLAGS_Y};
-  gz::msgs::Set(req.mutable_pose(), pose);
+  ignition::math::Pose3d pose{FLAGS_x, FLAGS_y, FLAGS_z, FLAGS_R, FLAGS_P, FLAGS_Y};
+  ignition::msgs::Set(req.mutable_pose(), pose);
 
   // Name
   if (!FLAGS_name.empty()) {
@@ -155,8 +155,8 @@ int main(int _argc, char ** _argv)
   }
 
   // Request
-  gz::transport::Node node;
-  gz::msgs::Boolean rep;
+  ignition::transport::Node node;
+  ignition::msgs::Boolean rep;
   bool result;
   unsigned int timeout = 5000;
   bool executed = node.Request(service, req, timeout, rep, result);
