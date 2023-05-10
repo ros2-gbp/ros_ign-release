@@ -15,7 +15,7 @@
 #ifndef BRIDGE_HANDLE_ROS_TO_GZ_HPP_
 #define BRIDGE_HANDLE_ROS_TO_GZ_HPP_
 
-#include <gz/transport/Node.hh>
+#include <ignition/transport/Node.hh>
 #include <rclcpp/subscription_base.hpp>
 
 #include "bridge_handle.hpp"
@@ -59,7 +59,7 @@ protected:
   rclcpp::SubscriptionBase::SharedPtr ros_subscriber_ = {nullptr};
 
   /// \brief Gazebo publisher, populated when publisher active
-  gz::transport::Node::Publisher gz_publisher_;
+  ignition::transport::Node::Publisher gz_publisher_;
 };
 
 }  // namespace ros_gz_bridge
