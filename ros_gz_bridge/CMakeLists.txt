@@ -15,12 +15,24 @@ find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(yaml_cpp_vendor REQUIRED)
 
-if(NOT DEFINED ENV{GZ_VERSION})
-  set(ENV{GZ_VERSION} "garden")
+# TODO(CH3): Deprecated. Remove on tock.
+if("$ENV{GZ_VERSION}" STREQUAL "" AND NOT "$ENV{IGNITION_VERSION}" STREQUAL "")
+  message(DEPRECATION "Environment variable [IGNITION_VERSION] is deprecated. Use [GZ_VERSION] instead.")
+  set(ENV{GZ_VERSION} $ENV{IGNITION_VERSION})
 endif()
 
+# Edifice
+if("$ENV{GZ_VERSION}" STREQUAL "edifice")
+  find_package(ignition-transport10 REQUIRED)
+  find_package(ignition-msgs7 REQUIRED)
+
+  set(GZ_TARGET_PREFIX ignition)
+  set(GZ_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
+  set(GZ_TRANSPORT_VER ${ignition-transport10_VERSION_MAJOR})
+
+  message(STATUS "Compiling against Ignition Edifice")
 # Garden
-if("$ENV{GZ_VERSION}" STREQUAL "garden")
+elseif("$ENV{GZ_VERSION}" STREQUAL "garden")
   find_package(gz-transport12 REQUIRED)
   find_package(gz-msgs9 REQUIRED)
 
@@ -29,8 +41,16 @@ if("$ENV{GZ_VERSION}" STREQUAL "garden")
   set(GZ_TRANSPORT_VER ${gz-transport12_VERSION_MAJOR})
 
   message(STATUS "Compiling against Gazebo Garden")
+# Default to Fortress
 else()
-  message(FATAL_ERROR "This branch is only compatible with Gazebo Garden forward.")
+  find_package(ignition-transport11 REQUIRED)
+  find_package(ignition-msgs8 REQUIRED)
+
+  set(GZ_TARGET_PREFIX ignition)
+  set(GZ_MSGS_VER ${ignition-msgs8_VERSION_MAJOR})
+  set(GZ_TRANSPORT_VER ${ignition-transport11_VERSION_MAJOR})
+
+  message(STATUS "Compiling against Ignition Fortress")
 endif()
 
 set(GZ_MSGS_VERSION_MAJOR ${${GZ_TARGET_PREFIX}-msgs${GZ_MSGS_VER}_VERSION_MAJOR})

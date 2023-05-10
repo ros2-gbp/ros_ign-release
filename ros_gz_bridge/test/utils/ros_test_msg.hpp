@@ -41,6 +41,7 @@
 #include <geometry_msgs/msg/quaternion.hpp>
 #include <geometry_msgs/msg/vector3.hpp>
 #include <geometry_msgs/msg/wrench.hpp>
+#include <geometry_msgs/msg/wrench_stamped.hpp>
 #include <nav_msgs/msg/odometry.hpp>
 #include <ros_gz_interfaces/msg/entity.hpp>
 #include <ros_gz_interfaces/msg/gui_camera.hpp>
@@ -48,7 +49,9 @@
 #include <ros_gz_interfaces/msg/contact.hpp>
 #include <ros_gz_interfaces/msg/contacts.hpp>
 #include <ros_gz_interfaces/msg/float32_array.hpp>
+#if HAVE_DATAFRAME
 #include <ros_gz_interfaces/msg/dataframe.hpp>
+#endif  // HAVE_DATAFRAME
 #include <ros_gz_interfaces/msg/light.hpp>
 #include <ros_gz_interfaces/msg/param_vec.hpp>
 #include <ros_gz_interfaces/msg/string_vec.hpp>
@@ -61,6 +64,7 @@
 #include <sensor_msgs/msg/image.hpp>
 #include <sensor_msgs/msg/imu.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
+#include <sensor_msgs/msg/joy.hpp>
 #include <sensor_msgs/msg/laser_scan.hpp>
 #include <sensor_msgs/msg/magnetic_field.hpp>
 #include <sensor_msgs/msg/nav_sat_fix.hpp>
@@ -295,6 +299,14 @@ void createTestMsg(geometry_msgs::msg::Wrench & _msg);
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<geometry_msgs::msg::Wrench> & _msg);
 
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(geometry_msgs::msg::WrenchStamped & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<geometry_msgs::msg::WrenchStamped> & _msg);
+
 /// tf2_msgs
 
 /// \brief Create a message used for testing.
@@ -357,6 +369,7 @@ void createTestMsg(ros_gz_interfaces::msg::Contacts & _msg);
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Contacts> & _msg);
 
+#if HAVE_DATAFRAME
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
 void createTestMsg(ros_gz_interfaces::msg::Dataframe & _msg);
@@ -364,6 +377,7 @@ void createTestMsg(ros_gz_interfaces::msg::Dataframe & _msg);
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Dataframe> & _msg);
+#endif  // HAVE_DATAFRAME
 
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
@@ -454,6 +468,14 @@ void createTestMsg(sensor_msgs::msg::JointState & _msg);
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<sensor_msgs::msg::JointState> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(sensor_msgs::msg::Joy & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<sensor_msgs::msg::Joy> & _msg);
 
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.

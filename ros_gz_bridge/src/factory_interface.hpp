@@ -19,7 +19,7 @@
 #include <string>
 
 // include Gazebo Transport
-#include <gz/transport/Node.hh>
+#include <ignition/transport/Node.hh>
 
 // include ROS 2
 #include <rclcpp/rclcpp.hpp>
@@ -40,9 +40,9 @@ public:
     size_t queue_size) = 0;
 
   virtual
-  gz::transport::Node::Publisher
+  ignition::transport::Node::Publisher
   create_gz_publisher(
-    std::shared_ptr<gz::transport::Node> gz_node,
+    std::shared_ptr<ignition::transport::Node> gz_node,
     const std::string & topic_name,
     size_t queue_size) = 0;
 
@@ -52,12 +52,12 @@ public:
     rclcpp::Node::SharedPtr ros_node,
     const std::string & topic_name,
     size_t queue_size,
-    gz::transport::Node::Publisher & gz_pub) = 0;
+    ignition::transport::Node::Publisher & gz_pub) = 0;
 
   virtual
   void
   create_gz_subscriber(
-    std::shared_ptr<gz::transport::Node> node,
+    std::shared_ptr<ignition::transport::Node> node,
     const std::string & topic_name,
     size_t queue_size,
     rclcpp::PublisherBase::SharedPtr ros_pub) = 0;

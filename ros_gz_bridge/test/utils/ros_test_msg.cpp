@@ -446,6 +446,19 @@ void compareTestMsg(const std::shared_ptr<geometry_msgs::msg::Wrench> & _msg)
   compareTestMsg(std::make_shared<geometry_msgs::msg::Vector3>(_msg->torque));
 }
 
+void createTestMsg(geometry_msgs::msg::WrenchStamped & _msg)
+{
+  createTestMsg(_msg.header);
+  createTestMsg(_msg.wrench.force);
+  createTestMsg(_msg.wrench.torque);
+}
+
+void compareTestMsg(const std::shared_ptr<geometry_msgs::msg::WrenchStamped> & _msg)
+{
+  compareTestMsg(std::make_shared<std_msgs::msg::Header>(_msg->header));
+  compareTestMsg(std::make_shared<geometry_msgs::msg::Vector3>(_msg->wrench.force));
+  compareTestMsg(std::make_shared<geometry_msgs::msg::Vector3>(_msg->wrench.torque));
+}
 void createTestMsg(ros_gz_interfaces::msg::Light & _msg)
 {
   createTestMsg(_msg.header);
@@ -734,6 +747,7 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Contacts> & _m
   }
 }
 
+#if HAVE_DATAFRAME
 void createTestMsg(ros_gz_interfaces::msg::Dataframe & _msg)
 {
   createTestMsg(_msg.header);
@@ -759,6 +773,7 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Dataframe> & _
     EXPECT_EQ(expected_msg.data[ii], _msg->data[ii]);
   }
 }
+#endif  // HAVE_DATAFRAME
 
 void createTestMsg(nav_msgs::msg::Odometry & _msg)
 {
@@ -956,6 +971,32 @@ void compareTestMsg(const std::shared_ptr<sensor_msgs::msg::JointState> & _msg)
     EXPECT_FLOAT_EQ(expected_msg.position[i], _msg->position[i]);
     EXPECT_FLOAT_EQ(expected_msg.velocity[i], _msg->velocity[i]);
     EXPECT_FLOAT_EQ(expected_msg.effort[i], _msg->effort[i]);
+  }
+}
+
+void createTestMsg(sensor_msgs::msg::Joy & _msg)
+{
+  std_msgs::msg::Header header_msg;
+  createTestMsg(header_msg);
+
+  _msg.header = header_msg;
+  _msg.axes = {0.5, 0.5, 0.5};
+  _msg.buttons = {0, 0, 0};
+}
+
+void compareTestMsg(const std::shared_ptr<sensor_msgs::msg::Joy> & _msg)
+{
+  sensor_msgs::msg::Joy expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(_msg->header);
+
+  for (auto i = 0u; i < _msg->axes.size(); ++i) {
+    EXPECT_FLOAT_EQ(expected_msg.buttons[i], _msg->buttons[i]);
+  }
+
+  for (auto i = 0u; i < _msg->buttons.size(); ++i) {
+    EXPECT_EQ(expected_msg.buttons[i], _msg->buttons[i]);
   }
 }
 
