@@ -1,0 +1,12 @@
+Source: ros-rolling-ros-ign-gazebo-demos
+Section: misc
+Priority: optional
+Maintainer: Brandon Ong <brandon@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), ros-rolling-ament-cmake, ros-rolling-ament-lint-auto <!nocheck>, ros-rolling-ament-lint-common <!nocheck>, ros-rolling-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-rolling-ros-ign-gazebo-demos
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-rolling-ros-gz-sim-demos, ros-rolling-ros-workspace
+Description: Shim package to redirect to ros_gz_sim_demos.
