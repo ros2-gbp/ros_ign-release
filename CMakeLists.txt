@@ -2,103 +2,25 @@ cmake_minimum_required(VERSION 3.5)
 
 project(ros_ign_image)
 
-# Default to C++17
+# Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 17)
+  set(CMAKE_CXX_STANDARD 14)
 endif()
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic")
 endif()
 
 find_package(ament_cmake REQUIRED)
-find_package(image_transport REQUIRED)
-find_package(ros_ign_bridge REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(sensor_msgs REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 
-# Edifice
-if("$ENV{IGNITION_VERSION}" STREQUAL "edifice")
-  find_package(ignition-transport10 REQUIRED)
-  set(IGN_TRANSPORT_VER ${ignition-transport10_VERSION_MAJOR})
+add_executable(image_bridge src/image_bridge_shim.cpp)
+ament_target_dependencies(image_bridge ament_index_cpp)
 
-  find_package(ignition-msgs7 REQUIRED)
-  set(IGN_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
+ament_export_dependencies(ament_index_cpp ros_gz_image)
 
-  message(STATUS "Compiling against Ignition Edifice")
-# Default to Fortress
-else()
-  find_package(ignition-transport11 REQUIRED)
-  set(IGN_TRANSPORT_VER ${ignition-transport11_VERSION_MAJOR})
-
-  find_package(ignition-msgs8 REQUIRED)
-  set(IGN_MSGS_VER ${ignition-msgs8_VERSION_MAJOR})
-
-  message(STATUS "Compiling against Ignition Fortress")
-endif()
-
-include_directories(include)
-
-set(executable
+install(TARGETS
   image_bridge
-)
-
-add_executable(${executable}
-  src/image_bridge.cpp
-)
-
-target_link_libraries(${executable}
-  ignition-msgs${IGN_MSGS_VER}::core
-  ignition-transport${IGN_TRANSPORT_VER}::core
-)
-
-ament_target_dependencies(${executable}
-  "image_transport"
-  "ros_ign_bridge"
-  "rclcpp"
-  "sensor_msgs"
-)
-
-install(TARGETS ${executable}
   DESTINATION lib/${PROJECT_NAME}
 )
-
-if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  ament_lint_auto_find_test_dependencies()
-
-  # find_package(rostest REQUIRED)
-  #
-  # set(test_publishers
-  #   ign_publisher
-  # )
-  #
-  # set(test_subscribers
-  #   ros_subscriber
-  # )
-  #
-  # foreach(test_publisher ${test_publishers})
-  #   add_executable(${test_publisher}_image
-  #     test/publishers/${test_publisher}.cpp
-  #   )
-  #   target_link_libraries(${test_publisher}_image
-  #     ${catkin_LIBRARIES}
-  #     ignition-msgs${IGN_MSGS_VER}::core
-  #     ignition-transport${IGN_TRANSPORT_VER}::core
-  #     gtest
-  #     gtest_main
-  #   )
-  # endforeach(test_publisher)
-  #
-  # foreach(test_subscriber ${test_subscribers})
-  #   add_rostest_gtest(test_${test_subscriber}_image
-  #     test/${test_subscriber}.test
-  #     test/subscribers/${test_subscriber}.cpp)
-  #   target_link_libraries(test_${test_subscriber}_image
-  #     ${catkin_LIBRARIES}
-  #     ignition-msgs${IGN_MSGS_VER}::core
-  #     ignition-transport${IGN_TRANSPORT_VER}::core
-  #   )
-  # endforeach(test_subscriber)
-endif()
 
 ament_package()
