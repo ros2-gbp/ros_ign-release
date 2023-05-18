@@ -2,30 +2,16 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>ros_ign_gazebo</name>
-  <version>0.244.3</version>
-  <description>Tools for using Ignition Gazebo simulation with ROS.</description>
-  <maintainer email="ahcorde@openrobotics.org">Alejandro Hernandez</maintainer>
+  <version>0.244.10</version>
+  <description>Shim package to redirect to ros_gz_sim.</description>
+  <maintainer email="brandon@openrobotics.org">Brandon Ong</maintainer>
 
   <license>Apache 2.0</license>
 
-  <author>Alejandro Hernandez</author>
-
   <buildtool_depend>ament_cmake</buildtool_depend>
-  <buildtool_depend>pkg-config</buildtool_depend>
+  <buildtool_depend>ament_index_cpp</buildtool_depend>
 
-  <depend>libgflags-dev</depend>
-  <depend>rclcpp</depend>
-  <depend>ignition-math6</depend>
-  <depend>std_msgs</depend>
-
-  <!-- Fortress (default) -->
-  <depend condition="$IGNITION_VERSION == fortress">ignition-gazebo6</depend>
-  <depend condition="$IGNITION_VERSION == ''">ignition-gazebo6</depend>
-  <!-- Edifice -->
-  <depend condition="$IGNITION_VERSION == edifice">ignition-gazebo5</depend>
-
-  <test_depend>ament_lint_auto</test_depend>
-  <test_depend>ament_lint_common</test_depend>
+  <depend>ros_gz_sim</depend>
 
   <export>
     <build_type>ament_cmake</build_type>
