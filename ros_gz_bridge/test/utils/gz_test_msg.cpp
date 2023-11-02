@@ -247,6 +247,54 @@ void compareTestMsg(const std::shared_ptr<ignition::msgs::Vector3d> & _msg)
   EXPECT_EQ(expected_msg.z(), _msg->z());
 }
 
+void createTestMsg(ignition::msgs::Altimeter & _msg)
+{
+  createTestMsg(*_msg.mutable_header());
+  _msg.set_vertical_position(100);
+  _msg.set_vertical_velocity(200);
+  _msg.set_vertical_reference(300);
+}
+
+void compareTestMsg(const std::shared_ptr<ignition::msgs::Altimeter> & _msg)
+{
+  ignition::msgs::Altimeter expected_msg;
+  createTestMsg(expected_msg);
+
+  EXPECT_EQ(expected_msg.vertical_position(), _msg->vertical_position());
+  EXPECT_EQ(expected_msg.vertical_velocity(), _msg->vertical_velocity());
+  EXPECT_EQ(expected_msg.vertical_reference(), _msg->vertical_reference());
+  compareTestMsg(std::make_shared<ignition::msgs::Header>(_msg->header()));
+}
+
+void createTestMsg(ignition::msgs::SensorNoise & _msg)
+{
+  createTestMsg(*_msg.mutable_header());
+  _msg.set_type(ignition::msgs::SensorNoise_Type::SensorNoise_Type_GAUSSIAN_QUANTIZED);
+  _msg.set_mean(100);
+  _msg.set_stddev(200);
+  _msg.set_bias_mean(300);
+  _msg.set_bias_stddev(400);
+  _msg.set_precision(500);
+  _msg.set_dynamic_bias_stddev(600);
+}
+
+void compareTestMsg(const std::shared_ptr<ignition::msgs::SensorNoise> & _msg)
+{
+  ignition::msgs::SensorNoise expected_msg;
+  createTestMsg(expected_msg);
+
+  EXPECT_EQ(
+    expected_msg.type(),
+    ignition::msgs::SensorNoise_Type::SensorNoise_Type_GAUSSIAN_QUANTIZED);
+  EXPECT_EQ(expected_msg.mean(), _msg->mean());
+  EXPECT_EQ(expected_msg.stddev(), _msg->stddev());
+  EXPECT_EQ(expected_msg.bias_mean(), _msg->bias_mean());
+  EXPECT_EQ(expected_msg.bias_stddev(), _msg->bias_stddev());
+  EXPECT_EQ(expected_msg.precision(), _msg->precision());
+  EXPECT_EQ(expected_msg.dynamic_bias_stddev(), _msg->dynamic_bias_stddev());
+  compareTestMsg(std::make_shared<ignition::msgs::Header>(_msg->header()));
+}
+
 void createTestMsg(ignition::msgs::Param & _msg)
 {
   createTestMsg(*_msg.mutable_header());
