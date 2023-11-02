@@ -53,6 +53,7 @@ MAPPINGS = {
         Mapping('ParameterValue', 'Any'),
     ],
     'ros_gz_interfaces': [
+        Mapping('Altimeter', 'Altimeter'),
         Mapping('Contact', 'Contact'),
         Mapping('Contacts', 'Contacts'),
         Mapping('Entity', 'Entity'),
@@ -62,6 +63,7 @@ MAPPINGS = {
         Mapping('Light', 'Light'),
         Mapping('ParamVec', 'Param'),
         Mapping('ParamVec', 'Param_V'),
+        Mapping('SensorNoise', 'SensorNoise'),
         Mapping('StringVec', 'StringMsg_V'),
         Mapping('TrackVisual', 'TrackVisual'),
         Mapping('VideoRecord', 'VideoRecord'),

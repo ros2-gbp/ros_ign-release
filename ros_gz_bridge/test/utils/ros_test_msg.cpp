@@ -601,6 +601,33 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::ParamVec> & _m
   EXPECT_EQ(expected_msg.params[0].value.string_value, _msg->params[0].value.string_value);
 }
 
+void createTestMsg(ros_gz_interfaces::msg::SensorNoise & _msg)
+{
+  createTestMsg(_msg.header);
+
+  _msg.type = 3;
+  _msg.mean = 100;
+  _msg.stddev = 200;
+  _msg.bias_mean = 300;
+  _msg.bias_stddev = 400;
+  _msg.precision = 500;
+  _msg.dynamic_bias_stddev = 600;
+}
+
+void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::SensorNoise> & _msg)
+{
+  ros_gz_interfaces::msg::SensorNoise expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(_msg->header);
+  EXPECT_EQ(expected_msg.mean, _msg->mean);
+  EXPECT_EQ(expected_msg.stddev, _msg->stddev);
+  EXPECT_EQ(expected_msg.bias_mean, _msg->bias_mean);
+  EXPECT_EQ(expected_msg.bias_stddev, _msg->bias_stddev);
+  EXPECT_EQ(expected_msg.precision, _msg->precision);
+  EXPECT_EQ(expected_msg.dynamic_bias_stddev, _msg->dynamic_bias_stddev);
+}
+
 void createTestMsg(ros_gz_interfaces::msg::StringVec & _msg)
 {
   createTestMsg(_msg.header);
@@ -698,6 +725,26 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::JointWrench> &
   compareTestMsg(_msg->header);
   compareTestMsg(std::make_shared<geometry_msgs::msg::Wrench>(_msg->body_1_wrench));
   compareTestMsg(std::make_shared<geometry_msgs::msg::Wrench>(_msg->body_2_wrench));
+}
+
+void createTestMsg(ros_gz_interfaces::msg::Altimeter & _msg)
+{
+  createTestMsg(_msg.header);
+  _msg.vertical_position = 100;
+  _msg.vertical_velocity = 200;
+  _msg.vertical_reference = 300;
+}
+
+void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Altimeter> & _msg)
+{
+  ros_gz_interfaces::msg::Altimeter expected_msg;
+  createTestMsg(expected_msg);
+
+  EXPECT_EQ(expected_msg.vertical_position, _msg->vertical_position);
+  EXPECT_EQ(expected_msg.vertical_velocity, _msg->vertical_velocity);
+  EXPECT_EQ(expected_msg.vertical_reference, _msg->vertical_reference);
+
+  compareTestMsg(_msg->header);
 }
 
 void createTestMsg(ros_gz_interfaces::msg::Entity & _msg)
