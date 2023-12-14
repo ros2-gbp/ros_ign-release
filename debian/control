@@ -1,0 +1,12 @@
+Source: ros-humble-ros-gz-image
+Section: misc
+Priority: optional
+Maintainer: Louise Poubel <louise@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), libignition-msgs8-dev, libignition-transport11-dev, pkg-config, ros-humble-ament-cmake, ros-humble-ament-lint-auto <!nocheck>, ros-humble-ament-lint-common <!nocheck>, ros-humble-image-transport, ros-humble-rclcpp, ros-humble-ros-gz-bridge, ros-humble-sensor-msgs, ros-humble-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-humble-ros-gz-image
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libignition-msgs8-dev, libignition-transport11-dev, ros-humble-image-transport, ros-humble-rclcpp, ros-humble-ros-gz-bridge, ros-humble-sensor-msgs, ros-humble-ros-workspace
+Description: Image utilities for Gazebo simulation with ROS.
