@@ -447,6 +447,18 @@ void compareTestMsg(const std::shared_ptr<geometry_msgs::msg::Twist> & _msg)
   compareTestMsg(std::make_shared<geometry_msgs::msg::Vector3>(_msg->angular));
 }
 
+void createTestMsg(geometry_msgs::msg::TwistStamped & _msg)
+{
+  createTestMsg(_msg.header);
+  createTestMsg(_msg.twist);
+}
+
+void compareTestMsg(const std::shared_ptr<geometry_msgs::msg::TwistStamped> & _msg)
+{
+  compareTestMsg(std::make_shared<geometry_msgs::msg::Twist>(_msg->twist));
+  compareTestMsg(std::make_shared<std_msgs::msg::Header>(_msg->header));
+}
+
 void createTestMsg(geometry_msgs::msg::TwistWithCovariance & _msg)
 {
   createTestMsg(_msg.twist.linear);
@@ -1342,6 +1354,65 @@ void compareTestMsg(const std::shared_ptr<rcl_interfaces::msg::ParameterValue> &
   createTestMsg(expected_msg);
   EXPECT_EQ(expected_msg.type, _msg->type);
   EXPECT_EQ(expected_msg.string_value, _msg->string_value);
+}
+
+void createTestMsg(vision_msgs::msg::Detection2D & _msg)
+{
+  std_msgs::msg::Header header_msg;
+  createTestMsg(header_msg);
+  _msg.header = header_msg;
+
+  vision_msgs::msg::ObjectHypothesisWithPose class_prob;
+  class_prob.hypothesis.class_id = "1";
+  class_prob.hypothesis.score = 1.0;
+  _msg.results.push_back(class_prob);
+
+  _msg.bbox.size_x = 2.0;
+  _msg.bbox.size_y = 4.0;
+  _msg.bbox.center.position.x = 3.0;
+  _msg.bbox.center.position.y = 4.0;
+}
+
+void compareTestMsg(const std::shared_ptr<vision_msgs::msg::Detection2D> & _msg)
+{
+  vision_msgs::msg::Detection2D expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(_msg->header);
+  EXPECT_EQ(expected_msg.results.size(), _msg->results.size());
+  for (size_t i = 0; i < _msg->results.size(); i++) {
+    EXPECT_EQ(expected_msg.results[i].hypothesis.class_id, _msg->results[i].hypothesis.class_id);
+    EXPECT_EQ(expected_msg.results[i].hypothesis.score, _msg->results[i].hypothesis.score);
+  }
+  EXPECT_EQ(expected_msg.bbox.size_x, _msg->bbox.size_x);
+  EXPECT_EQ(expected_msg.bbox.size_y, _msg->bbox.size_y);
+  EXPECT_EQ(expected_msg.bbox.center.position.x, _msg->bbox.center.position.x);
+  EXPECT_EQ(expected_msg.bbox.center.position.y, _msg->bbox.center.position.y);
+}
+
+void createTestMsg(vision_msgs::msg::Detection2DArray & _msg)
+{
+  std_msgs::msg::Header header_msg;
+  createTestMsg(header_msg);
+  _msg.header = header_msg;
+
+  for (size_t i = 0; i < 4; i++) {
+    vision_msgs::msg::Detection2D detection;
+    createTestMsg(detection);
+    _msg.detections.push_back(detection);
+  }
+}
+
+void compareTestMsg(const std::shared_ptr<vision_msgs::msg::Detection2DArray> & _msg)
+{
+  vision_msgs::msg::Detection2DArray expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(_msg->header);
+  EXPECT_EQ(expected_msg.detections.size(), _msg->detections.size());
+  for (size_t i = 0; i < _msg->detections.size(); i++) {
+    compareTestMsg(std::make_shared<vision_msgs::msg::Detection2D>(_msg->detections[i]));
+  }
 }
 
 }  // namespace testing
