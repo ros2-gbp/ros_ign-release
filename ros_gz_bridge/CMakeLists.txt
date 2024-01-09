@@ -41,6 +41,15 @@ elseif("$ENV{GZ_VERSION}" STREQUAL "garden")
   set(GZ_TRANSPORT_VER ${gz-transport12_VERSION_MAJOR})
 
   message(STATUS "Compiling against Gazebo Garden")
+elseif("$ENV{GZ_VERSION}" STREQUAL "harmonic")
+  find_package(gz-transport13 REQUIRED)
+  find_package(gz-msgs10 REQUIRED)
+
+  set(GZ_TARGET_PREFIX gz)
+  set(GZ_MSGS_VER ${gz-msgs10_VERSION_MAJOR})
+  set(GZ_TRANSPORT_VER ${gz-transport13_VERSION_MAJOR})
+
+  message(STATUS "Compiling against Gazebo Harmonic")
 # Default to Fortress
 else()
   find_package(ignition-transport11 REQUIRED)
@@ -70,6 +79,7 @@ set(BRIDGE_MESSAGE_TYPES
   std_msgs
   tf2_msgs
   trajectory_msgs
+  vision_msgs
 )
 
 set(generated_path "${CMAKE_BINARY_DIR}/generated")
@@ -247,6 +257,7 @@ if(BUILD_TESTING)
     std_msgs
     tf2_msgs
     trajectory_msgs
+    vision_msgs
   )
 
   set(generated_path "${CMAKE_BINARY_DIR}/generated/test")
