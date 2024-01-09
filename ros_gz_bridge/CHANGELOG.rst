@@ -2,17 +2,32 @@
 Changelog for package ros_gz_bridge
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.244.12 (2023-12-13)
----------------------
-* Backport: Add conversion for geometry_msgs/msg/TwistStamped <-> gz.msgs.Twist (`#468 <https://github.com/gazebosim/ros_gz/issues/468>`_) (`#470 <https://github.com/gazebosim/ros_gz/issues/470>`_)
-* Add support for Harmonic/Humble pairing (`#462 <https://github.com/gazebosim/ros_gz/issues/462>`_)
+0.254.0 (2024-01-08)
+--------------------
+* Backport: Add conversion for geometry_msgs/msg/TwistStamped <-> gz.msgs.Twist (`#468 <https://github.com/gazebosim/ros_gz/issues/468>`_) (`#471 <https://github.com/gazebosim/ros_gz/issues/471>`_)
+* Forward Port: Add support for Harmonic/Humble pairing (`#462 <https://github.com/gazebosim/ros_gz/issues/462>`_)
 * Added messages for 2D Bounding Boxes to ros_gz_bridge (`#458 <https://github.com/gazebosim/ros_gz/issues/458>`_)
-* Fix double wait in ros_gz_bridge (`#347 <https://github.com/gazebosim/ros_gz/issues/347>`_) (`#450 <https://github.com/gazebosim/ros_gz/issues/450>`_)
-* [backport humble] SensorNoise msg bridging (`#417 <https://github.com/gazebosim/ros_gz/issues/417>`_)
-* [backport humble] Added Altimeter msg bridging (`#413 <https://github.com/gazebosim/ros_gz/issues/413>`_) (`#414 <https://github.com/gazebosim/ros_gz/issues/414>`_) (`#426 <https://github.com/gazebosim/ros_gz/issues/426>`_)
-* [backport humble] Update README.md (`#411 <https://github.com/gazebosim/ros_gz/issues/411>`_)
-  The ROS type for gz.msgs.NavSat messages should be **sensor_msgs/msg/NavSatFix** instead of **sensor_msgs/msg/NavSatFixed**
 * Contributors: Addisu Z. Taddese, Alejandro Hernández Cordero, Arjun K Haridas, wittenator
+
+0.247.0 (2023-11-02)
+--------------------
+* Fix double wait in ros_gz_bridge (`#347 <https://github.com/gazebosim/ros_gz/issues/347>`_) (`#449 <https://github.com/gazebosim/ros_gz/issues/449>`_)
+  Co-authored-by: ymd-stella <7959916+ymd-stella@users.noreply.github.com>
+* [backport iron] SensorNoise msg bridging (`#417 <https://github.com/gazebosim/ros_gz/issues/417>`_) (`#425 <https://github.com/gazebosim/ros_gz/issues/425>`_)
+  Co-authored-by: Aditya Pande <aditya050995@gmail.com>
+* Merge pull request `#420 <https://github.com/gazebosim/ros_gz/issues/420>`_ from gazebosim/ahcorde/iron/backport/411
+  [backport iron] Update README.md (`#411 <https://github.com/gazebosim/ros_gz/issues/411>`_)
+* Merge branch 'iron' into ahcorde/iron/backport/411
+* [backport Iron] Added Altimeter msg bridging (`#413 <https://github.com/gazebosim/ros_gz/issues/413>`_) (`#414 <https://github.com/gazebosim/ros_gz/issues/414>`_)
+  Co-authored-by: Aditya Pande <aditya050995@gmail.com>
+* Update README.md (`#411 <https://github.com/gazebosim/ros_gz/issues/411>`_)
+  The ROS type for gz.msgs.NavSat messages should be **sensor_msgs/msg/NavSatFix** instead of **sensor_msgs/msg/NavSatFixed**
+* Contributors: Alejandro Hernández Cordero, Arjun K Haridas
+
+0.245.0 (2023-05-23)
+--------------------
+* Backport: Add missing rosidl_cmake dep to ros_gz_bridge (`#391 <https://github.com/gazebosim/ros_gz/issues/391>`_) (`#396 <https://github.com/gazebosim/ros_gz/issues/396>`_)
+* Contributors: Michael Carroll, Yadu, Chris Lalancette
 
 0.244.11 (2023-05-23)
 ---------------------
