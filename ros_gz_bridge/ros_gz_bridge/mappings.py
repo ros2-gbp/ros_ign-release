@@ -40,6 +40,7 @@ MAPPINGS = {
         Mapping('Transform', 'Pose'),
         Mapping('TransformStamped', 'Pose'),
         Mapping('Twist', 'Twist'),
+        Mapping('TwistStamped', 'Twist'),
         Mapping('TwistWithCovariance', 'TwistWithCovariance'),
         Mapping('Wrench', 'Wrench'),
         Mapping('WrenchStamped', 'Wrench'),
@@ -100,6 +101,10 @@ MAPPINGS = {
     ],
     'trajectory_msgs': [
         Mapping('JointTrajectory', 'JointTrajectory'),
+    ],
+    'vision_msgs': [
+        Mapping('Detection2DArray', 'AnnotatedAxisAligned2DBox_V'),
+        Mapping('Detection2D', 'AnnotatedAxisAligned2DBox'),
     ],
 }
 
