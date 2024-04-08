@@ -105,11 +105,19 @@ MAPPINGS = {
     'vision_msgs': [
         Mapping('Detection2DArray', 'AnnotatedAxisAligned2DBox_V'),
         Mapping('Detection2D', 'AnnotatedAxisAligned2DBox'),
+        Mapping('Detection3DArray', 'AnnotatedOriented3DBox_V'),
+        Mapping('Detection3D', 'AnnotatedOriented3DBox'),
     ],
 }
 
 MAPPINGS_8_4_0 = {
     'ros_gz_interfaces': [
         Mapping('Dataframe', 'Dataframe'),
+    ],
+}
+
+MAPPINGS_10_1_0 = {
+    'ros_gz_interfaces': [
+        Mapping('MaterialColor', 'MaterialColor'),
     ],
 }
