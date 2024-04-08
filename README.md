@@ -1,3 +1,39 @@
+## ros_gz (iron) - 0.254.1-1
+
+The packages in the `ros_gz` repository were released into the `iron` distro by running `/usr/bin/bloom-release --rosdistro iron --track iron ros_gz` on `Mon, 08 Apr 2024 18:42:00 -0000`
+
+These packages were released:
+- `ros_gz`
+- `ros_gz_bridge`
+- `ros_gz_image`
+- `ros_gz_interfaces`
+- `ros_gz_sim`
+- `ros_gz_sim_demos`
+- `ros_ign`
+- `ros_ign_bridge`
+- `ros_ign_gazebo`
+- `ros_ign_gazebo_demos`
+- `ros_ign_image`
+- `ros_ign_interfaces`
+- `test_ros_gz_bridge`
+
+Version of package(s) in repository `ros_gz`:
+
+- upstream repository: https://github.com/gazebosim/ros_gz
+- release repository: https://github.com/ros2-gbp/ros_ign-release.git
+- rosdistro version: `0.254.0-1`
+- old version: `0.254.0-1`
+- new version: `0.254.1-1`
+
+Versions of tools used:
+
+- bloom version: `0.12.0`
+- catkin_pkg version: `0.5.2`
+- rosdep version: `0.22.2`
+- rosdistro version: `0.9.0`
+- vcstools version: `0.1.42`
+
+
 ## ros_gz (humble) - 0.244.14-1
 
 The packages in the `ros_gz` repository were released into the `humble` distro by running `/usr/bin/bloom-release --rosdistro humble --track humble ros_gz` on `Mon, 08 Apr 2024 18:34:40 -0000`
