@@ -2,26 +2,29 @@
 Changelog for package ros_gz_interfaces
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.244.14 (2024-04-08)
----------------------
-* Add option to change material color from ROS. (`#486 <https://github.com/gazebosim/ros_gz/issues/486>`_)
+0.254.1 (2024-04-08)
+--------------------
+* Add option to change material color from ROS. (`#520 <https://github.com/gazebosim/ros_gz/issues/520>`_)
+  Forward port of `#486 <https://github.com/gazebosim/ros_gz/issues/486>`_
   * Message and bridge for MaterialColor.
   This allows bridging MaterialColor from ROS to GZ and is
   important for allowing simulation users to create status lights.
-  ---------
-  Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
-  Co-authored-by: Addisu Z. Taddese <addisuzt@intrinsic.ai>
-  Co-authored-by: Addisu Z. Taddese <addisu@openrobotics.org>
 * Contributors: Benjamin Perseghetti
 
-0.244.13 (2024-01-23)
----------------------
+0.254.0 (2024-01-08)
+--------------------
 
-0.244.12 (2023-12-13)
----------------------
-* [backport humble] SensorNoise msg bridging (`#417 <https://github.com/gazebosim/ros_gz/issues/417>`_)
-* [backport humble] Added Altimeter msg bridging (`#413 <https://github.com/gazebosim/ros_gz/issues/413>`_) (`#414 <https://github.com/gazebosim/ros_gz/issues/414>`_) (`#426 <https://github.com/gazebosim/ros_gz/issues/426>`_)
+0.247.0 (2023-11-02)
+--------------------
+* [backport iron] SensorNoise msg bridging (`#417 <https://github.com/gazebosim/ros_gz/issues/417>`_) (`#425 <https://github.com/gazebosim/ros_gz/issues/425>`_)
+  Co-authored-by: Aditya Pande <aditya050995@gmail.com>
+* Merge branch 'iron' into ahcorde/iron/backport/411
+* [backport Iron] Added Altimeter msg bridging (`#413 <https://github.com/gazebosim/ros_gz/issues/413>`_) (`#414 <https://github.com/gazebosim/ros_gz/issues/414>`_)
+  Co-authored-by: Aditya Pande <aditya050995@gmail.com>
 * Contributors: Alejandro Hernández Cordero
+
+0.245.0 (2023-05-23)
+--------------------
 
 0.244.11 (2023-05-23)
 ---------------------

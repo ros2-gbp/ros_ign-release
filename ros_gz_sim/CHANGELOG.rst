@@ -2,30 +2,22 @@
 Changelog for package ros_gz_sim
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.244.14 (2024-04-08)
----------------------
-* Support `<gazebo_ros>` in `package.xml` exports (`#492 <https://github.com/gazebosim/ros_gz/issues/492>`_)
-  This copies the implementation from `gazebo_ros_paths.py` to provide a
-  way for packages to set resource paths from `package.xml`.
-  ```
-  e.g.  <export>
-  <gazebo_ros gazebo_model_path="${prefix}/models"/>
-  <gazebo_ros gazebo_media_path="${prefix}/models"/>
-  </export>
-  ```
-  The value of `gazebo_model_path` and `gazebo_media_path` is appended to `GZ_SIM_RESOURCE_PATH`
-  The value of `plugin_path` appended to `GZ_SIM_SYSTEM_PLUGIN_PATH`
-  ---------
-* Contributors: Addisu Z. Taddese
+0.254.1 (2024-04-08)
+--------------------
 
-0.244.13 (2024-01-23)
----------------------
-
-0.244.12 (2023-12-13)
----------------------
-* Add support for Harmonic/Humble pairing (`#462 <https://github.com/gazebosim/ros_gz/issues/462>`_)
-* Set on_exit_shutdown argument for gz-sim ExecuteProcess (`#355 <https://github.com/gazebosim/ros_gz/issues/355>`_) (`#451 <https://github.com/gazebosim/ros_gz/issues/451>`_)
+0.254.0 (2024-01-08)
+--------------------
+* Forward port: Add support for Harmonic/Humble pairing (`#462 <https://github.com/gazebosim/ros_gz/issues/462>`_)
 * Contributors: Addisu Z. Taddese, Michael Carroll
+
+0.247.0 (2023-11-02)
+--------------------
+* set on_exit_shutdown argument for gz-sim ExecuteProcess (`#355 <https://github.com/gazebosim/ros_gz/issues/355>`_) (`#452 <https://github.com/gazebosim/ros_gz/issues/452>`_)
+  Co-authored-by: andermi <anderson@mbari.org>
+* Contributors: Michael Carroll
+
+0.245.0 (2023-05-23)
+--------------------
 
 0.244.11 (2023-05-23)
 ---------------------
