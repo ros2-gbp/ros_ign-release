@@ -18,6 +18,7 @@
 
 #include <memory>
 #include <string>
+#include <cstddef>
 
 #include "gz/msgs/config.hh"
 
@@ -576,6 +577,36 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Light> & _msg)
 
   EXPECT_FLOAT_EQ(expected_msg.intensity, _msg->intensity);
 }
+
+#if HAVE_MATERIALCOLOR
+void createTestMsg(ros_gz_interfaces::msg::MaterialColor & _msg)
+{
+  createTestMsg(_msg.header);
+  createTestMsg(_msg.entity);
+  createTestMsg(_msg.ambient);
+  createTestMsg(_msg.diffuse);
+  createTestMsg(_msg.specular);
+  createTestMsg(_msg.emissive);
+  _msg.shininess = 1.0;
+  _msg.entity_match = ros_gz_interfaces::msg::MaterialColor::ALL;
+}
+
+void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::MaterialColor> & _msg)
+{
+  ros_gz_interfaces::msg::MaterialColor expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(_msg->header);
+  compareTestMsg(std::make_shared<ros_gz_interfaces::msg::Entity>(_msg->entity));
+  compareTestMsg(std::make_shared<std_msgs::msg::ColorRGBA>(_msg->ambient));
+  compareTestMsg(std::make_shared<std_msgs::msg::ColorRGBA>(_msg->diffuse));
+  compareTestMsg(std::make_shared<std_msgs::msg::ColorRGBA>(_msg->specular));
+  compareTestMsg(std::make_shared<std_msgs::msg::ColorRGBA>(_msg->emissive));
+
+  EXPECT_EQ(expected_msg.shininess, _msg->shininess);
+  EXPECT_EQ(expected_msg.entity_match, _msg->entity_match);
+}
+#endif  // HAVE_MATERIALCOLOR
 
 void createTestMsg(ros_gz_interfaces::msg::GuiCamera & _msg)
 {
@@ -1443,6 +1474,77 @@ void compareTestMsg(const std::shared_ptr<vision_msgs::msg::Detection2DArray> & 
   EXPECT_EQ(expected_msg.detections.size(), _msg->detections.size());
   for (size_t i = 0; i < _msg->detections.size(); i++) {
     compareTestMsg(std::make_shared<vision_msgs::msg::Detection2D>(_msg->detections[i]));
+  }
+}
+
+void createTestMsg(vision_msgs::msg::Detection3D & _msg)
+{
+  std_msgs::msg::Header header_msg;
+  createTestMsg(header_msg);
+  _msg.header = header_msg;
+
+  vision_msgs::msg::ObjectHypothesisWithPose class_prob;
+  class_prob.hypothesis.class_id = "1";
+  class_prob.hypothesis.score = 1.0;
+  _msg.results.push_back(class_prob);
+
+  _msg.bbox.size.x = 3.0;
+  _msg.bbox.size.y = 5.0;
+  _msg.bbox.size.z = 7.0;
+  _msg.bbox.center.position.x = 2.0;
+  _msg.bbox.center.position.y = 4.0;
+  _msg.bbox.center.position.z = 6.0;
+  _msg.bbox.center.orientation.x = 0.733;
+  _msg.bbox.center.orientation.y = 0.462;
+  _msg.bbox.center.orientation.z = 0.191;
+  _msg.bbox.center.orientation.w = 0.462;
+}
+
+void compareTestMsg(const std::shared_ptr<vision_msgs::msg::Detection3D> & _msg)
+{
+  vision_msgs::msg::Detection3D expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(_msg->header);
+  EXPECT_EQ(expected_msg.results.size(), _msg->results.size());
+  for (size_t i = 0; i < _msg->results.size(); i++) {
+    EXPECT_EQ(expected_msg.results[i].hypothesis.class_id, _msg->results[i].hypothesis.class_id);
+    EXPECT_EQ(expected_msg.results[i].hypothesis.score, _msg->results[i].hypothesis.score);
+  }
+  EXPECT_EQ(expected_msg.bbox.size.x, _msg->bbox.size.x);
+  EXPECT_EQ(expected_msg.bbox.size.y, _msg->bbox.size.y);
+  EXPECT_EQ(expected_msg.bbox.size.z, _msg->bbox.size.z);
+  EXPECT_EQ(expected_msg.bbox.center.position.x, _msg->bbox.center.position.x);
+  EXPECT_EQ(expected_msg.bbox.center.position.y, _msg->bbox.center.position.y);
+  EXPECT_EQ(expected_msg.bbox.center.position.z, _msg->bbox.center.position.z);
+  EXPECT_EQ(expected_msg.bbox.center.orientation.x, _msg->bbox.center.orientation.x);
+  EXPECT_EQ(expected_msg.bbox.center.orientation.y, _msg->bbox.center.orientation.y);
+  EXPECT_EQ(expected_msg.bbox.center.orientation.z, _msg->bbox.center.orientation.z);
+  EXPECT_EQ(expected_msg.bbox.center.orientation.w, _msg->bbox.center.orientation.w);
+}
+
+void createTestMsg(vision_msgs::msg::Detection3DArray & _msg)
+{
+  std_msgs::msg::Header header_msg;
+  createTestMsg(header_msg);
+  _msg.header = header_msg;
+
+  for (size_t i = 0; i < 4; i++) {
+    vision_msgs::msg::Detection3D detection;
+    createTestMsg(detection);
+    _msg.detections.push_back(detection);
+  }
+}
+
+void compareTestMsg(const std::shared_ptr<vision_msgs::msg::Detection3DArray> & _msg)
+{
+  vision_msgs::msg::Detection3DArray expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(_msg->header);
+  EXPECT_EQ(expected_msg.detections.size(), _msg->detections.size());
+  for (size_t i = 0; i < _msg->detections.size(); i++) {
+    compareTestMsg(std::make_shared<vision_msgs::msg::Detection3D>(_msg->detections[i]));
   }
 }
 
