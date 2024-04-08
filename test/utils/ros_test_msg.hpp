@@ -56,6 +56,9 @@
 #include <ros_gz_interfaces/msg/dataframe.hpp>
 #endif  // HAVE_DATAFRAME
 #include <ros_gz_interfaces/msg/light.hpp>
+#if HAVE_MATERIALCOLOR
+#include <ros_gz_interfaces/msg/material_color.hpp>
+#endif  // HAVE_MATERIALCOLOR
 #include <ros_gz_interfaces/msg/param_vec.hpp>
 #include <ros_gz_interfaces/msg/sensor_noise.hpp>
 #include <ros_gz_interfaces/msg/string_vec.hpp>
@@ -78,6 +81,7 @@
 #include <trajectory_msgs/msg/joint_trajectory.hpp>
 #include <rcl_interfaces/msg/parameter_value.hpp>
 #include "vision_msgs/msg/detection2_d_array.hpp"
+#include "vision_msgs/msg/detection3_d_array.hpp"
 
 namespace ros_gz_bridge
 {
@@ -376,6 +380,16 @@ void createTestMsg(ros_gz_interfaces::msg::Light & _msg);
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Light> & _msg);
 
+#if HAVE_MATERIALCOLOR
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ros_gz_interfaces::msg::MaterialColor & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::MaterialColor> & _msg);
+#endif  // HAVE_MATERIALCOLOR
+
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
 void createTestMsg(ros_gz_interfaces::msg::Entity & _msg);
@@ -597,6 +611,22 @@ void createTestMsg(vision_msgs::msg::Detection2D & _msg);
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<vision_msgs::msg::Detection2D> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(vision_msgs::msg::Detection3DArray & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<vision_msgs::msg::Detection3DArray> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(vision_msgs::msg::Detection3D & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<vision_msgs::msg::Detection3D> & _msg);
 
 }  // namespace testing
 }  // namespace ros_gz_bridge
