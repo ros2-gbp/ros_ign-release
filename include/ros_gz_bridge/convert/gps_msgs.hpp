@@ -12,27 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "ros_gz_bridge/convert/builtin_interfaces.hpp"
+#ifndef ROS_GZ_BRIDGE__CONVERT__GPS_MSGS_HPP_
+#define ROS_GZ_BRIDGE__CONVERT__GPS_MSGS_HPP_
+
+// Gazebo Msgs
+#include <gz/msgs/navsat.pb.h>
+
+// ROS 2 messages
+#include <gps_msgs/msg/gps_fix.hpp>
+
+#include <ros_gz_bridge/convert_decl.hpp>
 
 namespace ros_gz_bridge
 {
 template<>
 void
 convert_ros_to_gz(
-  const builtin_interfaces::msg::Time & ros_msg,
-  gz::msgs::Time & gz_msg)
-{
-  gz_msg.set_sec(ros_msg.sec);
-  gz_msg.set_nsec(ros_msg.nanosec);
-}
+  const gps_msgs::msg::GPSFix & ros_msg,
+  gz::msgs::NavSat & gz_msg);
 
 template<>
 void
 convert_gz_to_ros(
-  const gz::msgs::Time & gz_msg,
-  builtin_interfaces::msg::Time & ros_msg)
-{
-  ros_msg.sec = gz_msg.sec();
-  ros_msg.nanosec = gz_msg.nsec();
-}
+  const gz::msgs::NavSat & gz_msg,
+  gps_msgs::msg::GPSFix & ros_msg);
 }  // namespace ros_gz_bridge
+
+#endif  // ROS_GZ_BRIDGE__CONVERT__GPS_MSGS_HPP_

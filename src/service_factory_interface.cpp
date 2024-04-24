@@ -1,4 +1,4 @@
-// Copyright 2022 Open Source Robotics Foundation, Inc.
+// Copyright 2024 Open Source Robotics Foundation, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,27 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "ros_gz_bridge/convert/builtin_interfaces.hpp"
+#include "service_factory_interface.hpp"
 
 namespace ros_gz_bridge
 {
-template<>
-void
-convert_ros_to_gz(
-  const builtin_interfaces::msg::Time & ros_msg,
-  gz::msgs::Time & gz_msg)
+
+ServiceFactoryInterface::~ServiceFactoryInterface()
 {
-  gz_msg.set_sec(ros_msg.sec);
-  gz_msg.set_nsec(ros_msg.nanosec);
 }
 
-template<>
-void
-convert_gz_to_ros(
-  const gz::msgs::Time & gz_msg,
-  builtin_interfaces::msg::Time & ros_msg)
-{
-  ros_msg.sec = gz_msg.sec();
-  ros_msg.nanosec = gz_msg.nsec();
-}
 }  // namespace ros_gz_bridge
