@@ -37,15 +37,12 @@ int main(int argc, char * argv[])
   config.ros_topic_name = "chatter";
   config.gz_topic_name = "chatter";
   config.ros_type_name = "std_msgs/msg/String";
-  config.gz_type_name = "ignition.msgs.StringMsg";
+  config.gz_type_name = "gz.msgs.StringMsg";
   config.is_lazy = lazy_subscription;
 
   bridge_node->add_bridge(config);
 
   rclcpp::spin(bridge_node);
-
-  // Wait for gz node shutdown
-  ignition::transport::waitForShutdown();
 
   return 0;
 }

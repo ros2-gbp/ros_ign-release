@@ -14,66 +14,21 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
-# TODO(CH3): Deprecated. Remove on tock.
-if("$ENV{GZ_VERSION}" STREQUAL "" AND NOT "$ENV{IGNITION_VERSION}" STREQUAL "")
-  message(DEPRECATION "Environment variable [IGNITION_VERSION] is deprecated. Use [GZ_VERSION] instead.")
-  set(ENV{GZ_VERSION} $ENV{IGNITION_VERSION})
-endif()
+find_package(gz_math_vendor REQUIRED)
+find_package(gz-math REQUIRED)
 
-# Edifice
-if("$ENV{GZ_VERSION}" STREQUAL "edifice")
-  find_package(ignition-math6 REQUIRED)
-  set(GZ_MATH_VER ${ignition-math6_VERSION_MAJOR})
+find_package(gz_transport_vendor REQUIRED)
+find_package(gz-transport REQUIRED)
 
-  find_package(ignition-transport10 REQUIRED)
-  set(GZ_TRANSPORT_VER ${ignition-transport10_VERSION_MAJOR})
+find_package(gz_msgs_vendor REQUIRED)
+find_package(gz-msgs REQUIRED)
 
-  find_package(ignition-msgs7 REQUIRED)
-  set(GZ_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
+find_package(gz_sim_vendor REQUIRED)
+find_package(gz-sim REQUIRED)
+# Needed in launch/gz_sim.launch.py.in
+set(GZ_SIM_VER ${gz-sim_VERSION_MAJOR})
 
-  find_package(ignition-gazebo5 REQUIRED)
-  set(GZ_SIM_VER ${ignition-gazebo5_VERSION_MAJOR})
-
-  set(GZ_TARGET_PREFIX ignition)
-
-  message(STATUS "Compiling against Gazebo Edifice")
-# Garden
-elseif("$ENV{GZ_VERSION}" STREQUAL "garden")
-  find_package(gz-math7 REQUIRED)
-  set(GZ_MATH_VER ${gz-math7_VERSION_MAJOR})
-
-  find_package(gz-transport12 REQUIRED)
-  set(GZ_TRANSPORT_VER ${gz-transport12_VERSION_MAJOR})
-
-  find_package(gz-msgs9 REQUIRED)
-  set(GZ_MSGS_VER ${gz-msgs9_VERSION_MAJOR})
-
-  find_package(gz-sim7 REQUIRED)
-  set(GZ_SIM_VER ${gz-sim7_VERSION_MAJOR})
-
-  set(GZ_TARGET_PREFIX gz)
-
-  message(STATUS "Compiling against Gazebo Garden")
-# Default to Fortress
-else()
-  find_package(ignition-math6 REQUIRED)
-  set(GZ_MATH_VER ${ignition-math6_VERSION_MAJOR})
-
-  find_package(ignition-transport11 REQUIRED)
-  set(GZ_TRANSPORT_VER ${ignition-transport11_VERSION_MAJOR})
-
-  find_package(ignition-msgs8 REQUIRED)
-  set(GZ_MSGS_VER ${ignition-msgs8_VERSION_MAJOR})
-
-  find_package(ignition-gazebo6 REQUIRED)
-  set(GZ_SIM_VER ${ignition-gazebo6_VERSION_MAJOR})
-
-  set(GZ_TARGET_PREFIX ignition)
-
-  message(STATUS "Compiling against Gazebo Fortress")
-endif()
-
-ign_find_package(gflags
+gz_find_package(gflags
     REQUIRED
     PKGCONFIG gflags)
 find_package(std_msgs REQUIRED)
@@ -85,9 +40,9 @@ ament_target_dependencies(create
 )
 target_link_libraries(create
   gflags
-  ${GZ_TARGET_PREFIX}-math${GZ_MATH_VER}::core
-  ${GZ_TARGET_PREFIX}-msgs${GZ_MSGS_VER}::core
-  ${GZ_TARGET_PREFIX}-transport${GZ_TRANSPORT_VER}::core
+  gz-math::core
+  gz-msgs::core
+  gz-transport::core
 )
 ament_target_dependencies(create std_msgs)
 
@@ -142,10 +97,14 @@ if(BUILD_TESTING)
 
   # GTest
   find_package(ament_cmake_gtest REQUIRED)
+  find_package(launch_testing_ament_cmake REQUIRED)
   ament_find_gtest()
 
   ament_add_gtest_executable(test_stopwatch
     test/test_stopwatch.cpp
+  )
+  ament_add_gtest_executable(test_create
+    test/test_create.cpp
   )
 
   ament_target_dependencies(test_stopwatch rclcpp)
@@ -158,12 +117,16 @@ if(BUILD_TESTING)
   target_link_libraries(test_stopwatch
     ${PROJECT_NAME}
   )
+  target_link_libraries(test_create
+    gz-transport::core
+  )
 
   install(
-    TARGETS test_stopwatch
+    TARGETS test_stopwatch test_create
     DESTINATION lib/${PROJECT_NAME}
   )
   ament_add_gtest_test(test_stopwatch)
+  add_launch_test(test/test_create_node.launch.py TIMEOUT 200)
 endif()
 
 ament_package()
