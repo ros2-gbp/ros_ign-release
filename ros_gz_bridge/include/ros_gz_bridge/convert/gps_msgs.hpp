@@ -12,33 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef ROS_GZ_BRIDGE__CONVERT__RCL_INTERFACES_HPP_
-#define ROS_GZ_BRIDGE__CONVERT__RCL_INTERFACES_HPP_
+#ifndef ROS_GZ_BRIDGE__CONVERT__GPS_MSGS_HPP_
+#define ROS_GZ_BRIDGE__CONVERT__GPS_MSGS_HPP_
 
-// GZ messages
-#include <gz/msgs/any.pb.h>
+// Gazebo Msgs
+#include <gz/msgs/navsat.pb.h>
 
 // ROS 2 messages
-#include <rcl_interfaces/msg/parameter.hpp>
-#include <rcl_interfaces/msg/parameter_type.hpp>
-#include <rcl_interfaces/msg/parameter_value.hpp>
+#include <gps_msgs/msg/gps_fix.hpp>
 
 #include <ros_gz_bridge/convert_decl.hpp>
 
 namespace ros_gz_bridge
 {
-
 template<>
 void
 convert_ros_to_gz(
-  const rcl_interfaces::msg::ParameterValue & ros_msg,
-  gz::msgs::Any & ign_msg);
+  const gps_msgs::msg::GPSFix & ros_msg,
+  gz::msgs::NavSat & gz_msg);
 
 template<>
 void
 convert_gz_to_ros(
-  const gz::msgs::Any & ign_msg,
-  rcl_interfaces::msg::ParameterValue & ros_msg);
-
+  const gz::msgs::NavSat & gz_msg,
+  gps_msgs::msg::GPSFix & ros_msg);
 }  // namespace ros_gz_bridge
-#endif  // ROS_GZ_BRIDGE__CONVERT__RCL_INTERFACES_HPP_
+
+#endif  // ROS_GZ_BRIDGE__CONVERT__GPS_MSGS_HPP_

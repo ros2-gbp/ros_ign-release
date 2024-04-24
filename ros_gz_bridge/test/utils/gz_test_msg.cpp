@@ -20,6 +20,10 @@
 #include <string>
 #include <cstddef>
 
+#if GZ_MSGS_MAJOR_VERSION >= 10
+#define GZ_MSGS_IMU_HAS_COVARIANCE
+#endif
+
 namespace ros_gz_bridge
 {
 namespace testing
@@ -284,9 +288,7 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::SensorNoise> & _msg)
   gz::msgs::SensorNoise expected_msg;
   createTestMsg(expected_msg);
 
-  EXPECT_EQ(
-    expected_msg.type(),
-    gz::msgs::SensorNoise_Type::SensorNoise_Type_GAUSSIAN_QUANTIZED);
+  EXPECT_EQ(expected_msg.type(), gz::msgs::SensorNoise_Type::SensorNoise_Type_GAUSSIAN_QUANTIZED);
   EXPECT_EQ(expected_msg.mean(), _msg->mean());
   EXPECT_EQ(expected_msg.stddev(), _msg->stddev());
   EXPECT_EQ(expected_msg.bias_mean(), _msg->bias_mean());
@@ -372,6 +374,7 @@ void createTestMsg(gz::msgs::PoseWithCovariance & _msg)
 {
   createTestMsg(*_msg.mutable_pose()->mutable_position());
   createTestMsg(*_msg.mutable_pose()->mutable_orientation());
+  createTestMsg(*_msg.mutable_pose()->mutable_header());
   for (int i = 0; i < 36; i++) {
     _msg.mutable_covariance()->add_data(i);
   }
@@ -429,12 +432,15 @@ void createTestMsg(gz::msgs::TwistWithCovariance & _msg)
 {
   gz::msgs::Vector3d linear_msg;
   gz::msgs::Vector3d angular_msg;
+  gz::msgs::Header header_msg;
 
   createTestMsg(linear_msg);
   createTestMsg(angular_msg);
+  createTestMsg(header_msg);
 
   _msg.mutable_twist()->mutable_linear()->CopyFrom(linear_msg);
   _msg.mutable_twist()->mutable_angular()->CopyFrom(angular_msg);
+  _msg.mutable_twist()->mutable_header()->CopyFrom(header_msg);
   for (int i = 0; i < 36; i++) {
     _msg.mutable_covariance()->add_data(i);
   }
@@ -609,7 +615,6 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Contacts> & _msg)
   }
 }
 
-#if HAVE_DATAFRAME
 void createTestMsg(gz::msgs::Dataframe & _msg)
 {
   gz::msgs::Header header_msg;
@@ -647,7 +652,6 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Dataframe> & _msg)
   EXPECT_EQ(expected_msg.dst_address(), _msg->dst_address());
   EXPECT_EQ(expected_msg.data(), _msg->data());
 }
-#endif  // HAVE_DATAFRAME
 
 void createTestMsg(gz::msgs::Image & _msg)
 {
@@ -811,6 +815,13 @@ void createTestMsg(gz::msgs::IMU & _msg)
   _msg.mutable_orientation()->CopyFrom(quaternion_msg);
   _msg.mutable_angular_velocity()->CopyFrom(vector3_msg);
   _msg.mutable_linear_acceleration()->CopyFrom(vector3_msg);
+#ifdef GZ_MSGS_IMU_HAS_COVARIANCE
+  for (int i = 0; i < 9; i++) {
+    _msg.mutable_orientation_covariance()->add_data(i + 1);
+    _msg.mutable_angular_velocity_covariance()->add_data(i + 1);
+    _msg.mutable_linear_acceleration_covariance()->add_data(i + 1);
+  }
+#endif
 }
 
 void compareTestMsg(const std::shared_ptr<gz::msgs::IMU> & _msg)
@@ -819,6 +830,13 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::IMU> & _msg)
   compareTestMsg(std::make_shared<gz::msgs::Quaternion>(_msg->orientation()));
   compareTestMsg(std::make_shared<gz::msgs::Vector3d>(_msg->angular_velocity()));
   compareTestMsg(std::make_shared<gz::msgs::Vector3d>(_msg->linear_acceleration()));
+#ifdef GZ_MSGS_IMU_HAS_COVARIANCE
+  for (int i = 0; i < 9; i++) {
+    EXPECT_EQ(_msg->orientation_covariance().data(i), i + 1);
+    EXPECT_EQ(_msg->angular_velocity_covariance().data(i), i + 1);
+    EXPECT_EQ(_msg->linear_acceleration_covariance().data(i), i + 1);
+  }
+#endif
 }
 
 void createTestMsg(gz::msgs::Axis & _msg)
@@ -1325,37 +1343,6 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Light> & _msg)
 
   EXPECT_FLOAT_EQ(expected_msg.intensity(), _msg->intensity());
 }
-
-#if HAVE_MATERIALCOLOR
-void createTestMsg(gz::msgs::MaterialColor & _msg)
-{
-  createTestMsg(*_msg.mutable_header());
-  createTestMsg(*_msg.mutable_entity());
-  createTestMsg(*_msg.mutable_ambient());
-  createTestMsg(*_msg.mutable_diffuse());
-  createTestMsg(*_msg.mutable_specular());
-  createTestMsg(*_msg.mutable_emissive());
-
-  _msg.set_shininess(1.0);
-  _msg.set_entity_match(gz::msgs::MaterialColor::EntityMatch::MaterialColor_EntityMatch_ALL);
-}
-
-void compareTestMsg(const std::shared_ptr<gz::msgs::MaterialColor> & _msg)
-{
-  gz::msgs::MaterialColor expected_msg;
-  createTestMsg(expected_msg);
-
-  compareTestMsg(std::make_shared<gz::msgs::Header>(_msg->header()));
-  compareTestMsg(std::make_shared<gz::msgs::Entity>(_msg->entity()));
-  compareTestMsg(std::make_shared<gz::msgs::Color>(_msg->ambient()));
-  compareTestMsg(std::make_shared<gz::msgs::Color>(_msg->diffuse()));
-  compareTestMsg(std::make_shared<gz::msgs::Color>(_msg->specular()));
-  compareTestMsg(std::make_shared<gz::msgs::Color>(_msg->emissive()));
-
-  EXPECT_EQ(expected_msg.shininess(), _msg->shininess());
-  EXPECT_EQ(expected_msg.entity_match(), _msg->entity_match());
-}
-#endif  // HAVE_MATERIALCOLOR
 
 void createTestMsg(gz::msgs::GUICamera & _msg)
 {

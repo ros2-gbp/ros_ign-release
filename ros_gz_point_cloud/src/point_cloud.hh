@@ -16,7 +16,7 @@
 #define ROS_GZ_POINTCLOUD__POINTCLOUD_HPP_
 
 #include <memory>
-#include <gz/sim/System.hh>
+#include <ignition/gazebo/System.hh>
 
 namespace ros_gz_point_cloud
 {
@@ -36,9 +36,9 @@ namespace ros_gz_point_cloud
   /// * `<engine>`: Render engine name, defaults to 'ogre2'
   /// * `<scene>`: Scene name, defaults to 'scene'
   class PointCloud:
-  public gz::sim::System,
-  public gz::sim::ISystemConfigure,
-  public gz::sim::ISystemPostUpdate
+  public ignition::gazebo::System,
+  public ignition::gazebo::ISystemConfigure,
+  public ignition::gazebo::ISystemPostUpdate
   {
     /// \brief Constructor
 
@@ -54,17 +54,17 @@ public:
 
 public:
     void Configure(
-      const gz::sim::Entity & _entity,
+      const ignition::gazebo::Entity & _entity,
       const std::shared_ptr < const sdf::Element > & _sdf,
-      gz::sim::EntityComponentManager & _ecm,
-      gz::sim::EventManager & _eventMgr) override;
+      ignition::gazebo::EntityComponentManager & _ecm,
+      ignition::gazebo::EventManager & _eventMgr) override;
 
     // Documentation inherited
 
 public:
     void PostUpdate(
-      const gz::sim::UpdateInfo & _info,
-      const gz::sim::EntityComponentManager & _ecm) override;
+      const ignition::gazebo::UpdateInfo & _info,
+      const ignition::gazebo::EntityComponentManager & _ecm) override;
 
     /// \brief Private data pointer.
 

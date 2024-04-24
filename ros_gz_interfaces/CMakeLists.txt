@@ -27,7 +27,6 @@ set(msg_files
   "msg/GuiCamera.msg"
   "msg/JointWrench.msg"
   "msg/Light.msg"
-  "msg/MaterialColor.msg"
   "msg/ParamVec.msg"
   "msg/SensorNoise.msg"
   "msg/StringVec.msg"
