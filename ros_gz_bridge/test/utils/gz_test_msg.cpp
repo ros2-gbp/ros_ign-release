@@ -20,6 +20,10 @@
 #include <string>
 #include <cstddef>
 
+#if GZ_MSGS_MAJOR_VERSION >= 10
+#define GZ_MSGS_IMU_HAS_COVARIANCE
+#endif
+
 namespace ros_gz_bridge
 {
 namespace testing
@@ -429,12 +433,15 @@ void createTestMsg(gz::msgs::TwistWithCovariance & _msg)
 {
   gz::msgs::Vector3d linear_msg;
   gz::msgs::Vector3d angular_msg;
+  gz::msgs::Header header_msg;
 
   createTestMsg(linear_msg);
   createTestMsg(angular_msg);
+  createTestMsg(header_msg);
 
   _msg.mutable_twist()->mutable_linear()->CopyFrom(linear_msg);
   _msg.mutable_twist()->mutable_angular()->CopyFrom(angular_msg);
+  _msg.mutable_twist()->mutable_header()->CopyFrom(header_msg);
   for (int i = 0; i < 36; i++) {
     _msg.mutable_covariance()->add_data(i);
   }
@@ -516,6 +523,30 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Entity> & _msg)
   EXPECT_EQ(expected_msg.id(), _msg->id());
   EXPECT_EQ(expected_msg.name(), _msg->name());
   EXPECT_EQ(expected_msg.type(), _msg->type());
+}
+
+void createTestMsg(gz::msgs::EntityWrench & _msg)
+{
+  gz::msgs::Header header_msg;
+  gz::msgs::Entity entity_msg;
+  gz::msgs::Wrench wrench_msg;
+
+  createTestMsg(header_msg);
+  createTestMsg(entity_msg);
+  createTestMsg(wrench_msg);
+
+  _msg.mutable_header()->CopyFrom(header_msg);
+  _msg.mutable_entity()->CopyFrom(entity_msg);
+  _msg.mutable_wrench()->CopyFrom(wrench_msg);
+}
+
+void compareTestMsg(const std::shared_ptr<gz::msgs::EntityWrench> & _msg)
+{
+  gz::msgs::EntityWrench expected_msg;
+  createTestMsg(expected_msg);
+  compareTestMsg(std::make_shared<gz::msgs::Header>(_msg->header()));
+  compareTestMsg(std::make_shared<gz::msgs::Entity>(_msg->entity()));
+  compareTestMsg(std::make_shared<gz::msgs::Wrench>(_msg->wrench()));
 }
 
 void createTestMsg(gz::msgs::Contact & _msg)
@@ -811,6 +842,13 @@ void createTestMsg(gz::msgs::IMU & _msg)
   _msg.mutable_orientation()->CopyFrom(quaternion_msg);
   _msg.mutable_angular_velocity()->CopyFrom(vector3_msg);
   _msg.mutable_linear_acceleration()->CopyFrom(vector3_msg);
+#ifdef GZ_MSGS_IMU_HAS_COVARIANCE
+  for (int i = 0; i < 9; i++) {
+    _msg.mutable_orientation_covariance()->add_data(i + 1);
+    _msg.mutable_angular_velocity_covariance()->add_data(i + 1);
+    _msg.mutable_linear_acceleration_covariance()->add_data(i + 1);
+  }
+#endif
 }
 
 void compareTestMsg(const std::shared_ptr<gz::msgs::IMU> & _msg)
@@ -819,6 +857,13 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::IMU> & _msg)
   compareTestMsg(std::make_shared<gz::msgs::Quaternion>(_msg->orientation()));
   compareTestMsg(std::make_shared<gz::msgs::Vector3d>(_msg->angular_velocity()));
   compareTestMsg(std::make_shared<gz::msgs::Vector3d>(_msg->linear_acceleration()));
+#ifdef GZ_MSGS_IMU_HAS_COVARIANCE
+  for (int i = 0; i < 9; i++) {
+    EXPECT_EQ(_msg->orientation_covariance().data(i), i + 1);
+    EXPECT_EQ(_msg->angular_velocity_covariance().data(i), i + 1);
+    EXPECT_EQ(_msg->linear_acceleration_covariance().data(i), i + 1);
+  }
+#endif
 }
 
 void createTestMsg(gz::msgs::Axis & _msg)
