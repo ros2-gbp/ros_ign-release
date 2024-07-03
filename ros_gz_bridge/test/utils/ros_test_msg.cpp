@@ -622,6 +622,34 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Light> & _msg)
   EXPECT_FLOAT_EQ(expected_msg.intensity, _msg->intensity);
 }
 
+void createTestMsg(ros_gz_interfaces::msg::MaterialColor & _msg)
+{
+  createTestMsg(_msg.header);
+  createTestMsg(_msg.entity);
+  createTestMsg(_msg.ambient);
+  createTestMsg(_msg.diffuse);
+  createTestMsg(_msg.specular);
+  createTestMsg(_msg.emissive);
+  _msg.shininess = 1.0;
+  _msg.entity_match = ros_gz_interfaces::msg::MaterialColor::ALL;
+}
+
+void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::MaterialColor> & _msg)
+{
+  ros_gz_interfaces::msg::MaterialColor expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(_msg->header);
+  compareTestMsg(std::make_shared<ros_gz_interfaces::msg::Entity>(_msg->entity));
+  compareTestMsg(std::make_shared<std_msgs::msg::ColorRGBA>(_msg->ambient));
+  compareTestMsg(std::make_shared<std_msgs::msg::ColorRGBA>(_msg->diffuse));
+  compareTestMsg(std::make_shared<std_msgs::msg::ColorRGBA>(_msg->specular));
+  compareTestMsg(std::make_shared<std_msgs::msg::ColorRGBA>(_msg->emissive));
+
+  EXPECT_EQ(expected_msg.shininess, _msg->shininess);
+  EXPECT_EQ(expected_msg.entity_match, _msg->entity_match);
+}
+
 void createTestMsg(ros_gz_interfaces::msg::GuiCamera & _msg)
 {
   createTestMsg(_msg.header);
@@ -837,6 +865,23 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Entity> & _msg
   EXPECT_EQ(expected_msg.id, _msg->id);
   EXPECT_EQ(expected_msg.name, _msg->name);
   EXPECT_EQ(expected_msg.type, _msg->type);
+}
+
+void createTestMsg(ros_gz_interfaces::msg::EntityWrench & _msg)
+{
+  createTestMsg(_msg.header);
+  createTestMsg(_msg.entity);
+  createTestMsg(_msg.wrench);
+}
+
+void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::EntityWrench> & _msg)
+{
+  ros_gz_interfaces::msg::EntityWrench expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(std::make_shared<std_msgs::msg::Header>(_msg->header));
+  compareTestMsg(std::make_shared<ros_gz_interfaces::msg::Entity>(_msg->entity));
+  compareTestMsg(std::make_shared<geometry_msgs::msg::Wrench>(_msg->wrench));
 }
 
 void createTestMsg(ros_gz_interfaces::msg::Contact & _msg)
