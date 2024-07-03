@@ -1,4 +1,4 @@
-From ac47b3f7ea3e87fb3de9fe85a5c79fc039841aaf Mon Sep 17 00:00:00 2001
+From 8025430970fd2b61d2a6b05c8c830343564090bf Mon Sep 17 00:00:00 2001
 From: Jose Luis Rivero <jrivero@osrfoundation.org>
 Date: Wed, 15 Mar 2023 18:47:32 +0100
 Subject: [PATCH 3/3] Revert changed done in HEAD~2. Made in the wrong
@@ -11,7 +11,7 @@ Signed-off-by: Jose Luis Rivero <jrivero@osrfoundation.org>
  2 files changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/debian/changelog.em b/debian/changelog.em
-index 71ff6d5..3585909 100644
+index 71ff6d51..35859090 100644
 --- a/debian/changelog.em
 +++ b/debian/changelog.em
 @@ -1,4 +1,4 @@
@@ -21,7 +21,7 @@ index 71ff6d5..3585909 100644
  @(changelog)
  
 diff --git a/debian/control.em b/debian/control.em
-index dc350db..6d7b65c 100644
+index dc350dbe..6d7b65c3 100644
 --- a/debian/control.em
 +++ b/debian/control.em
 @@ -1,4 +1,4 @@
