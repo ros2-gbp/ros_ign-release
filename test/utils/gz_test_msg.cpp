@@ -288,7 +288,9 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::SensorNoise> & _msg)
   gz::msgs::SensorNoise expected_msg;
   createTestMsg(expected_msg);
 
-  EXPECT_EQ(expected_msg.type(), gz::msgs::SensorNoise_Type::SensorNoise_Type_GAUSSIAN_QUANTIZED);
+  EXPECT_EQ(
+    expected_msg.type(),
+    gz::msgs::SensorNoise_Type::SensorNoise_Type_GAUSSIAN_QUANTIZED);
   EXPECT_EQ(expected_msg.mean(), _msg->mean());
   EXPECT_EQ(expected_msg.stddev(), _msg->stddev());
   EXPECT_EQ(expected_msg.bias_mean(), _msg->bias_mean());
@@ -1342,6 +1344,35 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Light> & _msg)
   EXPECT_EQ(expected_msg.parent_id(), _msg->parent_id());
 
   EXPECT_FLOAT_EQ(expected_msg.intensity(), _msg->intensity());
+}
+
+void createTestMsg(gz::msgs::MaterialColor & _msg)
+{
+  createTestMsg(*_msg.mutable_header());
+  createTestMsg(*_msg.mutable_entity());
+  createTestMsg(*_msg.mutable_ambient());
+  createTestMsg(*_msg.mutable_diffuse());
+  createTestMsg(*_msg.mutable_specular());
+  createTestMsg(*_msg.mutable_emissive());
+
+  _msg.set_shininess(1.0);
+  _msg.set_entity_match(gz::msgs::MaterialColor::EntityMatch::MaterialColor_EntityMatch_ALL);
+}
+
+void compareTestMsg(const std::shared_ptr<gz::msgs::MaterialColor> & _msg)
+{
+  gz::msgs::MaterialColor expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(std::make_shared<gz::msgs::Header>(_msg->header()));
+  compareTestMsg(std::make_shared<gz::msgs::Entity>(_msg->entity()));
+  compareTestMsg(std::make_shared<gz::msgs::Color>(_msg->ambient()));
+  compareTestMsg(std::make_shared<gz::msgs::Color>(_msg->diffuse()));
+  compareTestMsg(std::make_shared<gz::msgs::Color>(_msg->specular()));
+  compareTestMsg(std::make_shared<gz::msgs::Color>(_msg->emissive()));
+
+  EXPECT_EQ(expected_msg.shininess(), _msg->shininess());
+  EXPECT_EQ(expected_msg.entity_match(), _msg->entity_match());
 }
 
 void createTestMsg(gz::msgs::GUICamera & _msg)
