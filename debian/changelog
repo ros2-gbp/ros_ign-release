@@ -1,8 +1,0 @@
-ros-jazzy-test-ros-gz-bridge (1.0.0-1noble) noble; urgency=high
-
-  * Correctly export ros_gz_bridge for downstream targets (#503 <https://github.com/gazebosim/ros_gz/issues/503>)
-  * Contributors: Michael Carroll
-
- -- Aditya Pande <adityapande@intrinsic.ai>  Wed, 24 Apr 2024 05:00:00 -0000
-
-
