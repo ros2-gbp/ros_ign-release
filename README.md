@@ -9,9 +9,6 @@ Galactic | Fortress | [galactic](https://github.com/gazebosim/ros_gz/tree/galact
 Humble | Fortress | [humble](https://github.com/gazebosim/ros_gz/tree/humble) | https://packages.ros.org
 Humble | Garden | [humble](https://github.com/gazebosim/ros_gz/tree/humble) | [gazebo packages](https://gazebosim.org/docs/latest/ros_installation#gazebo-garden-with-ros-2-humble-iron-or-rolling-use-with-caution-)[^1]
 Humble | Harmonic | [humble](https://github.com/gazebosim/ros_gz/tree/humble) | [gazebo packages](https://gazebosim.org/docs/harmonic/ros_installation#-gazebo-harmonic-with-ros-2-humble-iron-or-rolling-use-with-caution-)[^1]
-Iron | Fortress | [humble](https://github.com/gazebosim/ros_gz/tree/iron) | https://packages.ros.org
-Iron | Garden | [humble](https://github.com/gazebosim/ros_gz/tree/iron) | only from source
-Iron | Harmonic | [humble](https://github.com/gazebosim/ros_gz/tree/iron) | only from source
 Rolling | Edifice | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source
 Rolling | Fortress | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | https://packages.ros.org
 Rolling | Garden | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source
@@ -58,11 +55,11 @@ This repository holds packages that provide integration between
 
 ## Install
 
-This branch supports ROS Iron. See above for other ROS versions.
+This branch supports ROS Humble. See above for other ROS versions.
 
 ### Binaries
 
-Iron binaries are available for Fortress.
+Humble binaries are available for Fortress.
 They are hosted at https://packages.ros.org.
 
 1. Add https://packages.ros.org
@@ -73,14 +70,14 @@ They are hosted at https://packages.ros.org.
 
 1. Install `ros_gz`
 
-        sudo apt install ros-iron-ros-gz
+        sudo apt install ros-humble-ros-gz
 
 ### From source
 
 #### ROS
 
 Be sure you've installed
-[ROS Iron](https://docs.ros.org/en/iron/Installation.html)
+[ROS Humble](https://docs.ros.org/en/humble/Installation.html)
 (at least ROS-Base). More ROS dependencies will be installed below.
 
 #### Gazebo
@@ -132,6 +129,22 @@ The following steps are for Linux and OSX.
   > The `ros_gz` library makes heavy use of templates which causes compilers to consume a lot of memory. If your build fails with `c++: fatal error: Killed signal terminated program cc1plus`
   > try building with `colcon build --parallel-workers=1 --executor sequential`. You might also have to set `export MAKEFLAGS="-j 1"` before running `colcon build` to limit
   > the number of processors used to build a single package.
+
+    If `colcon build` fails with [this issue](https://github.com/gazebosim/ros_gz/issues/401)
+
+    ```
+    CMake Error at CMakeLists.txt:81 (find_package):
+      By not providing "Findactuator_msgs.cmake" in CMAKE_MODULE_PATH this
+      project has asked CMake to find a package configuration file provided by
+      "actuator_msgs", but CMake did not find one.
+    ```
+
+    ```bash
+    cd src
+    git clone git@github.com:rudislabs/actuator_msgs.git
+    cd ../
+    colcon build
+    ```
 
 ## ROSCon 2022
 

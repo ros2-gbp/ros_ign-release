@@ -41,7 +41,6 @@ The following message types can be bridged for topics:
 | ros_gz_interfaces/msg/Contacts              | ignition::msgs::Contacts                    |
 | ros_gz_interfaces/msg/Dataframe             | ignition::msgs::Dataframe                   |
 | ros_gz_interfaces/msg/Entity                | ignition::msgs::Entity                      |
-| ros_gz_interfaces/msg/EntityWrench          | ignition.msgs.EntityWrench                  |
 | ros_gz_interfaces/msg/Float32Array          | ignition::msgs::Float_V                     |
 | ros_gz_interfaces/msg/GuiCamera             | ignition::msgs::GUICamera                   |
 | ros_gz_interfaces/msg/JointWrench           | ignition::msgs::JointWrench                 |
@@ -90,7 +89,7 @@ Now we start the ROS listener.
 
 ```
 # Shell B:
-. /opt/ros/iron/setup.bash
+. /opt/ros/humble/setup.bash
 ros2 topic echo /chatter
 ```
 
@@ -122,7 +121,7 @@ Now we start the ROS talker.
 
 ```
 # Shell C:
-. /opt/ros/iron/setup.bash
+. /opt/ros/humble/setup.bash
 ros2 topic pub /chatter std_msgs/msg/String "data: 'Hi'" --once
 ```
 
@@ -160,7 +159,7 @@ Now we start the ROS GUI:
 
 ```
 # Shell C:
-. /opt/ros/iron/setup.bash
+. /opt/ros/humble/setup.bash
 ros2 run rqt_image_view rqt_image_view /rgbd_camera/image
 ```
 
@@ -305,7 +304,7 @@ Now we start the ROS talker.
 
 ```bash
 # Shell C:
-. /opt/ros/iron/setup.bash
+. /opt/ros/humble/setup.bash
 ros2 topic pub /demo/chatter std_msgs/msg/String "data: 'Hi from inside of a namespace'" --once
 ```
 
