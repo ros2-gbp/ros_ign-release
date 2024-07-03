@@ -50,6 +50,7 @@
 #include <nav_msgs/msg/odometry.hpp>
 #include <ros_gz_interfaces/msg/altimeter.hpp>
 #include <ros_gz_interfaces/msg/entity.hpp>
+#include <ros_gz_interfaces/msg/entity_wrench.hpp>
 #include <ros_gz_interfaces/msg/gui_camera.hpp>
 #include <ros_gz_interfaces/msg/joint_wrench.hpp>
 #include <ros_gz_interfaces/msg/contact.hpp>
@@ -57,6 +58,7 @@
 #include <ros_gz_interfaces/msg/float32_array.hpp>
 #include <ros_gz_interfaces/msg/dataframe.hpp>
 #include <ros_gz_interfaces/msg/light.hpp>
+#include <ros_gz_interfaces/msg/material_color.hpp>
 #include <ros_gz_interfaces/msg/param_vec.hpp>
 #include <ros_gz_interfaces/msg/sensor_noise.hpp>
 #include <ros_gz_interfaces/msg/string_vec.hpp>
@@ -410,11 +412,27 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Light> & _msg)
 
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
+void createTestMsg(ros_gz_interfaces::msg::MaterialColor & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::MaterialColor> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
 void createTestMsg(ros_gz_interfaces::msg::Entity & _msg);
 
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Entity> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(ros_gz_interfaces::msg::EntityWrench & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::EntityWrench> & _msg);
 
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
