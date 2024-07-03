@@ -18,6 +18,7 @@
 // Gazebo Msgs
 #include <gz/msgs/altimeter.pb.h>
 #include <gz/msgs/entity.pb.h>
+#include <gz/msgs/entity_wrench.pb.h>
 #include <gz/msgs/joint_wrench.pb.h>
 #include <gz/msgs/contact.pb.h>
 #include <gz/msgs/contacts.pb.h>
@@ -25,6 +26,7 @@
 #include <gz/msgs/float_v.pb.h>
 #include <gz/msgs/gui_camera.pb.h>
 #include <gz/msgs/light.pb.h>
+#include <gz/msgs/material_color.pb.h>
 #include <gz/msgs/param.pb.h>
 #include <gz/msgs/param_v.pb.h>
 #include <gz/msgs/sensor_noise.pb.h>
@@ -36,6 +38,7 @@
 // ROS 2 messages
 #include <ros_gz_interfaces/msg/altimeter.hpp>
 #include <ros_gz_interfaces/msg/entity.hpp>
+#include <ros_gz_interfaces/msg/entity_wrench.hpp>
 #include <ros_gz_interfaces/msg/joint_wrench.hpp>
 #include <ros_gz_interfaces/msg/contact.hpp>
 #include <ros_gz_interfaces/msg/contacts.hpp>
@@ -43,6 +46,7 @@
 #include <ros_gz_interfaces/msg/float32_array.hpp>
 #include <ros_gz_interfaces/msg/gui_camera.hpp>
 #include <ros_gz_interfaces/msg/light.hpp>
+#include <ros_gz_interfaces/msg/material_color.hpp>
 #include <ros_gz_interfaces/msg/param_vec.hpp>
 #include <ros_gz_interfaces/msg/sensor_noise.hpp>
 #include <ros_gz_interfaces/msg/string_vec.hpp>
@@ -92,6 +96,18 @@ void
 convert_gz_to_ros(
   const gz::msgs::Entity & gz_msg,
   ros_gz_interfaces::msg::Entity & ros_msg);
+
+template<>
+void
+convert_ros_to_gz(
+  const ros_gz_interfaces::msg::EntityWrench & ros_msg,
+  gz::msgs::EntityWrench & gz_msg);
+
+template<>
+void
+convert_gz_to_ros(
+  const gz::msgs::EntityWrench & gz_msg,
+  ros_gz_interfaces::msg::EntityWrench & ros_msg);
 
 template<>
 void
@@ -152,6 +168,18 @@ void
 convert_gz_to_ros(
   const gz::msgs::Light & gz_msg,
   ros_gz_interfaces::msg::Light & ros_msg);
+
+template<>
+void
+convert_ros_to_gz(
+  const ros_gz_interfaces::msg::MaterialColor & ros_msg,
+  gz::msgs::MaterialColor & gz_msg);
+
+template<>
+void
+convert_gz_to_ros(
+  const gz::msgs::MaterialColor & gz_msg,
+  ros_gz_interfaces::msg::MaterialColor & ros_msg);
 
 template<>
 void
