@@ -1,0 +1,12 @@
+Source: ros-jazzy-ros-gz
+Section: misc
+Priority: optional
+Maintainer: Aditya Pande <adityapande@intrinsic.ai>
+Build-Depends: debhelper (>= 9.0.0), ros-jazzy-ament-cmake, ros-jazzy-ament-lint-auto <!nocheck>, ros-jazzy-ament-lint-common <!nocheck>, ros-jazzy-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-jazzy-ros-gz
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-jazzy-ros-gz-bridge, ros-jazzy-ros-gz-image, ros-jazzy-ros-gz-sim, ros-jazzy-ros-gz-sim-demos, ros-jazzy-ros-workspace
+Description: Meta-package containing interfaces for using ROS 2 with Gazebo simulation.
