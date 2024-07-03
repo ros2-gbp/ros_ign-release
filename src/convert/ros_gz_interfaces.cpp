@@ -142,6 +142,28 @@ convert_gz_to_ros(
 template<>
 void
 convert_ros_to_gz(
+  const ros_gz_interfaces::msg::EntityWrench & ros_msg,
+  gz::msgs::EntityWrench & gz_msg)
+{
+  convert_ros_to_gz(ros_msg.header, (*gz_msg.mutable_header()));
+  convert_ros_to_gz(ros_msg.entity, (*gz_msg.mutable_entity()));
+  convert_ros_to_gz(ros_msg.wrench, (*gz_msg.mutable_wrench()));
+}
+
+template<>
+void
+convert_gz_to_ros(
+  const gz::msgs::EntityWrench & gz_msg,
+  ros_gz_interfaces::msg::EntityWrench & ros_msg)
+{
+  convert_gz_to_ros(gz_msg.header(), ros_msg.header);
+  convert_gz_to_ros(gz_msg.entity(), ros_msg.entity);
+  convert_gz_to_ros(gz_msg.wrench(), ros_msg.wrench);
+}
+
+template<>
+void
+convert_ros_to_gz(
   const ros_gz_interfaces::msg::Contact & ros_msg,
   gz::msgs::Contact & gz_msg)
 {
@@ -376,6 +398,64 @@ convert_gz_to_ros(
   ros_msg.parent_id = gz_msg.parent_id();
 
   ros_msg.intensity = gz_msg.intensity();
+}
+
+template<>
+void
+convert_ros_to_gz(
+  const ros_gz_interfaces::msg::MaterialColor & ros_msg,
+  gz::msgs::MaterialColor & gz_msg)
+{
+  using EntityMatch = gz::msgs::MaterialColor::EntityMatch;
+
+  switch (ros_msg.entity_match) {
+    case ros_gz_interfaces::msg::MaterialColor::FIRST:
+      gz_msg.set_entity_match(EntityMatch::MaterialColor_EntityMatch_FIRST);
+      break;
+    case ros_gz_interfaces::msg::MaterialColor::ALL:
+      gz_msg.set_entity_match(EntityMatch::MaterialColor_EntityMatch_ALL);
+      break;
+    default:
+      std::cerr << "Unsupported entity match type ["
+                << ros_msg.entity_match << "]\n";
+  }
+
+  convert_ros_to_gz(ros_msg.header, (*gz_msg.mutable_header()));
+  convert_ros_to_gz(ros_msg.entity, *gz_msg.mutable_entity());
+  convert_ros_to_gz(ros_msg.ambient, *gz_msg.mutable_ambient());
+  convert_ros_to_gz(ros_msg.diffuse, *gz_msg.mutable_diffuse());
+  convert_ros_to_gz(ros_msg.specular, *gz_msg.mutable_specular());
+  convert_ros_to_gz(ros_msg.emissive, *gz_msg.mutable_emissive());
+
+  gz_msg.set_shininess(ros_msg.shininess);
+}
+
+template<>
+void
+convert_gz_to_ros(
+  const gz::msgs::MaterialColor & gz_msg,
+  ros_gz_interfaces::msg::MaterialColor & ros_msg)
+{
+  using EntityMatch = gz::msgs::MaterialColor::EntityMatch;
+  if (gz_msg.entity_match() == EntityMatch::MaterialColor_EntityMatch_FIRST) {
+    ros_msg.entity_match = ros_gz_interfaces::msg::MaterialColor::FIRST;
+/* *INDENT-OFF* */
+  } else if (gz_msg.entity_match() ==
+    EntityMatch::MaterialColor_EntityMatch_ALL) {
+/* *INDENT-ON* */
+    ros_msg.entity_match = ros_gz_interfaces::msg::MaterialColor::ALL;
+  } else {
+    std::cerr << "Unsupported EntityMatch [" <<
+      gz_msg.entity_match() << "]" << std::endl;
+  }
+  convert_gz_to_ros(gz_msg.header(), ros_msg.header);
+  convert_gz_to_ros(gz_msg.entity(), ros_msg.entity);
+  convert_gz_to_ros(gz_msg.ambient(), ros_msg.ambient);
+  convert_gz_to_ros(gz_msg.diffuse(), ros_msg.diffuse);
+  convert_gz_to_ros(gz_msg.specular(), ros_msg.specular);
+  convert_gz_to_ros(gz_msg.emissive(), ros_msg.emissive);
+
+  ros_msg.shininess = gz_msg.shininess();
 }
 
 template<>
