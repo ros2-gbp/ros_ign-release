@@ -107,7 +107,8 @@ public:
   {
     std::function<void(const GZ_T &,
       const gz::transport::MessageInfo &)> subCb =
-      [this, ros_pub](const GZ_T & _msg, const gz::transport::MessageInfo & _info)
+      [this, ros_pub](const GZ_T & _msg,
+        const gz::transport::MessageInfo & _info)
       {
         // Ignore messages that are published from this bridge.
         if (!_info.IntraProcess()) {
