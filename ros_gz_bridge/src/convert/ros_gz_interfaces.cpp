@@ -142,6 +142,28 @@ convert_gz_to_ros(
 template<>
 void
 convert_ros_to_gz(
+  const ros_gz_interfaces::msg::EntityWrench & ros_msg,
+  gz::msgs::EntityWrench & gz_msg)
+{
+  convert_ros_to_gz(ros_msg.header, (*gz_msg.mutable_header()));
+  convert_ros_to_gz(ros_msg.entity, (*gz_msg.mutable_entity()));
+  convert_ros_to_gz(ros_msg.wrench, (*gz_msg.mutable_wrench()));
+}
+
+template<>
+void
+convert_gz_to_ros(
+  const gz::msgs::EntityWrench & gz_msg,
+  ros_gz_interfaces::msg::EntityWrench & ros_msg)
+{
+  convert_gz_to_ros(gz_msg.header(), ros_msg.header);
+  convert_gz_to_ros(gz_msg.entity(), ros_msg.entity);
+  convert_gz_to_ros(gz_msg.wrench(), ros_msg.wrench);
+}
+
+template<>
+void
+convert_ros_to_gz(
   const ros_gz_interfaces::msg::Contact & ros_msg,
   gz::msgs::Contact & gz_msg)
 {
@@ -223,7 +245,6 @@ convert_gz_to_ros(
   }
 }
 
-#if HAVE_DATAFRAME
 template<>
 void
 convert_ros_to_gz(
@@ -273,7 +294,6 @@ convert_gz_to_ros(
     gz_msg.data().begin() + gz_msg.data().size(),
     ros_msg.data.begin());
 }
-#endif  // HAVE_DATAFRAME
 
 template<>
 void
@@ -380,7 +400,6 @@ convert_gz_to_ros(
   ros_msg.intensity = gz_msg.intensity();
 }
 
-#if HAVE_MATERIALCOLOR
 template<>
 void
 convert_ros_to_gz(
@@ -438,7 +457,6 @@ convert_gz_to_ros(
 
   ros_msg.shininess = gz_msg.shininess();
 }
-#endif  // HAVE_MATERIALCOLOR
 
 template<>
 void
@@ -475,9 +493,7 @@ convert_gz_to_ros(
     ros_msg.type = 0;
   } else if (gz_msg.type() == gz::msgs::SensorNoise_Type::SensorNoise_Type_GAUSSIAN) {
     ros_msg.type = 2;
-  } else if (gz_msg.type() ==  // NOLINT
-    gz::msgs::SensorNoise_Type::SensorNoise_Type_GAUSSIAN_QUANTIZED)  // NOLINT
-  {  // NOLINT
+  } else if (gz_msg.type() == gz::msgs::SensorNoise_Type::SensorNoise_Type_GAUSSIAN_QUANTIZED) {
     ros_msg.type = 3;
   }
 

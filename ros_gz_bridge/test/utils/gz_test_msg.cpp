@@ -376,6 +376,7 @@ void createTestMsg(gz::msgs::PoseWithCovariance & _msg)
 {
   createTestMsg(*_msg.mutable_pose()->mutable_position());
   createTestMsg(*_msg.mutable_pose()->mutable_orientation());
+  createTestMsg(*_msg.mutable_pose()->mutable_header());
   for (int i = 0; i < 36; i++) {
     _msg.mutable_covariance()->add_data(i);
   }
@@ -525,6 +526,30 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Entity> & _msg)
   EXPECT_EQ(expected_msg.type(), _msg->type());
 }
 
+void createTestMsg(gz::msgs::EntityWrench & _msg)
+{
+  gz::msgs::Header header_msg;
+  gz::msgs::Entity entity_msg;
+  gz::msgs::Wrench wrench_msg;
+
+  createTestMsg(header_msg);
+  createTestMsg(entity_msg);
+  createTestMsg(wrench_msg);
+
+  _msg.mutable_header()->CopyFrom(header_msg);
+  _msg.mutable_entity()->CopyFrom(entity_msg);
+  _msg.mutable_wrench()->CopyFrom(wrench_msg);
+}
+
+void compareTestMsg(const std::shared_ptr<gz::msgs::EntityWrench> & _msg)
+{
+  gz::msgs::EntityWrench expected_msg;
+  createTestMsg(expected_msg);
+  compareTestMsg(std::make_shared<gz::msgs::Header>(_msg->header()));
+  compareTestMsg(std::make_shared<gz::msgs::Entity>(_msg->entity()));
+  compareTestMsg(std::make_shared<gz::msgs::Wrench>(_msg->wrench()));
+}
+
 void createTestMsg(gz::msgs::Contact & _msg)
 {
   gz::msgs::Entity collision1;
@@ -616,7 +641,6 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Contacts> & _msg)
   }
 }
 
-#if HAVE_DATAFRAME
 void createTestMsg(gz::msgs::Dataframe & _msg)
 {
   gz::msgs::Header header_msg;
@@ -654,7 +678,6 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Dataframe> & _msg)
   EXPECT_EQ(expected_msg.dst_address(), _msg->dst_address());
   EXPECT_EQ(expected_msg.data(), _msg->data());
 }
-#endif  // HAVE_DATAFRAME
 
 void createTestMsg(gz::msgs::Image & _msg)
 {
@@ -1347,7 +1370,6 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Light> & _msg)
   EXPECT_FLOAT_EQ(expected_msg.intensity(), _msg->intensity());
 }
 
-#if HAVE_MATERIALCOLOR
 void createTestMsg(gz::msgs::MaterialColor & _msg)
 {
   createTestMsg(*_msg.mutable_header());
@@ -1376,7 +1398,6 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::MaterialColor> & _msg)
   EXPECT_EQ(expected_msg.shininess(), _msg->shininess());
   EXPECT_EQ(expected_msg.entity_match(), _msg->entity_match());
 }
-#endif  // HAVE_MATERIALCOLOR
 
 void createTestMsg(gz::msgs::GUICamera & _msg)
 {
