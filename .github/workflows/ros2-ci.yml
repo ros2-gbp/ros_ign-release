@@ -12,7 +12,7 @@ jobs:
         include:
           - docker-image: "ubuntu:24.04"
             gz-version: "harmonic"
-            ros-distro: "jazzy"
+            ros-distro: "rolling"
     container:
       image: ${{ matrix.docker-image }}
     steps:
