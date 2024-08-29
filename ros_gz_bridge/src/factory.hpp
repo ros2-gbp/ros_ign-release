@@ -22,7 +22,6 @@
 #include <type_traits>
 
 #include <gz/transport/Node.hh>
-#include <gz/transport/SubscribeOptions.hh>
 
 // include ROS 2
 #include <rclcpp/rclcpp.hpp>
@@ -119,16 +118,18 @@ public:
     rclcpp::PublisherBase::SharedPtr ros_pub,
     bool override_timestamps_with_wall_time)
   {
-    std::function<void(const GZ_T &)> subCb =
-      [this, ros_pub, override_timestamps_with_wall_time](const GZ_T & _msg)
+    std::function<void(const GZ_T &,
+      const gz::transport::MessageInfo &)> subCb =
+      [this, ros_pub, override_timestamps_with_wall_time](const GZ_T & _msg,
+      const gz::transport::MessageInfo & _info)
       {
-        this->gz_callback(_msg, ros_pub, override_timestamps_with_wall_time);
+        // Ignore messages that are published from this bridge.
+        if (!_info.IntraProcess()) {
+          this->gz_callback(_msg, ros_pub, override_timestamps_with_wall_time);
+        }
       };
 
-    // Ignore messages that are published from this bridge.
-    gz::transport::SubscribeOptions opts;
-    opts.SetIgnoreLocalMessages(true);
-    node->Subscribe(topic_name, subCb, opts);
+    node->Subscribe(topic_name, subCb);
   }
 
 protected:
