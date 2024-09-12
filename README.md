@@ -12,15 +12,13 @@ Humble | Harmonic | [humble](https://github.com/gazebosim/ros_gz/tree/humble) | 
 Iron | Fortress | [humble](https://github.com/gazebosim/ros_gz/tree/iron) | https://packages.ros.org
 Iron | Garden | [humble](https://github.com/gazebosim/ros_gz/tree/iron) | only from source
 Iron | Harmonic | [humble](https://github.com/gazebosim/ros_gz/tree/iron) | only from source
-Jazzy* | Garden | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source
-Jazzy* | Harmonic | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | https://packages.ros.org
+Jazzy | Garden | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source
+Jazzy | Harmonic | [jazzy](https://github.com/gazebosim/ros_gz/tree/jazzy) | https://packages.ros.org
 Rolling | Fortress | [humble](https://github.com/gazebosim/ros_gz/tree/humble) | https://packages.ros.org
 Rolling | Garden | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source
 Rolling | Harmonic | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source
 
 [^1]: Binaries for these pairings are provided from a the packages.osrfoundation.org repository. Refer to https://gazebosim.org/docs/latest/ros_installation for installation instructions.
-
-* ROS 2 Jazzy Jalisco is slated for release on May 23rd, 2024. [Full ROS 2 release information is available in REP-2000.]
 
 For information on ROS(1) and Gazebo compatibility, refer to the [noetic branch README](https://github.com/gazebosim/ros_gz/tree/noetic)
 
@@ -83,17 +81,17 @@ They are hosted at https://packages.ros.org.
 #### ROS
 
 Be sure you've installed
-[ROS Rolling](https://index.ros.org/doc/ros2/Installation/)
+[ROS Rolling](https://docs.ros.org/en/rolling/index.html)
 (at least ROS-Base). More ROS dependencies will be installed below.
 
 #### Gazebo
 
-Install either [Edifice, Fortress, or Garden](https://gazebosim.org/docs).
+Install either [Fortress, Garden, or Harmonic](https://gazebosim.org/docs).
 
 Set the `GZ_VERSION` environment variable to the Gazebo version you'd
 like to compile against. For example:
 
-    export GZ_VERSION=edifice # IMPORTANT: Replace with correct version
+    export GZ_VERSION=harmonic # IMPORTANT: Replace with correct version
 
 > You only need to set this variable when compiling, not when running.
 
@@ -116,7 +114,7 @@ The following steps are for Linux and OSX.
 
     ```
     cd ~/ws
-    rosdep install -r --from-paths src -i -y --rosdistro humble
+    rosdep install -r --from-paths src -i -y --rosdistro rolling
     ```
 
     > If `rosdep` fails to install Gazebo libraries and you have not installed them before, please follow [Gazebo installation instructions](https://gazebosim.org/docs/latest/install).
