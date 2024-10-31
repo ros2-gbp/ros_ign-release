@@ -2,6 +2,23 @@
 Changelog for package ros_gz_sim
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.6 (2024-10-31)
+------------------
+* Create ros_gz_spawn_model.launch (`#604 <https://github.com/gazebosim/ros_gz/issues/604>`_) (`#627 <https://github.com/gazebosim/ros_gz/issues/627>`_)
+  Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
+  (cherry picked from commit 02faa5b2383df27aa36321766c940924febdc5c6)
+  Co-authored-by: Aarav Gupta <amronos275@gmail.com>
+* Add create_own_container argument to ros_gz_spawn_model.launch.py (`#622 <https://github.com/gazebosim/ros_gz/issues/622>`_) (`#625 <https://github.com/gazebosim/ros_gz/issues/625>`_)
+  (cherry picked from commit e8a3ec5404c71e75468d6ebf233d9cab09715b36)
+  Co-authored-by: Amronos <134804732+Amronos@users.noreply.github.com>
+* Fix ros_gz_sim.launch.py when create_own_container is enabled. (`#620 <https://github.com/gazebosim/ros_gz/issues/620>`_) (`#621 <https://github.com/gazebosim/ros_gz/issues/621>`_)
+  (cherry picked from commit a4d00a90a1a5f753a0d0fbfe8e1e142540aebadd)
+  Co-authored-by: Carlos Agüero <caguero@openrobotics.org>
+* Extra parameter to start a container (`#616 <https://github.com/gazebosim/ros_gz/issues/616>`_) (`#618 <https://github.com/gazebosim/ros_gz/issues/618>`_)
+  (cherry picked from commit 8115ccaaedea718841367eb64e500e13df392fd7)
+  Co-authored-by: Carlos Agüero <caguero@openrobotics.org>
+* Contributors: mergify[bot]
+
 1.0.5 (2024-10-14)
 ------------------
 * Merge pull request `#607 <https://github.com/gazebosim/ros_gz/issues/607>`_ from Amronos/ros2-jazzy-backport
