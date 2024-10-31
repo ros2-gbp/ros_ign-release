@@ -2,61 +2,50 @@
 Changelog for package ros_gz_sim
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.1.2 (2024-10-31)
+1.0.6 (2024-10-31)
 ------------------
-* Create ros_gz_spawn_model.launch (`#604 <https://github.com/gazebosim/ros_gz/issues/604>`_)
+* Create ros_gz_spawn_model.launch (`#604 <https://github.com/gazebosim/ros_gz/issues/604>`_) (`#627 <https://github.com/gazebosim/ros_gz/issues/627>`_)
   Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
-* Add create_own_container argument to ros_gz_spawn_model.launch.py (`#622 <https://github.com/gazebosim/ros_gz/issues/622>`_)
-* Fix ros_gz_sim.launch.py when create_own_container is enabled. (`#620 <https://github.com/gazebosim/ros_gz/issues/620>`_)
-* Contributors: Aarav Gupta, Amronos, Carlos Agüero
+  (cherry picked from commit 02faa5b2383df27aa36321766c940924febdc5c6)
+  Co-authored-by: Aarav Gupta <amronos275@gmail.com>
+* Add create_own_container argument to ros_gz_spawn_model.launch.py (`#622 <https://github.com/gazebosim/ros_gz/issues/622>`_) (`#625 <https://github.com/gazebosim/ros_gz/issues/625>`_)
+  (cherry picked from commit e8a3ec5404c71e75468d6ebf233d9cab09715b36)
+  Co-authored-by: Amronos <134804732+Amronos@users.noreply.github.com>
+* Fix ros_gz_sim.launch.py when create_own_container is enabled. (`#620 <https://github.com/gazebosim/ros_gz/issues/620>`_) (`#621 <https://github.com/gazebosim/ros_gz/issues/621>`_)
+  (cherry picked from commit a4d00a90a1a5f753a0d0fbfe8e1e142540aebadd)
+  Co-authored-by: Carlos Agüero <caguero@openrobotics.org>
+* Extra parameter to start a container (`#616 <https://github.com/gazebosim/ros_gz/issues/616>`_) (`#618 <https://github.com/gazebosim/ros_gz/issues/618>`_)
+  (cherry picked from commit 8115ccaaedea718841367eb64e500e13df392fd7)
+  Co-authored-by: Carlos Agüero <caguero@openrobotics.org>
+* Contributors: mergify[bot]
 
-2.1.1 (2024-10-14)
+1.0.5 (2024-10-14)
 ------------------
-* Extra parameter to start a container (`#616 <https://github.com/gazebosim/ros_gz/issues/616>`_)
-* Bugfix: `if "false"` is always `True` (`#617 <https://github.com/gazebosim/ros_gz/issues/617>`_)
-  There is an issue in this launch file when passing the string 'false' as
-  an argument. In Python, non-empty strings are always evaluated as True,
-  regardless of their content. This means that even if you pass 'false',
-  the system will still evaluate it as True.
-  This bug results in the launch system incorrectly calling the OnShutdown
-  method twice. When any ROS launch action invokes a RosAdapter, it
-  triggers the following exception: "Cannot shutdown a ROS adapter that is
-  not running."
-  To temporarily work around this issue, you can launch gz_sim_launch.py
-  with the on_exit_shutdown argument set to an empty string. This prevents
-  the erroneous shutdown sequence and avoids the associated exception.
-* Name gazebo sim node (`#611 <https://github.com/gazebosim/ros_gz/issues/611>`_)
-* Contributors: Carlos Agüero, Ignacio Vizzo, Nabeel Sherazi
-
-2.1.0 (2024-09-12)
-------------------
-* Change world_string to model_string in gz_spawn_model files (`#606 <https://github.com/gazebosim/ros_gz//issues/606>`_)
-  * Change world_string to model_string
-  Also changed description from XML string to XML(SDF) string
-* Use model string in ros_gz_spawn_model.launch.py (`#605 <https://github.com/gazebosim/ros_gz//issues/605>`_)
-* Remove default_value for required arguments (`#602 <https://github.com/gazebosim/ros_gz//issues/602>`_)
-  * Remove default_value for config_file
-* Fix errors with name of bridge not being given (`#600 <https://github.com/gazebosim/ros_gz//issues/600>`_)
-  * Add argument bridge_name to fix errors
-* Restore launch file (`#603 <https://github.com/gazebosim/ros_gz//issues/603>`_)
-* Use optional parameters in actions (`#601 <https://github.com/gazebosim/ros_gz//issues/601>`_)
-* Contributors: Amronos, Carlos Agüero
-
-2.0.1 (2024-08-29)
-------------------
+* Merge pull request `#607 <https://github.com/gazebosim/ros_gz/issues/607>`_ from Amronos/ros2-jazzy-backport
+* Fix changelogs and versions
+* Name gazebo sim node (`#611 <https://github.com/gazebosim/ros_gz/issues/611>`_) (`#612 <https://github.com/gazebosim/ros_gz/issues/612>`_)
+* Change world_string to model_string in gz_spawn_model files (`#606 <https://github.com/gazebosim/ros_gz/issues/606>`_)
+* Use model string in ros_gz_spawn_model.launch.py (`#605 <https://github.com/gazebosim/ros_gz/issues/605>`_)
+* Remove default_value for required arguments (`#602 <https://github.com/gazebosim/ros_gz/issues/602>`_)
+* Fix errors with name of bridge not being given (`#600 <https://github.com/gazebosim/ros_gz/issues/600>`_)
+* Restore launch file (`#603 <https://github.com/gazebosim/ros_gz/issues/603>`_)
+* Use optional parameters in actions (`#601 <https://github.com/gazebosim/ros_gz/issues/601>`_)
 * Wait for create service to be available. (`#588 <https://github.com/gazebosim/ros_gz/issues/588>`_)
-* Contributors: Sebastian Kasperski
+* Update launch files with name parameter (`#556 <https://github.com/gazebosim/ros_gz/issues/556>`_)
+* Launch gz_spawn_model from xml (`#551 <https://github.com/gazebosim/ros_gz/issues/551>`_)
+* Launch ros_gz_bridge from xml (`#550 <https://github.com/gazebosim/ros_gz/issues/550>`_)
+* Launch gzserver and the bridge as composable nodes (`#528 <https://github.com/gazebosim/ros_gz/issues/528>`_)
+* Name gazebo sim node (`#611 <https://github.com/gazebosim/ros_gz/issues/611>`_) (`#612 <https://github.com/gazebosim/ros_gz/issues/612>`_)
+* Contributors: Aarav Gupta, Addisu Z. Taddese, Alejandro Hernández Cordero, Amronos, Carlos Agüero, Sebastian Kasperski, mergify[bot]
 
-2.0.0 (2024-07-22)
+1.0.4 (2024-08-29)
 ------------------
-* Making use_composition true by default (`#578 <https://github.com/gazebosim/ros_gz/issues/578>`_)
-* Contributors: Addisu Z. Taddese
 
-1.0.1 (2024-07-03)
+1.0.3 (2024-07-22)
 ------------------
-* Merge pull request `#571 <https://github.com/gazebosim/ros_gz//issues/571>`_ from azeey/jazzy_to_ros2
-  Merge jazzy ➡️  ros2
-* Merge jazzy into ros2
+
+1.0.2 (2024-07-03)
+------------------
 * Merge pull request `#569 <https://github.com/gazebosim/ros_gz//issues/569>`_ from azeey/iron_to_jazzy
   Merge iron ➡️  jazzy
 * Merge remote-tracking branch 'origin/jazzy' into iron_to_jazzy
@@ -69,18 +58,6 @@ Changelog for package ros_gz_sim
 * Merge pull request `#564 <https://github.com/gazebosim/ros_gz//issues/564>`_ from azeey/humble_to_iron
   Humble ➡️ Iron
 * Merge humble -> iron
-* Update launch files with name parameter (`#556 <https://github.com/gazebosim/ros_gz//issues/556>`_)
-  * Name is required.
-* Launch gz_spawn_model from xml (`#551 <https://github.com/gazebosim/ros_gz//issues/551>`_)
-  Spawn models from XML.
-  Co-authored-by: Addisu Z. Taddese <addisu@openrobotics.org>
-* Launch ros_gz_bridge from xml (`#550 <https://github.com/gazebosim/ros_gz//issues/550>`_)
-  * Add gzserver with ability to load an SDF file or string
-* Launch gzserver and the bridge as composable nodes (`#528 <https://github.com/gazebosim/ros_gz//issues/528>`_)
-  * Add gzserver with ability to load an SDF file or string
-* Add a ROS node that runs Gazebo (`#500 <https://github.com/gazebosim/ros_gz//issues/500>`_)
-  * Add gzserver with ability to load an SDF file or string
-  ---------
 * Prepare for 1.0.0 Release (`#495 <https://github.com/gazebosim/ros_gz//issues/495>`_)
 * Use gz_vendor packages (`#531 <https://github.com/gazebosim/ros_gz//issues/531>`_)
 * 0.244.14
@@ -134,7 +111,7 @@ Changelog for package ros_gz_sim
   * Update CMakeLists and package.xml for garden
   * Complete garden gz renaming
   * Drop fortress CI
-* Contributors: Addisu Z. Taddese, Aditya Pande, Alejandro Hernández Cordero, Ayush Singh, Carlos Agüero, Jose Luis Rivero, Michael Carroll, ahcorde, andermi, jmackay2, mergify[bot]
+* Contributors: Addisu Z. Taddese, Aditya Pande, Alejandro Hernández Cordero, Ayush Singh, Jose Luis Rivero, Michael Carroll, ahcorde, andermi, jmackay2, mergify[bot]
 
 1.0.0 (2024-04-24)
 ------------------
