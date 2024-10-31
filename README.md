@@ -59,7 +59,7 @@ This repository holds packages that provide integration between
 
 ## Install
 
-This branch supports ROS Jazzy. See above for other ROS versions.
+This branch supports ROS Rolling. See above for other ROS versions.
 
 ### Binaries
 
@@ -74,19 +74,19 @@ They are hosted at https://packages.ros.org.
 
 1. Install `ros_gz`
 
-        sudo apt install ros-jazzy-ros-gz
+        sudo apt install ros-rolling-ros-gz
 
 ### From source
 
 #### ROS
 
 Be sure you've installed
-[ROS Jazzy](https://docs.ros.org/en/jazzy/Installation.html)
+[ROS Rolling](https://docs.ros.org/en/rolling/index.html)
 (at least ROS-Base). More ROS dependencies will be installed below.
 
 #### Gazebo
 
-Install either [Garden or Harmonic](https://gazebosim.org/docs).
+Install either [Fortress, Garden, or Harmonic](https://gazebosim.org/docs).
 
 Set the `GZ_VERSION` environment variable to the Gazebo version you'd
 like to compile against. For example:
@@ -107,14 +107,14 @@ The following steps are for Linux and OSX.
     cd ~/ws/src
 
     # Download needed software
-    git clone https://github.com/gazebosim/ros_gz.git -b jazzy
+    git clone https://github.com/gazebosim/ros_gz.git -b ros2
     ```
 
 1. Install dependencies (this may also install Gazebo):
 
     ```
     cd ~/ws
-    rosdep install -r --from-paths src -i -y --rosdistro jazzy
+    rosdep install -r --from-paths src -i -y --rosdistro rolling
     ```
 
     > If `rosdep` fails to install Gazebo libraries and you have not installed them before, please follow [Gazebo installation instructions](https://gazebosim.org/docs/latest/install).
