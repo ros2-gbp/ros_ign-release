@@ -2,6 +2,13 @@
 Changelog for package ros_gz_bridge
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.6 (2024-10-31)
+------------------
+* Extra parameter to start a container (`#616 <https://github.com/gazebosim/ros_gz/issues/616>`_) (`#618 <https://github.com/gazebosim/ros_gz/issues/618>`_)
+  (cherry picked from commit 8115ccaaedea718841367eb64e500e13df392fd7)
+  Co-authored-by: Carlos Agüero <caguero@openrobotics.org>
+* Contributors: mergify[bot]
+
 1.0.5 (2024-10-14)
 ------------------
 * Merge pull request `#607 <https://github.com/gazebosim/ros_gz/issues/607>`_ from Amronos/ros2-jazzy-backport
