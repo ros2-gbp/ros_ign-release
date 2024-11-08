@@ -2,6 +2,24 @@
 Changelog for package ros_gz_sim
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.7 (2024-11-08)
+------------------
+* Bugfix: `if "false"` is always `True` (`#617 <https://github.com/gazebosim/ros_gz/issues/617>`_) (`#640 <https://github.com/gazebosim/ros_gz/issues/640>`_)
+  There is an issue in this launch file when passing the string 'false' as
+  an argument. In Python, non-empty strings are always evaluated as True,
+  regardless of their content. This means that even if you pass 'false',
+  the system will still evaluate it as True.
+  This bug results in the launch system incorrectly calling the OnShutdown
+  method twice. When any ROS launch action invokes a RosAdapter, it
+  triggers the following exception: "Cannot shutdown a ROS adapter that is
+  not running."
+  To temporarily work around this issue, you can launch gz_sim_launch.py
+  with the on_exit_shutdown argument set to an empty string. This prevents
+  the erroneous shutdown sequence and avoids the associated exception.
+  (cherry picked from commit 1e30af0105058d68c8f1c98f37904505f613cf97)
+  Co-authored-by: Ignacio Vizzo <ignaciovizzo@gmail.com>
+* Contributors: mergify[bot]
+
 1.0.6 (2024-10-31)
 ------------------
 * Create ros_gz_spawn_model.launch (`#604 <https://github.com/gazebosim/ros_gz/issues/604>`_) (`#627 <https://github.com/gazebosim/ros_gz/issues/627>`_)
