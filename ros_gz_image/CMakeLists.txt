@@ -16,11 +16,55 @@ find_package(ros_gz_bridge REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 
-find_package(gz_transport_vendor REQUIRED)
-find_package(gz-transport REQUIRED)
+# TODO(CH3): Deprecated. Remove on tock.
+if("$ENV{GZ_VERSION}" STREQUAL "" AND NOT "$ENV{IGNITION_VERSION}" STREQUAL "")
+  message(DEPRECATION "Environment variable [IGNITION_VERSION] is deprecated. Use [GZ_VERSION] instead.")
+  set(ENV{GZ_VERSION} $ENV{IGNITION_VERSION})
+endif()
 
-find_package(gz_msgs_vendor REQUIRED)
-find_package(gz-msgs REQUIRED)
+# Edifice
+if("$ENV{GZ_VERSION}" STREQUAL "edifice")
+  find_package(ignition-transport10 REQUIRED)
+  set(GZ_TRANSPORT_VER ${ignition-transport10_VERSION_MAJOR})
+
+  find_package(ignition-msgs7 REQUIRED)
+  set(GZ_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
+
+  set(GZ_TARGET_PREFIX ignition)
+
+  message(STATUS "Compiling against Ignition Edifice")
+# Fortress
+elseif("$ENV{GZ_VERSION}" STREQUAL "garden")
+  find_package(gz-transport12 REQUIRED)
+  set(GZ_TRANSPORT_VER ${gz-transport12_VERSION_MAJOR})
+
+  find_package(gz-msgs9 REQUIRED)
+  set(GZ_MSGS_VER ${gz-msgs9_VERSION_MAJOR})
+
+  set(GZ_TARGET_PREFIX gz)
+
+  message(STATUS "Compiling against Gazebo Garden")
+elseif("$ENV{GZ_VERSION}" STREQUAL "harmonic")
+  find_package(gz-transport13 REQUIRED)
+  find_package(gz-msgs10 REQUIRED)
+
+  set(GZ_TARGET_PREFIX gz)
+  set(GZ_MSGS_VER ${gz-msgs10_VERSION_MAJOR})
+  set(GZ_TRANSPORT_VER ${gz-transport13_VERSION_MAJOR})
+
+  message(STATUS "Compiling against Gazebo Harmonic")
+# Default to Fortress
+else()
+  find_package(ignition-transport11 REQUIRED)
+  set(GZ_TRANSPORT_VER ${ignition-transport11_VERSION_MAJOR})
+
+  find_package(ignition-msgs8 REQUIRED)
+  set(GZ_MSGS_VER ${ignition-msgs8_VERSION_MAJOR})
+
+  set(GZ_TARGET_PREFIX ignition)
+
+  message(STATUS "Compiling against Ignition Fortress")
+endif()
 
 include_directories(include)
 
@@ -33,8 +77,8 @@ add_executable(${executable}
 )
 
 target_link_libraries(${executable}
-  gz-msgs::core
-  gz-transport::core
+  ${GZ_TARGET_PREFIX}-msgs${GZ_MSGS_VER}::core
+  ${GZ_TARGET_PREFIX}-transport${GZ_TRANSPORT_VER}::core
 )
 
 ament_target_dependencies(${executable}
@@ -68,8 +112,8 @@ if(BUILD_TESTING)
   #   )
   #   target_link_libraries(${test_publisher}_image
   #     ${catkin_LIBRARIES}
-  #     $gz-msgs$::core
-  #     $gz-transport::core
+  #     ${GZ_TARGET_PREFIX}-msgs${GZ_MSGS_VER}::core
+  #     ${GZ_TARGET_PREFIX}-transport${GZ_TRANSPORT_VER}::core
   #     gtest
   #     gtest_main
   #   )
@@ -81,8 +125,8 @@ if(BUILD_TESTING)
   #     test/subscribers/${test_subscriber}.cpp)
   #   target_link_libraries(test_${test_subscriber}_image
   #     ${catkin_LIBRARIES}
-  #     $gz-msgs::core
-  #     $gz-transport::core
+  #     ${GZ_TARGET_PREFIX}-msgs${GZ_MSGS_VER}::core
+  #     ${GZ_TARGET_PREFIX}-transport${GZ_TRANSPORT_VER}::core
   #   )
   # endforeach(test_subscriber)
 endif()
