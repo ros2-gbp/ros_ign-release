@@ -1,1 +1,1 @@
-{"base": "0a389fcd", "parent": "debian/rolling/ros_gz_bridge", "previous": "521e07d0", "trim": "", "trimbase": ""}
+{"base": "10bf1b17a562", "parent": "debian/kilted/ros_gz_bridge", "previous": "f2b2cef7904b", "trim": "", "trimbase": ""}
