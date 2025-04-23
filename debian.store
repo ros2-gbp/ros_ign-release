@@ -1,1 +1,1 @@
-{"base": "9f8e0e97", "parent": "debian/rolling/ros_gz_sim", "previous": "a3d0c9ec", "trim": "", "trimbase": ""}
+{"base": "ca3294d2a880", "parent": "debian/kilted/ros_gz_sim", "previous": "e3fb7c6cab00", "trim": "", "trimbase": ""}
