@@ -2,6 +2,11 @@
 Changelog for package ros_ign_bridge
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.244.17 (2025-05-06)
+---------------------
+* Added codespell pre-commit hook. (backport `#721 <https://github.com/gazebosim/ros_gz/issues/721>`_) (`#723 <https://github.com/gazebosim/ros_gz/issues/723>`_)
+* Contributors: mergify[bot]
+
 0.244.16 (2024-07-22)
 ---------------------
 
@@ -57,7 +62,7 @@ Changelog for package ros_ign_bridge
   The way that we add factories can be a bit error-prone, as there are a lot of strings that cannot be checked at compilation time. This changes several of the boilerplate files to be generated automatically by python scripts, in line with how ros1_bridge does it.
 * [galactic] Backport GuiCamera, StringVec, TrackVisual, VideoRecord (`#241 <https://github.com/gazebosim/ros_gz/issues/241>`_)
   * [ros_ign_interfaces] Add more interface definitions.
-  * Add converion functions for the added messages
+  * Add conversion functions for the added messages
   * Update the factory factory function with the new messages
   * Add new messages to docs
   * Add test cases for the new messages conversions
