@@ -525,6 +525,18 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Entity> & _msg)
   EXPECT_EQ(expected_msg.type(), _msg->type());
 }
 
+void createTestMsg(gz::msgs::EntityFactory & _msg)
+{
+  _msg.set_name("entity");
+}
+
+void compareTestMsg(const std::shared_ptr<gz::msgs::EntityFactory> & _msg)
+{
+  gz::msgs::EntityFactory expected_msg;
+  createTestMsg(expected_msg);
+  EXPECT_EQ(expected_msg.name(), _msg->name());
+}
+
 void createTestMsg(gz::msgs::EntityWrench & _msg)
 {
   gz::msgs::Header header_msg;
@@ -967,10 +979,41 @@ void createTestMsg(gz::msgs::LaserScan & _msg)
   }
 }
 
+void createTestMsgRange(gz::msgs::LaserScan & _msg)
+{
+  gz::msgs::Header header_msg;
+  createTestMsg(header_msg);
+
+  const unsigned int num_readings = 1u;
+  const float fov = 3.14;
+  _msg.mutable_header()->CopyFrom(header_msg);
+  _msg.set_frame("frame_id_value");
+  _msg.set_angle_min(-fov / 2.0);
+  _msg.set_angle_max(fov / 2.0);
+  _msg.set_angle_step(fov / num_readings);
+  _msg.set_range_min(1.0);
+  _msg.set_range_max(2.0);
+  _msg.set_count(num_readings);
+  _msg.set_vertical_angle_min(-fov / 2.0);
+  _msg.set_vertical_angle_max(fov / 2.0);
+  _msg.set_vertical_angle_step(fov / num_readings);
+  _msg.set_vertical_count(num_readings);
+
+  for (auto i = 0u; i < _msg.count(); ++i) {
+    _msg.add_ranges(0.0);
+    _msg.add_intensities(1.0);
+  }
+}
+
 void compareTestMsg(const std::shared_ptr<gz::msgs::LaserScan> & _msg)
 {
   gz::msgs::LaserScan expected_msg;
-  createTestMsg(expected_msg);
+
+  if (_msg->count() > 1) {
+    createTestMsg(expected_msg);
+  } else {
+    createTestMsgRange(expected_msg);
+  }
 
   compareTestMsg(std::make_shared<gz::msgs::Header>(_msg->header()));
   EXPECT_FLOAT_EQ(expected_msg.angle_min(), _msg->angle_min());
