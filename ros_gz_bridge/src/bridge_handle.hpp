@@ -58,7 +58,7 @@ public:
   /// Not necessary if the Bridge isn't lazy
   void Spin();
 
-  /// \brief Inidicate if this is a "lazy" bridge
+  /// \brief Indicate if this is a "lazy" bridge
   ///
   /// A lazy bridge will always create the output side of the bridge, but
   /// will only create the input side of the bridge when downstream consumers
@@ -98,6 +98,9 @@ protected:
 
   /// \brief The configuration parameters of this bridge
   BridgeConfig config_;
+
+  /// \brief Override the header.stamp field of the outgoing messages with the wall time
+  bool override_timestamps_with_wall_time_ = false;
 
   /// \brief Typed factory used to create publishers/subscribers
   std::shared_ptr<FactoryInterface> factory_;
