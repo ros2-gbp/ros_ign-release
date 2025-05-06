@@ -2,7 +2,7 @@
 Changelog for package ros1_ign_image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-3.0.0 (2025-05-06)
+2.1.7 (2025-05-06)
 ------------------
 * use target_link_libraries instead of ament_target_dependencies (`#730 <https://github.com/gazebosim/ros_gz/issues/730>`_)
 * Added codespell pre-commit hook. (`#721 <https://github.com/gazebosim/ros_gz/issues/721>`_)
