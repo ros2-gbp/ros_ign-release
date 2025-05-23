@@ -16,15 +16,9 @@ from dataclasses import dataclass
 
 import os
 
-from ros_gz_bridge.mappings import MAPPINGS
+from ros_gz_bridge.mappings import MAPPINGS, MAPPINGS_10_1_0, MAPPINGS_8_4_0
 
-from rosidl_pycommon import expand_template
-
-from . import actions
-
-__all__ = [
-    'actions',
-]
+from rosidl_cmake import expand_template
 
 
 @dataclass
@@ -59,8 +53,7 @@ class MessageMapping:
         return f'gz::msgs::{self.gz_message_name}'
 
     def unique(self):
-        return f'{self.gz_message_name.lower()}_' \
-               f'{self.ros2_package_name}_{self.ros2_message_name.lower()}'
+        return f'{self.gz_message_name.lower()}_{self.ros2_message_name.lower()}'
 
 
 def mappings(gz_msgs_ver):
@@ -73,6 +66,23 @@ def mappings(gz_msgs_ver):
                 ros2_message_name=mapping.ros_type,
                 gz_message_name=mapping.gz_type
             ))
+
+    if gz_msgs_ver >= (8, 4, 0):
+        for (ros2_package_name, mappings) in MAPPINGS_8_4_0.items():
+            for mapping in sorted(mappings):
+                data.append(MessageMapping(
+                    ros2_package_name=ros2_package_name,
+                    ros2_message_name=mapping.ros_type,
+                    gz_message_name=mapping.gz_type
+                ))
+    if gz_msgs_ver >= (10, 1, 0):
+        for (ros2_package_name, mappings) in MAPPINGS_10_1_0.items():
+            for mapping in sorted(mappings):
+                data.append(MessageMapping(
+                    ros2_package_name=ros2_package_name,
+                    ros2_message_name=mapping.ros_type,
+                    gz_message_name=mapping.gz_type
+                ))
     return sorted(data, key=lambda mm: mm.ros2_string())
 
 
