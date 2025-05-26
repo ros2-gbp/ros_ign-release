@@ -2,13 +2,20 @@
 Changelog for package ros_gz_sim
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.1.8 (2025-05-26)
+3.0.1 (2025-05-26)
 ------------------
-* Fix debug_env (`#747 <https://github.com/gazebosim/ros_gz/issues/747>`_) (`#748 <https://github.com/gazebosim/ros_gz/issues/748>`_)
-* Log environment variables with which gazebo was launched (`#680 <https://github.com/gazebosim/ros_gz/issues/680>`_) (`#743 <https://github.com/gazebosim/ros_gz/issues/743>`_)
-* Contributors: mergify[bot]
+* Fix debug_env (`#747 <https://github.com/gazebosim/ros_gz/issues/747>`_)
+* Log environment variables with which gazebo was launched (`#680 <https://github.com/gazebosim/ros_gz/issues/680>`_)
+  * Log environment variables with which gazebo was launched
+  This can be useful for debugging scenarios where we want to debug why a simulation is not loading the correct files.
+  * Add confg
+  * Minor refactor
+  * make linters happy
+  ---------
+  Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
+* Contributors: Alejandro Hernández Cordero, Arjo Chakravarty
 
-2.1.7 (2025-05-06)
+3.0.0 (2025-05-06)
 ------------------
 * Spawn, set pose and delete entities using ROS 2 (`#705 <https://github.com/gazebosim/ros_gz/issues/705>`_)
 * use target_link_libraries instead of ament_target_dependencies (`#730 <https://github.com/gazebosim/ros_gz/issues/730>`_)

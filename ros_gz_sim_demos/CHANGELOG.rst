@@ -2,10 +2,10 @@
 Changelog for package ros1_gz_sim_demos
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.1.8 (2025-05-26)
+3.0.1 (2025-05-26)
 ------------------
 
-2.1.7 (2025-05-06)
+3.0.0 (2025-05-06)
 ------------------
 * Spawn, set pose and delete entities using ROS 2 (`#705 <https://github.com/gazebosim/ros_gz/issues/705>`_)
 * Add pre commit (`#718 <https://github.com/gazebosim/ros_gz/issues/718>`_)
