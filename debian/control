@@ -1,0 +1,12 @@
+Source: ros-jazzy-test-ros-gz-bridge
+Section: misc
+Priority: optional
+Maintainer: Aditya Pande <adityapande@intrinsic.ai>
+Build-Depends: debhelper (>= 9.0.0), ros-jazzy-ament-cmake, ros-jazzy-ament-cmake-gtest <!nocheck>, ros-jazzy-ament-lint-auto <!nocheck>, ros-jazzy-ament-lint-common <!nocheck>, ros-jazzy-launch-ros <!nocheck>, ros-jazzy-launch-testing <!nocheck>, ros-jazzy-launch-testing-ament-cmake <!nocheck>, ros-jazzy-ros-gz-bridge, ros-jazzy-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-jazzy-test-ros-gz-bridge
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-jazzy-ros-gz-bridge, ros-jazzy-ros-workspace
+Description: Bridge communication between ROS and Gazebo Transport
