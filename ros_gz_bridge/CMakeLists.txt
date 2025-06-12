@@ -14,18 +14,58 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(yaml_cpp_vendor REQUIRED)
-find_package(yaml-cpp REQUIRED)
 
-find_package(gz_transport_vendor REQUIRED)
-find_package(gz-transport REQUIRED)
+# TODO(CH3): Deprecated. Remove on tock.
+if("$ENV{GZ_VERSION}" STREQUAL "" AND NOT "$ENV{IGNITION_VERSION}" STREQUAL "")
+  message(DEPRECATION "Environment variable [IGNITION_VERSION] is deprecated. Use [GZ_VERSION] instead.")
+  set(ENV{GZ_VERSION} $ENV{IGNITION_VERSION})
+endif()
 
-find_package(gz_msgs_vendor REQUIRED)
-find_package(gz-msgs REQUIRED)
+# Edifice
+if("$ENV{GZ_VERSION}" STREQUAL "edifice")
+  find_package(ignition-transport10 REQUIRED)
+  find_package(ignition-msgs7 REQUIRED)
 
-# Install the python module for this package
-ament_python_install_package(${PROJECT_NAME})
+  set(GZ_TARGET_PREFIX ignition)
+  set(GZ_MSGS_VER ${ignition-msgs7_VERSION_MAJOR})
+  set(GZ_TRANSPORT_VER ${ignition-transport10_VERSION_MAJOR})
 
-set(GZ_MSGS_VERSION_FULL ${gz-msgs_VERSION})
+  message(STATUS "Compiling against Ignition Edifice")
+# Garden
+elseif("$ENV{GZ_VERSION}" STREQUAL "garden")
+  find_package(gz-transport12 REQUIRED)
+  find_package(gz-msgs9 REQUIRED)
+
+  set(GZ_TARGET_PREFIX gz)
+  set(GZ_MSGS_VER ${gz-msgs9_VERSION_MAJOR})
+  set(GZ_TRANSPORT_VER ${gz-transport12_VERSION_MAJOR})
+
+  message(STATUS "Compiling against Gazebo Garden")
+elseif("$ENV{GZ_VERSION}" STREQUAL "harmonic")
+  find_package(gz-transport13 REQUIRED)
+  find_package(gz-msgs10 REQUIRED)
+
+  set(GZ_TARGET_PREFIX gz)
+  set(GZ_MSGS_VER ${gz-msgs10_VERSION_MAJOR})
+  set(GZ_TRANSPORT_VER ${gz-transport13_VERSION_MAJOR})
+
+  message(STATUS "Compiling against Gazebo Harmonic")
+# Default to Fortress
+else()
+  find_package(ignition-transport11 REQUIRED)
+  find_package(ignition-msgs8 REQUIRED)
+
+  set(GZ_TARGET_PREFIX ignition)
+  set(GZ_MSGS_VER ${ignition-msgs8_VERSION_MAJOR})
+  set(GZ_TRANSPORT_VER ${ignition-transport11_VERSION_MAJOR})
+
+  message(STATUS "Compiling against Ignition Fortress")
+endif()
+
+set(GZ_MSGS_VERSION_MAJOR ${${GZ_TARGET_PREFIX}-msgs${GZ_MSGS_VER}_VERSION_MAJOR})
+set(GZ_MSGS_VERSION_MINOR ${${GZ_TARGET_PREFIX}-msgs${GZ_MSGS_VER}_VERSION_MINOR})
+set(GZ_MSGS_VERSION_PATCH ${${GZ_TARGET_PREFIX}-msgs${GZ_MSGS_VER}_VERSION_PATCH})
+set(GZ_MSGS_VERSION_FULL ${GZ_MSGS_VERSION_MAJOR}.${GZ_MSGS_VERSION_MINOR}.${GZ_MSGS_VERSION_PATCH})
 
 set(BRIDGE_MESSAGE_TYPES
   builtin_interfaces
@@ -98,18 +138,15 @@ add_library(${bridge_lib}
 )
 
 target_link_libraries(${bridge_lib}
-  PUBLIC
-    gz-msgs::core
-    gz-transport::core
-  PRIVATE
-    yaml-cpp::yaml-cpp
+  ${GZ_TARGET_PREFIX}-msgs${GZ_MSGS_VER}::core
+  ${GZ_TARGET_PREFIX}-transport${GZ_TRANSPORT_VER}::core
 )
 
 ament_target_dependencies(${bridge_lib}
-  PUBLIC
-    rclcpp
-    rclcpp_components
-    ${BRIDGE_MESSAGE_TYPES}
+  rclcpp
+  rclcpp_components
+  yaml_cpp_vendor
+  ${BRIDGE_MESSAGE_TYPES}
 )
 
 target_include_directories(${bridge_lib}
@@ -119,6 +156,11 @@ target_include_directories(${bridge_lib}
   PRIVATE
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>"
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/generated>"
+)
+
+target_link_libraries(${bridge_lib}
+  ${GZ_TARGET_PREFIX}-msgs${GZ_MSGS_VER}::core
+  ${GZ_TARGET_PREFIX}-transport${GZ_TRANSPORT_VER}::core
 )
 
 rclcpp_components_register_node(
@@ -134,11 +176,6 @@ install(TARGETS ${bridge_lib} EXPORT export_${PROJECT_NAME}
 install(
   DIRECTORY include/
   DESTINATION include/${PROJECT_NAME}
-)
-
-install(
-  DIRECTORY launch/
-  DESTINATION share/${PROJECT_NAME}/launch
 )
 
 set(bridge_executables
@@ -176,7 +213,7 @@ if(BUILD_TESTING)
     ${PROJECT_SOURCE_DIR}/src/convert/rcl_interfaces_TEST.cpp
   )
   target_link_libraries(test_rcl_interfaces
-    gz-msgs::core
+    ${GZ_TARGET_PREFIX}-msgs${GZ_MSGS_VER}::core
     ${rcl_interfaces_TARGETS}
     gtest
     gtest_main
@@ -211,8 +248,8 @@ if(BUILD_TESTING)
   )
   target_link_libraries(test_utils
     ${GTEST_LIBRARIES}
-    gz-msgs::core
-    gz-transport::core
+    ${GZ_TARGET_PREFIX}-msgs${GZ_MSGS_VER}::core
+    ${GZ_TARGET_PREFIX}-transport${GZ_TRANSPORT_VER}::core
   )
   ament_target_dependencies(test_utils
     rclcpp
@@ -282,13 +319,7 @@ if(BUILD_TESTING)
   target_include_directories(test_ros_subscriber
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/test/subscribers)
 
-  add_executable(test_launch_action_subscriber test/subscribers/launch_action_subscriber.cpp)
-  target_link_libraries(test_launch_action_subscriber test_utils)
-  target_include_directories(test_launch_action_subscriber
-    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/test/subscribers)
-
   install(TARGETS
-    test_launch_action_subscriber
     test_ros_publisher
     test_ros_subscriber
     test_gz_publisher
@@ -312,10 +343,6 @@ if(BUILD_TESTING)
     TIMEOUT 200
   )
 
-  add_launch_test(test/launch/test_launch_action.launch.py
-    TIMEOUT 200
-  )
-
   ament_add_gtest(${PROJECT_NAME}_bridge_config test/bridge_config.cpp
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
   target_include_directories(${PROJECT_NAME}_bridge_config PRIVATE src)
@@ -334,10 +361,9 @@ ament_export_targets(export_${PROJECT_NAME})
 # specific order: dependents before dependencies
 ament_export_dependencies(rclcpp)
 ament_export_dependencies(rclcpp_components)
-ament_export_dependencies(gz_msgs_vendor)
-ament_export_dependencies(gz-msgs)
-ament_export_dependencies(gz_transport_vendor)
-ament_export_dependencies(gz-transport)
+ament_export_dependencies(${GZ_TARGET_PREFIX}-msgs${GZ_MSGS_VER})
+ament_export_dependencies(${GZ_TARGET_PREFIX}-transport${GZ_TRANSPORT_VER})
+ament_export_dependencies(yaml_cpp_vendor)
 ament_export_dependencies(${BRIDGE_MESSAGE_TYPES})
 
 ament_package()
