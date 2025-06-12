@@ -1,0 +1,12 @@
+Source: ros-humble-ros-gz-sim
+Section: misc
+Priority: optional
+Maintainer: Alejandro Hernandez <ahcorde@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), libgflags-dev, libignition-gazebo6-dev, libignition-math6-dev, pkg-config, ros-humble-ament-cmake, ros-humble-ament-index-python, ros-humble-ament-lint-auto <!nocheck>, ros-humble-ament-lint-common <!nocheck>, ros-humble-rclcpp, ros-humble-std-msgs, ros-humble-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-humble-ros-gz-sim
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libgflags-dev, libignition-gazebo6-dev, libignition-math6-dev, ros-humble-ament-index-python, ros-humble-rclcpp, ros-humble-std-msgs, ros-humble-ros-workspace
+Description: Tools for using Gazebo Sim simulation with ROS.
