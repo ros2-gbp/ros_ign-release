@@ -1,0 +1,12 @@
+Source: ros-humble-test-ros-gz-bridge
+Section: misc
+Priority: optional
+Maintainer: Aditya Pande <adityapande@intrinsic.ai>
+Build-Depends: debhelper (>= 9.0.0), ros-humble-ament-cmake, ros-humble-ament-cmake-gtest <!nocheck>, ros-humble-ament-lint-auto <!nocheck>, ros-humble-ament-lint-common <!nocheck>, ros-humble-launch-ros <!nocheck>, ros-humble-launch-testing <!nocheck>, ros-humble-launch-testing-ament-cmake <!nocheck>, ros-humble-ros-gz-bridge, ros-humble-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-humble-test-ros-gz-bridge
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-humble-ros-gz-bridge, ros-humble-ros-workspace
+Description: Bridge communication between ROS and Gazebo Transport
