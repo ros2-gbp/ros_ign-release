@@ -284,12 +284,13 @@ bridge may be specified:
   gz_topic_name: "gz_chatter"
   ros_type_name: "std_msgs/msg/String"
   gz_type_name: "gz.msgs.StringMsg"
-  subscriber_queue: 5       # Default 10
-  publisher_queue: 6        # Default 10
+  subscriber_queue: 5       # Default 10 if qos_profile is empty, otherwise not set by default
+  publisher_queue: 6        # Default 10 if qos_profile is empty, otherwise not set by default
   lazy: true                # Default "false"
   direction: BIDIRECTIONAL  # Default "BIDIRECTIONAL" - Bridge both directions
                             # "GZ_TO_ROS" - Bridge Gz topic to ROS
                             # "ROS_TO_GZ" - Bridge ROS topic to Gz
+  qos_profile: SENSOR_DATA  # Default is a default-constructed QoS with appropriate queue size
 ```
 
 To run the bridge node with the above configuration:
@@ -297,7 +298,33 @@ To run the bridge node with the above configuration:
 ros2 run ros_gz_bridge parameter_bridge --ros-args -p config_file:=$WORKSPACE/ros_gz/ros_gz_bridge/test/config/full.yaml
 ```
 
-## Example 6: Using ROS namespace with the Bridge
+## Example 6: Configuring the Bridge via XML Launch file
+
+Another way how many topics can be bridged easily is using the XML launch file tags.
+
+Use tag `<ros_gz_bridge>` and add `<topic>` and `<service>` subelements, one for each bridged topic/service:
+
+```XML
+<launch>
+  <arg name="world_name" default="empty" />
+  <ros_gz_bridge bridge_name="clock_bridge">
+    <topic ros_topic_name="/clock" gz_topic_name="/clock"
+           ros_type_name="rosgraph_msgs/msg/Clock" gz_type_name="gz.msgs.Clock"
+           lazy="False" direction="GZ_TO_ROS" qos_profile="CLOCK" />
+    <service service_name="/world/$(var world_name)/control"
+             ros_type_name="ros_gz_interfaces/srv/ControlWorld"
+             gz_req_type_name="gz.msgs.WorldControl" gz_rep_type_name="gz.msgs.Boolean" />
+  </ros_gz_bridge>
+</launch>
+```
+
+This approach has the benefit over YAML config files that world and robot names can be easily parametrized
+as shown in this example. YAML config does not support any substitutions.
+
+You can even combine this approach and YAML config. Just add config file to `<ros_gz_bridge config_file="PATH/to/yaml">`.
+Bridges from both the YAML file and the XML launch tags will be added.
+
+## Example 7: Using ROS namespace with the Bridge
 
 When spawning multiple robots inside the same ROS environment, it is convenient to use namespaces to avoid overlapping topic names.
 There are three main types of namespaces: relative, global (`/`) and private (`~/`). For more information, refer to ROS documentation.
