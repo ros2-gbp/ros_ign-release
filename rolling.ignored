@@ -4,3 +4,4 @@ ros_ign_gazebo
 ros_ign_gazebo_demos
 ros_ign_image
 ros_ign_interfaces
+test_ros_gz_bridge
