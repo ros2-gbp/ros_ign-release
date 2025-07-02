@@ -2,19 +2,18 @@
 Changelog for package ros_gz_bridge
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-3.0.3 (2025-07-02)
+2.1.10 (2025-07-02)
+-------------------
+
+2.1.9 (2025-06-12)
+------------------
+* Added easy way to configure bridge from XML launch files. (`#735 <https://github.com/gazebosim/ros_gz/issues/735>`_) (`#753 <https://github.com/gazebosim/ros_gz/issues/753>`_)
+* Contributors: mergify[bot]
+
+2.1.8 (2025-05-26)
 ------------------
 
-3.0.2 (2025-06-12)
-------------------
-* ros_gz_bridge: Allow setting QoS profile from YAML files and launch action. (`#761 <https://github.com/gazebosim/ros_gz/issues/761>`_)
-* Added easy way to configure bridge from XML launch files. (`#735 <https://github.com/gazebosim/ros_gz/issues/735>`_)
-* Contributors: Martin Pecka
-
-3.0.1 (2025-05-26)
-------------------
-
-3.0.0 (2025-05-06)
+2.1.7 (2025-05-06)
 ------------------
 * Added LaserScan-Range bridge (backport `#736 <https://github.com/gazebosim/ros_gz/issues/736>`_) (`#740 <https://github.com/gazebosim/ros_gz/issues/740>`_)
 * use target_link_libraries instead of ament_target_dependencies (`#730 <https://github.com/gazebosim/ros_gz/issues/730>`_)

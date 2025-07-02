@@ -15,11 +15,8 @@
 #ifndef ROS_GZ_BRIDGE__BRIDGE_CONFIG_HPP_
 #define ROS_GZ_BRIDGE__BRIDGE_CONFIG_HPP_
 
-#include <optional>
 #include <string>
 #include <vector>
-
-#include <rclcpp/qos.hpp>
 
 namespace ros_gz_bridge
 {
@@ -45,12 +42,6 @@ static constexpr bool kDefaultLazy = false;
 // \brief Default bridge connectivity
 static constexpr BridgeDirection kDefaultDirection = BridgeDirection::BIDIRECTIONAL;
 
-/// \brief Parse uppercase string into a predefined QoS profile.
-/// \param[in] qos_profile Uppercase string, e.g. "SENSOR_DATA".
-/// \return The corresponding QoS profile.
-/// \throws std::invalid_argument if the profile cannot be parsed.
-rclcpp::QoS parseQoS(const std::string & qos_profile);
-
 struct BridgeConfig
 {
   /// \brief The ROS message type (eg std_msgs/msg/String)
@@ -70,23 +61,13 @@ struct BridgeConfig
   BridgeDirection direction = kDefaultDirection;
 
   /// \brief Depth of the subscriber queue
-  std::optional<size_t> subscriber_queue_size;
+  size_t subscriber_queue_size = kDefaultSubscriberQueue;
 
   /// \brief Depth of the publisher queue
-  std::optional<size_t> publisher_queue_size;
+  size_t publisher_queue_size = kDefaultPublisherQueue;
 
   /// \brief Flag to change the "laziness" of the bridge
   bool is_lazy = kDefaultLazy;
-
-  /// \brief QoS profile (unresolved, might have wrong depth).
-  /// \note Use PublisherQoS() and SubscriberQoS() to get the final QoS.
-  std::optional<rclcpp::QoS> qos_profile;
-
-  /// \brief Get the resolved QoS for publishers. It does not reflect QoS overrides.
-  rclcpp::QoS PublisherQoS() const;
-
-  /// \brief Get the resolved QoS for subscribers. It does not reflect QoS overrides.
-  rclcpp::QoS SubscriberQoS() const;
 };
 
 /// \brief Generate a group of BridgeConfigs from a YAML String

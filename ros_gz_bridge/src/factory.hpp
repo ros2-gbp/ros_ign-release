@@ -59,7 +59,7 @@ public:
   create_ros_publisher(
     rclcpp::Node::SharedPtr ros_node,
     const std::string & topic_name,
-    const rclcpp::QoS & qos)
+    size_t queue_size)
   {
     // Allow QoS overriding
     auto options = rclcpp::PublisherOptions();
@@ -75,7 +75,8 @@ public:
     };
 
     std::shared_ptr<rclcpp::Publisher<ROS_T>> publisher =
-      ros_node->create_publisher<ROS_T>(topic_name, qos, options);
+      ros_node->create_publisher<ROS_T>(
+      topic_name, rclcpp::QoS(rclcpp::KeepLast(queue_size)), options);
     return publisher;
   }
 
@@ -92,7 +93,7 @@ public:
   create_ros_subscriber(
     rclcpp::Node::SharedPtr ros_node,
     const std::string & topic_name,
-    const rclcpp::QoS & qos,
+    size_t queue_size,
     gz::transport::Node::Publisher & gz_pub)
   {
     std::function<void(std::shared_ptr<const ROS_T>)> fn = std::bind(
@@ -107,7 +108,8 @@ public:
     options.qos_overriding_options =
       rclcpp::QosOverridingOptions::with_default_policies();
     std::shared_ptr<rclcpp::Subscription<ROS_T>> subscription =
-      ros_node->create_subscription<ROS_T>(topic_name, qos, fn, options);
+      ros_node->create_subscription<ROS_T>(
+      topic_name, rclcpp::QoS(rclcpp::KeepLast(queue_size)), fn, options);
     return subscription;
   }
 
