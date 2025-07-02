@@ -1,3 +1,41 @@
+## ros_gz (rolling) - 3.0.3-1
+
+The packages in the `ros_gz` repository were released into the `rolling` distro by running `/usr/bin/bloom-release --rosdistro rolling --track rolling ros_gz` on `Wed, 02 Jul 2025 07:55:17 -0000`
+
+These packages were released:
+- `ros_gz`
+- `ros_gz_bridge`
+- `ros_gz_image`
+- `ros_gz_interfaces`
+- `ros_gz_sim`
+- `ros_gz_sim_demos`
+
+These packages were explicitly ignored:
+- `ros_ign`
+- `ros_ign_bridge`
+- `ros_ign_gazebo`
+- `ros_ign_gazebo_demos`
+- `ros_ign_image`
+- `ros_ign_interfaces`
+- `test_ros_gz_bridge`
+
+Version of package(s) in repository `ros_gz`:
+
+- upstream repository: https://github.com/gazebosim/ros_gz
+- release repository: https://github.com/ros2-gbp/ros_ign-release.git
+- rosdistro version: `3.0.2-1`
+- old version: `3.0.2-1`
+- new version: `3.0.3-1`
+
+Versions of tools used:
+
+- bloom version: `0.12.0`
+- catkin_pkg version: `1.0.0`
+- rosdep version: `0.25.1`
+- rosdistro version: `1.0.1`
+- vcstools version: `0.1.42`
+
+
 ## ros_gz (humble) - 0.244.20-1
 
 The packages in the `ros_gz` repository were released into the `humble` distro by running `/usr/bin/bloom-release --rosdistro humble --track humble ros_gz` on `Thu, 12 Jun 2025 11:50:12 -0000`
