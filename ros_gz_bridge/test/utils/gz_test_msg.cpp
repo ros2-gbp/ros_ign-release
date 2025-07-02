@@ -376,6 +376,7 @@ void createTestMsg(gz::msgs::PoseWithCovariance & _msg)
 {
   createTestMsg(*_msg.mutable_pose()->mutable_position());
   createTestMsg(*_msg.mutable_pose()->mutable_orientation());
+  createTestMsg(*_msg.mutable_pose()->mutable_header());
   for (int i = 0; i < 36; i++) {
     _msg.mutable_covariance()->add_data(i);
   }
@@ -652,7 +653,6 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Contacts> & _msg)
   }
 }
 
-#if HAVE_DATAFRAME
 void createTestMsg(gz::msgs::Dataframe & _msg)
 {
   gz::msgs::Header header_msg;
@@ -690,7 +690,6 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Dataframe> & _msg)
   EXPECT_EQ(expected_msg.dst_address(), _msg->dst_address());
   EXPECT_EQ(expected_msg.data(), _msg->data());
 }
-#endif  // HAVE_DATAFRAME
 
 void createTestMsg(gz::msgs::Image & _msg)
 {
@@ -1414,7 +1413,6 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Light> & _msg)
   EXPECT_FLOAT_EQ(expected_msg.intensity(), _msg->intensity());
 }
 
-#if HAVE_MATERIALCOLOR
 void createTestMsg(gz::msgs::MaterialColor & _msg)
 {
   createTestMsg(*_msg.mutable_header());
@@ -1443,7 +1441,6 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::MaterialColor> & _msg)
   EXPECT_EQ(expected_msg.shininess(), _msg->shininess());
   EXPECT_EQ(expected_msg.entity_match(), _msg->entity_match());
 }
-#endif  // HAVE_MATERIALCOLOR
 
 void createTestMsg(gz::msgs::GUICamera & _msg)
 {
@@ -1743,6 +1740,33 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::AnnotatedOriented3DBox_V> & 
       std::make_shared<gz::msgs::AnnotatedOriented3DBox>(
         _msg->annotated_box(
           i)));
+  }
+}
+
+void createTestMsg(gz::msgs::LogicalCameraImage & _msg)
+{
+  createTestMsg(*_msg.mutable_header());
+  createTestMsg(*_msg.mutable_pose());
+
+  for (int i = 0; i < 4; ++i) {
+    auto * model = _msg.add_model();
+    model->set_name("model_" + std::to_string(i));
+    createTestMsg(*model->mutable_pose());
+  }
+}
+
+void compareTestMsg(const std::shared_ptr<gz::msgs::LogicalCameraImage> & _msg)
+{
+  gz::msgs::LogicalCameraImage expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(std::make_shared<gz::msgs::Header>(_msg->header()));
+  compareTestMsg(std::make_shared<gz::msgs::Pose>(_msg->pose()));
+
+  ASSERT_EQ(expected_msg.model_size(), _msg->model_size());
+  for (int i = 0; i < _msg->model_size(); ++i) {
+    EXPECT_EQ(expected_msg.model(i).name(), _msg->model(i).name());
+    compareTestMsg(std::make_shared<gz::msgs::Pose>(_msg->model(i).pose()));
   }
 }
 
