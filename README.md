@@ -2,15 +2,25 @@
 
 ROS 2 version | Gazebo version | Branch | Binaries hosted at
 -- | -- | -- | --
+<<<<<<< HEAD
+Foxy | Citadel | [foxy](https://github.com/gazebosim/ros_gz/tree/foxy) | https://packages.ros.org
+Foxy | Edifice | [foxy](https://github.com/gazebosim/ros_gz/tree/foxy) | only from source [^2]
+Galactic | Edifice | [galactic](https://github.com/gazebosim/ros_gz/tree/galactic) | https://packages.ros.org [^2]
+Galactic | Fortress | [galactic](https://github.com/gazebosim/ros_gz/tree/galactic) | only from source
+=======
+>>>>>>> 7f19b09 (Update README: remove EOLs and add Kilted (#766))
 Humble | Fortress | [humble](https://github.com/gazebosim/ros_gz/tree/humble) | https://packages.ros.org
 Humble | Garden | [humble](https://github.com/gazebosim/ros_gz/tree/humble) | [gazebo packages](https://gazebosim.org/docs/latest/ros_installation#gazebo-garden-with-ros-2-humble-or-rolling-use-with-caution-)[^1] [^2]
 Humble | Harmonic | [humble](https://github.com/gazebosim/ros_gz/tree/humble) | [gazebo packages](https://gazebosim.org/docs/harmonic/ros_installation#-gazebo-harmonic-with-ros-2-humble-or-rolling-use-with-caution-)[^1]
 Jazzy | Garden | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source [^2]
 Jazzy | Harmonic | [jazzy](https://github.com/gazebosim/ros_gz/tree/jazzy) | https://packages.ros.org
+<<<<<<< HEAD
+Rolling | Fortress | [humble](https://github.com/gazebosim/ros_gz/tree/humble) | https://packages.ros.org
+=======
 Kilted | Ionic | [kilted](https://github.com/gazebosim/ros_gz/tree/kilted) | https://packages.ros.org
+>>>>>>> 7f19b09 (Update README: remove EOLs and add Kilted (#766))
 Rolling | Garden | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source [^2]
 Rolling | Harmonic | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source
-Rolling | Ionic | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | https://packages.ros.org
 
 [^1]: Binaries for these pairings are provided from the packages.osrfoundation.org repository. Refer to https://gazebosim.org/docs/latest/ros_installation for installation instructions.
 [^2]: Note that the Gazebo version on this row has reached end-of-life.
@@ -52,7 +62,7 @@ This repository holds packages that provide integration between
 
 ## Install
 
-This branch supports ROS Rolling. See above for other ROS versions.
+This branch supports ROS Jazzy. See above for other ROS versions.
 
 ### Binaries
 
@@ -67,14 +77,14 @@ They are hosted at https://packages.ros.org.
 
 1. Install `ros_gz`
 
-        sudo apt install ros-rolling-ros-gz
+        sudo apt install ros-jazzy-ros-gz
 
 ### From source
 
 #### ROS
 
 Be sure you've installed
-[ROS Rolling](https://docs.ros.org/en/rolling/index.html)
+[ROS Jazzy](https://docs.ros.org/en/jazzy/Installation.html)
 (at least ROS-Base). More ROS dependencies will be installed below.
 
 #### Gazebo
@@ -100,14 +110,14 @@ The following steps are for Linux and macOS.
     cd ~/ws/src
 
     # Download needed software
-    git clone https://github.com/gazebosim/ros_gz.git -b ros2
+    git clone https://github.com/gazebosim/ros_gz.git -b jazzy
     ```
 
 1. Install dependencies (this may also install Gazebo):
 
     ```
     cd ~/ws
-    rosdep install -r --from-paths src -i -y --rosdistro rolling
+    rosdep install -r --from-paths src -i -y --rosdistro jazzy
     ```
 
     > If `rosdep` fails to install Gazebo libraries and you have not installed them before, please follow [Gazebo installation instructions](https://gazebosim.org/docs/latest/install).
