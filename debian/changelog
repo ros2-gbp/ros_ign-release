@@ -1,0 +1,528 @@
+ros-rolling-ros-gz-sim-demos (3.0.5-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Sun, 16 Nov 2025 23:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (3.0.4-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Mon, 29 Sep 2025 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (3.0.3-1noble) noble; urgency=high
+
+  * Correct gz sim resource path in ros_gz_sim_demos (#771 <https://github.com/gazebosim/ros_gz/issues/771>) (#773 <https://github.com/gazebosim/ros_gz/issues/773>)
+  * Contributors: mergify[bot]
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Tue, 01 Jul 2025 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (3.0.2-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Wed, 11 Jun 2025 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (3.0.1-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Sun, 25 May 2025 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (3.0.0-1noble) noble; urgency=high
+
+  * Spawn, set pose and delete entities using ROS 2 (#705 <https://github.com/gazebosim/ros_gz/issues/705>)
+  * Add pre commit (#718 <https://github.com/gazebosim/ros_gz/issues/718>)
+  * Contributors: Khaled Gabr, Leander Stephen D'Souza
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Mon, 05 May 2025 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (2.1.6-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Thu, 20 Mar 2025 23:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (2.1.5-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Sun, 23 Feb 2025 23:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (2.1.4-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Tue, 11 Feb 2025 23:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (2.1.3-1noble) noble; urgency=high
+
+  * Refactor triggered_camera demo (#645 <https://github.com/gazebosim/ros_gz/issues/645>)
+    Co-authored-by: Alejandro Hernández Cordero <mailto:ahcorde@gmail.com>
+  * Refactor rgbd_camera_bridge demo (#643 <https://github.com/gazebosim/ros_gz/issues/643>)
+    Co-authored-by: Alejandro Hernández Cordero <mailto:ahcorde@gmail.com>
+  * Refactor diff_drive demo (#635 <https://github.com/gazebosim/ros_gz/issues/635>)
+    Co-authored-by: Alejandro Hernández Cordero <mailto:ahcorde@gmail.com>
+  * Refactor gpu_lidar_bridge demo (#636 <https://github.com/gazebosim/ros_gz/issues/636>)
+    * Refactor gpu_lidar_bridge demo
+  * Refactor camera demo (#634 <https://github.com/gazebosim/ros_gz/issues/634>)
+    Co-authored-by: Alejandro Hernández Cordero <mailto:ahcorde@gmail.com>
+  * Refactor battery demo (#633 <https://github.com/gazebosim/ros_gz/issues/633>)
+  * Refactor tf_bridge demo (#644 <https://github.com/gazebosim/ros_gz/issues/644>)
+  * Refactor magnetometer demo (#638 <https://github.com/gazebosim/ros_gz/issues/638>)
+  * Refactor imu demo (#637 <https://github.com/gazebosim/ros_gz/issues/637>)
+    * Refactor imu demo
+  * Refactor navsat_gpxfix demo (#642 <https://github.com/gazebosim/ros_gz/issues/642>)
+    * Refactor navsat_gpxfix demo
+  * Refactor navsat demo (#639 <https://github.com/gazebosim/ros_gz/issues/639>)
+    * Refactor navsat demo
+  * Refactor air pressure demo (#632 <https://github.com/gazebosim/ros_gz/issues/632>)
+    * Refactor air pressure demo
+    Co-authored-by: Addisu Z. Taddese <mailto:addisu@openrobotics.org>
+    Co-authored-by: Alejandro Hernández Cordero <mailto:ahcorde@gmail.com>
+  * Contributors: Carlos Agüero
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Mon, 13 Jan 2025 23:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (2.1.2-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Wed, 30 Oct 2024 23:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (2.1.1-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Sun, 13 Oct 2024 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (2.1.0-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Wed, 11 Sep 2024 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (2.0.1-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Wed, 28 Aug 2024 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (2.0.0-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Sun, 21 Jul 2024 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (1.0.1-1noble) noble; urgency=high
+
+  * Prepare for 1.0.0 Release (#495 <https://github.com/gazebosim/ros_gz//issues/495>)
+  * Use gz_vendor packages (#531 <https://github.com/gazebosim/ros_gz//issues/531>)
+  * [backport Humble] Create bridge for GPSFix msg (#316 <https://github.com/gazebosim/ros_gz//issues/316>) (#538 <https://github.com/gazebosim/ros_gz//issues/538>)
+    Co-authored-by: Rousseau Vincent <mailto:vincentrou@gmail.com>
+  * [backport Iron] Create bridge for GPSFix msg (#316 <https://github.com/gazebosim/ros_gz//issues/316>) (#537 <https://github.com/gazebosim/ros_gz//issues/537>)
+    Co-authored-by: Rousseau Vincent <mailto:vincentrou@gmail.com>
+  * 0.244.14
+  * Changelog
+  * 0.244.13
+  * Changelog
+  * Remove deprecations using ros_gz_sim_create (#476 <https://github.com/gazebosim/ros_gz//issues/476>)
+  * 0.244.12
+  * Changelog
+  * 0.246.0
+  * Update changelogs
+  * Added more topic to the bridge (#422 <https://github.com/gazebosim/ros_gz//issues/422>)
+  * Fix incorrect subscription on demo (#405 <https://github.com/gazebosim/ros_gz//issues/405>) (#408 <https://github.com/gazebosim/ros_gz//issues/408>)
+    This PR fixes an incorrect subscription on one of the demos. Running
+    ```
+    ros2 launch ros_gz_sim_demos gpu_lidar_bridge.launch.py
+    ```
+    causes rviz2 to crash and exit with the error:
+    ```
+    rviz2-3]
+    [rviz2-3] >>> [rcutils|error_handling.c:108] rcutils_set_error_state()
+    [rviz2-3] This error state is being overwritten:
+    [rviz2-3]
+    [rviz2-3]   'create_subscription() called for existing topic name rt/lidar with incompatible type sensor_msgs::msg::dds\_::PointCloud2\_, at ./src/subscription.cpp:146, at ./src/rcl/subscription.c:108'
+    [rviz2-3]
+    [rviz2-3] with this new error message:
+    [rviz2-3]
+    [rviz2-3]   'invalid allocator, at ./src/rcl/subscription.c:218'
+    [rviz2-3]
+    [rviz2-3] rcutils_reset_error() should be called after error handling to avoid this.
+    ```
+    This is due to an incorrect subscription on the part of the demo. This
+    PR fixes it by getting a subscription to the right topic for the
+    pointcloud display. (lidar/points instead of lidar). Was tested on
+    garden + humble.
+    Co-authored-by: Arjo Chakravarty <mailto:arjoc@intrinsic.ai>
+  * Port: humble to ros2 (#386 <https://github.com/gazebosim/ros_gz//issues/386>)
+  * Merge branch 'humble' into mjcarroll/humble_to_ros2
+  * Update maintainers (#376 <https://github.com/gazebosim/ros_gz//issues/376>)
+  * Rename 'ign gazebo' to 'gz sim' (#343 <https://github.com/gazebosim/ros_gz//issues/343>)
+  * Create bridge for GPSFix msg (#316 <https://github.com/gazebosim/ros_gz//issues/316>)
+  * Humble ➡️ ROS2 (#323 <https://github.com/gazebosim/ros_gz//issues/323>)
+    Humble ➡️ ROS2
+  * Merge branch 'humble' into ports/humble_to_ros2
+  * Fixed ros_gz_sim_demos launch files (#319 <https://github.com/gazebosim/ros_gz//issues/319>)
+  * 0.245.0
+  * Changelog
+  * humble to ros2 (#311 <https://github.com/gazebosim/ros_gz//issues/311>)
+    Co-authored-by: Michael Carroll <mailto:michael@openrobotics.org>
+  * Merge remote-tracking branch 'origin/humble' into ahcorde/humble_to_ros2
+  * Remove all ignition references on ROS 2 branch (#302 <https://github.com/gazebosim/ros_gz//issues/302>)
+    * Remove all shims
+    * Update CMakeLists and package.xml for garden
+    * Complete garden gz renaming
+    * Drop fortress CI
+  * Contributors: Addisu Z. Taddese, Aditya Pande, Alejandro Hernández Cordero, Clyde McQueen, Jose Luis Rivero, Michael Carroll, Rousseau Vincent, ahcorde
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Tue, 02 Jul 2024 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (1.0.0-1noble) noble; urgency=high
+
+  * Use gz_vendor packages (#531 <https://github.com/gazebosim/ros_gz/issues/531>)
+  * Remove deprecations using ros_gz_sim_create (#476 <https://github.com/gazebosim/ros_gz/issues/476>)
+  * Contributors: Addisu Z. Taddese, Alejandro Hernández Cordero
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Tue, 23 Apr 2024 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.246.0-1noble) noble; urgency=high
+
+  * Added more topic to the bridge (#422 <https://github.com/gazebosim/ros_gz/issues/422>)
+  * Fix incorrect subscription on demo (#405 <https://github.com/gazebosim/ros_gz/issues/405>) (#408 <https://github.com/gazebosim/ros_gz/issues/408>)
+    Co-authored-by: Arjo Chakravarty <mailto:arjoc@intrinsic.ai>
+  * Port: humble to ros2 (#386 <https://github.com/gazebosim/ros_gz/issues/386>)
+  * Merge branch 'humble' into mjcarroll/humble_to_ros2
+  * Update maintainers (#376 <https://github.com/gazebosim/ros_gz/issues/376>)
+  * Rename 'ign gazebo' to 'gz sim' (#343 <https://github.com/gazebosim/ros_gz/issues/343>)
+  * Create bridge for GPSFix msg (#316 <https://github.com/gazebosim/ros_gz/issues/316>)
+  * Humble ➡️ ROS2 (#323 <https://github.com/gazebosim/ros_gz/issues/323>)
+  * Fixed ros_gz_sim_demos launch files (#319 <https://github.com/gazebosim/ros_gz/issues/319>)
+  * Contributors: Aditya Pande, Alejandro Hernández Cordero, Clyde McQueen, Michael Carroll, Rousseau Vincent, ahcorde
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Wed, 30 Aug 2023 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.245.0-1noble) noble; urgency=high
+
+  * humble to ros2 (#311 <https://github.com/gazebosim/ros_gz/issues/311>)
+    Co-authored-by: Michael Carroll <mailto:michael@openrobotics.org>
+  * Merge remote-tracking branch 'origin/humble' into ahcorde/humble_to_ros2
+  * Remove all ignition references on ROS 2 branch (#302 <https://github.com/gazebosim/ros_gz/issues/302>)
+    * Remove all shims
+    * Update CMakeLists and package.xml for garden
+    * Complete garden gz renaming
+    * Drop fortress CI
+  * Contributors: Alejandro Hernández Cordero, Michael Carroll, ahcorde
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Tue, 11 Oct 2022 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.244.10-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Tue, 02 May 2023 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.244.9-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Wed, 02 Nov 2022 23:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.244.8-1noble) noble; urgency=high
+
+  * Fixed ros_gz_sim_demos launch files (#319 <https://github.com/gazebosim/ros_gz/issues/319>) (#320 <https://github.com/gazebosim/ros_gz/issues/320>)
+  * Contributors: Alejandro Hernández Cordero
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Thu, 27 Oct 2022 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.244.7-1noble) noble; urgency=high
+
+  * Merge pull request #275 <https://github.com/gazebosim/ros_gz/issues/275> (Galactic to Humble)
+    Galactic to Humble
+  * Merge branch 'ros2' into ports/galactic_to_ros2
+  * Contributors: Michael Carroll
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Tue, 11 Oct 2022 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.244.6-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Tue, 13 Sep 2022 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.244.5-1noble) noble; urgency=high
+
+  * sdformat_urdf parser demo (#265 <https://github.com/gazebosim/ros_gz/issues/265>)
+    * parser compatible model and launch framework
+    * added ground plane, common gz plugins, demo commands and cleaned install paths
+    * unique collision names and cleared flake
+    * updating model config
+    * building parser from source
+    * fix flake and update deb dependency for garden
+    * Move packages and files to gz
+    * feedback and ign->gz
+    * Support ros_ign migration
+    Clean up shared libraries, and tick-tock RosGzPointCloud
+    Tick-tock launch args
+    Hard-tock ign_ in sources
+    Migrate ign, ign_, IGN_ for sources, launch, and test files
+    Migrate IGN_XXX_VER, IGN_T, header guards
+    Migrate launchfile, launchfile args, and test source references
+    Migrate ros_ign_XXX and gz_gazebo -> gz_sim
+    Migrate ros_ign_XXX project names
+    Migrate Ign, ign-, IGN_DEPS, ign-gazebo
+    Migrate ignitionrobotics, ignitionrobotics/ros_ign, osrf/ros_ign
+    Migrate ignition-version, IGNITION_VERSION, Ignition <LIB>, ros_ign_ci
+    * renaming and flake
+    * added ros commands
+    * gz-version
+    * feedback and ci trial
+    * removing garden condition
+    Co-authored-by: Michael Carroll <mailto:michael@openrobotics.org>
+    Co-authored-by: methylDragon <mailto:methylDragon@gmail.com>
+    Co-authored-by: Louise Poubel <mailto:louise@openrobotics.org>
+  * Support ros_ign migration (#282 <https://github.com/gazebosim/ros_gz/issues/282>)
+    Clean up shared libraries, and tick-tock RosGzPointCloud
+    Tick-tock launch args
+    Hard-tock ign_ in sources
+    Migrate ign, ign_, IGN_ for sources, launch, and test files
+    Migrate IGN_XXX_VER, IGN_T, header guards
+    Migrate launchfile, launchfile args, and test source references
+    Migrate ros_ign_XXX and gz_gazebo -> gz_sim
+    Migrate ros_ign_XXX project names
+    Migrate Ign, ign-, IGN_DEPS, ign-gazebo
+    Migrate ignitionrobotics, ignitionrobotics/ros_ign, osrf/ros_ign
+    Migrate ignition-version, IGNITION_VERSION, Ignition <LIB>, ros_ign_ci
+  * Move packages and files to gz (#282 <https://github.com/gazebosim/ros_gz/issues/282>)
+  * Contributors: Dharini Dutia, methylDragon
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Sun, 11 Sep 2022 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.244.3-1noble) noble; urgency=high
+
+  * [ros2] README updates (service bridge, Gazebo rename) (#252 <https://github.com/gazebosim/ros_gz/issues/252>)
+  * Fix linter tests (#251 <https://github.com/gazebosim/ros_gz/issues/251>)
+    Co-authored-by: Louise Poubel <mailto:louise@openrobotics.org>
+  * Joint state publisher and tf bridging demo (#244 <https://github.com/gazebosim/ros_gz/issues/244>)
+    * Added joint state publisher and tf bridge demo
+    Co-authored-by: Louise Poubel <mailto:louise@openrobotics.org>
+  * Contributors: Aditya Pande, Daisuke Nishimatsu, Louise Poubel
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Wed, 18 May 2022 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.244.2-1noble) noble; urgency=high
+
+  * Camera trigger demo (#223 <https://github.com/gazebosim/ros_gz/issues/223>)
+  * Separate galactic branch from ros2 branch (#201 <https://github.com/gazebosim/ros_gz/issues/201>)
+  * 🏁 Dome EOL (#198 <https://github.com/gazebosim/ros_gz/issues/198>)
+  * Joint states tutorial (#156 <https://github.com/gazebosim/ros_gz/issues/156>)
+    Adds an rrbot model to demos and shows the usage of joint_states plugin.
+  * Contributors: Louise Poubel, Michael Carroll, Vatan Aksoy Tezer, William Lew
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Sun, 24 Apr 2022 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.244.1-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Mon, 03 Jan 2022 23:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.244.0-1noble) noble; urgency=high
+
+  * Default to Fortress for Rolling (future Humble) (#195 <https://github.com/gazebosim/ros_gz/issues/195>)
+  * [ros2] 🏁 Dome EOL (#199 <https://github.com/gazebosim/ros_gz/issues/199>)
+  * Enable QoS overrides (#181 <https://github.com/gazebosim/ros_gz/issues/181>)
+  * Contributors: Guillaume Doisy, Louise Poubel
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Wed, 29 Dec 2021 23:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.233.2-1noble) noble; urgency=high
+
+  * [ros2] Add exec depend on xacro for demos (#170 <https://github.com/gazebosim/ros_gz/issues/170>)
+  * [ros2] Update version docs, add Galactic and Fortress (#164 <https://github.com/gazebosim/ros_gz/issues/164>)
+  * Joint states tutorial (#156 <https://github.com/gazebosim/ros_gz/issues/156>)
+    Adds an rrbot model to demos and shows the usage of joint_states plugin.
+  * Contributors: Louise Poubel, Vatan Aksoy Tezer
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Mon, 19 Jul 2021 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.233.1-1noble) noble; urgency=high
+
+  * Default to Edifice for Rolling (#150 <https://github.com/gazebosim/ros_gz/issues/150>)
+  * Minor updates for demos (#144 <https://github.com/gazebosim/ros_gz/issues/144>)
+    * Re-enable air pressure demo
+    - Resolves https://github.com/gazebosim/ros_gz/issues/78
+    * Add RQt topic viewer to IMU demo
+    * Add image_topic argument for image_bridge demo
+    * Do not normalize depth image in RViz2
+  * Edifice support (#140 <https://github.com/gazebosim/ros_gz/issues/140>)
+  * Add topic flag to create robot  (#128 <https://github.com/gazebosim/ros_gz/issues/128>)
+    Now it is possible to run ros_gz_sim create specifying a topic as
+    source of the robot description
+    Add a launch file starting a ignition gazebo world and spawn a sphere in it.
+    Additionally a rviz2 interface is loaded to show that also Rviz can load
+    the robot description
+    The newly created demo introduce a dependency on the robot_state_publisher package
+  * [ros2] Update releases (#108 <https://github.com/gazebosim/ros_gz/issues/108>)
+  * Contributors: Andrej Orsula, Louise Poubel, Valerio Magnago
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Thu, 15 Apr 2021 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.221.1-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Tue, 18 Aug 2020 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.221.0-1noble) noble; urgency=high
+
+  * Updated launch file to use ros_gz_sim (#82 <https://github.com/gazebosim/ros_gz/issues/82>)
+    Co-authored-by: Louise Poubel <mailto:louise@openrobotics.org>
+  * Use new ros_gz_sim package on ROS 2 demos (#85 <https://github.com/gazebosim/ros_gz/issues/85>)
+    Co-authored-by: Alejandro Hernández Cordero <mailto:ahcorde@gmail.com>
+  * [WIP] Port ign_ros_gazebo_demos to ROS2 (#58 <https://github.com/gazebosim/ros_gz/issues/58>)
+    Port ros_gz_image to ROS2
+    Port ros_gz_sim_demos to ROS2
+  * Enable ROS2 CI for Dashing branch (#43 <https://github.com/gazebosim/ros_gz/issues/43>)
+  * Make all API and comments ROS-version agnostic
+  * Rename packages and fix compilation + tests
+  * Move files ros1 -> ros
+  * Contributors: Alejandro Hernández Cordero, Jose Luis Rivero, Louise Poubel, chapulina
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Wed, 22 Jul 2020 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.7.0-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Wed, 14 Aug 2019 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.6.3-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Sat, 03 Aug 2019 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.6.2-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Sat, 03 Aug 2019 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.6.1-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Sat, 03 Aug 2019 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.6.0-1noble) noble; urgency=high
+
+  * Image bridge using image_transport (#34 <https://github.com/osrf/ros1_ign_bridge/issues/34>)
+    * Image bridge using image_transport
+    * tests for image
+    * correct metapackage
+    * tests with catkin
+    Signed-off-by: Louise Poubel <mailto:louise@openrobotics.org>
+    * Revert changes from #32 <https://github.com/osrf/ros1_ign_bridge/issues/32>
+    Signed-off-by: Louise Poubel <mailto:louise@openrobotics.org>
+  * Revert "Pointcloud bridge demo for depth camera"
+    This reverts commit 094cd40f21aed734d59c204172ad5afd7a26c8d6.
+  * Pointcloud bridge demo for depth camera
+  * Contributors: Louise Poubel, chapulina
+  * 0.5.0
+  * Battery state (#30 <https://github.com/osrf/ros1_ign_bridge/issues/30>)
+  * Packed demo (#29 <https://github.com/osrf/ros1_ign_bridge/issues/29>)
+    * adding demo for point cloud packed bridge
+    * correct rviz file
+    * RGBD bridged cloud demo
+  * Merge pull request #28 <https://github.com/osrf/ros1_ign_bridge/issues/28> from osrf/pointcloudpacked
+    Bridge point cloud packed
+  * Contributors: Nate Koenig, chapulina
+  * Battery state (#30 <https://github.com/osrf/ros1_ign_bridge/issues/30>)
+  * Packed demo (#29 <https://github.com/osrf/ros1_ign_bridge/issues/29>)
+    * adding demo for point cloud packed bridge
+    * correct rviz file
+    * RGBD bridged cloud demo
+  * Merge pull request #28 <https://github.com/osrf/ros1_ign_bridge/issues/28> from osrf/pointcloudpacked
+    Bridge point cloud packed
+  * Contributors: Nate Koenig, chapulina
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Thu, 01 Aug 2019 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.4.0-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Mon, 15 Jul 2019 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.3.1-1noble) noble; urgency=high
+
+  * Merge pull request #24 <https://github.com/osrf/ros1_ign_bridge/issues/24> from osrf/fix_dep
+    ignition-gazebo2 needed at build time
+  * ignition-gazebo2 needed at build time
+  * Contributors: Jose Luis Rivero
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Sun, 30 Jun 2019 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.3.0-1noble) noble; urgency=high
+
+  * 0.2.0
+  * Merge pull request #21 <https://github.com/osrf/ros1_ign_bridge/issues/21> from osrf/lidar
+    Point clouds from lidars
+  * Conversion between nav_msgs/Odometry and ignition::msgs::Odometry (#22 <https://github.com/osrf/ros1_ign_bridge/issues/22>)
+    * Conversion between nav_msgs/Odometry and ignition::msgs::Odometry.
+    * Update documentation.
+    * More time to run tests
+    * Cleaning test_utils.
+    * Remove explicit ROS dependencies for Travis.
+    * diff drive demo with cmd_vel and odom
+    * process child frame id
+  * final tweaks
+  * PC2 for gpu_lidar, 1 vertical sample
+  * Start of lidar PC
+  * Fluid pressure (#20 <https://github.com/osrf/ros1_ign_bridge/issues/20>)
+    * screenshots
+    * missing IMU
+    * Fluid pressure
+    * Fix tests.
+  * Demos package (#19 <https://github.com/osrf/ros1_ign_bridge/issues/19>)
+    * Start of demos package: camera
+    * IMU
+    * depth camera
+    * magnetometer
+    * lidar, base launch
+    * READMEs, RGBD camera
+    * screenshots
+    * missing IMU
+    * set plugin path env
+    * It's best to always set it
+  * Contributors: Carlos Agüero, Nate Koenig, chapulina
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Thu, 27 Jun 2019 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.2.2-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Sun, 19 May 2019 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.2.1-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Fri, 10 May 2019 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.2.0-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Wed, 08 May 2019 22:00:00 -0000
+
+ros-rolling-ros-gz-sim-demos (0.1.0-1noble) noble; urgency=high
+
+
+
+ -- Aditya Pande <adityapande@intrinsic.ai>  Tue, 19 Mar 2019 23:00:00 -0000
+
+
