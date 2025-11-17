@@ -1,0 +1,12 @@
+Source: ros-kilted-ros-gz-sim
+Section: misc
+Priority: optional
+Maintainer: Aditya Pande <adityapande@intrinsic.ai>
+Build-Depends: debhelper (>= 9.0.0), libcli11-dev, libgflags-dev, pkg-config, ros-kilted-ament-cmake, ros-kilted-ament-cmake-python, ros-kilted-ament-index-python, ros-kilted-ament-lint-auto <!nocheck>, ros-kilted-ament-lint-common <!nocheck>, ros-kilted-builtin-interfaces, ros-kilted-geometry-msgs, ros-kilted-gz-math-vendor, ros-kilted-gz-msgs-vendor, ros-kilted-gz-sim-vendor, ros-kilted-gz-transport-vendor, ros-kilted-launch, ros-kilted-launch-ros, ros-kilted-launch-ros <!nocheck>, ros-kilted-launch-testing <!nocheck>, ros-kilted-launch-testing-ament-cmake <!nocheck>, ros-kilted-rclcpp, ros-kilted-rclcpp-action, ros-kilted-rclcpp-components, ros-kilted-rcpputils, ros-kilted-ros-gz-bridge <!nocheck>, ros-kilted-ros-gz-interfaces, ros-kilted-simulation-interfaces, ros-kilted-std-msgs, ros-kilted-tf2, ros-kilted-tf2-ros, ros-kilted-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-kilted-ros-gz-sim
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libcli11-dev, libgflags-dev, ros-kilted-ament-index-python, ros-kilted-builtin-interfaces, ros-kilted-geometry-msgs, ros-kilted-gz-math-vendor, ros-kilted-gz-msgs-vendor, ros-kilted-gz-sim-vendor, ros-kilted-gz-transport-vendor, ros-kilted-launch, ros-kilted-launch-ros, ros-kilted-rclcpp, ros-kilted-rclcpp-action, ros-kilted-rclcpp-components, ros-kilted-rcpputils, ros-kilted-ros-gz-interfaces, ros-kilted-simulation-interfaces, ros-kilted-std-msgs, ros-kilted-tf2, ros-kilted-tf2-ros, ros-kilted-ros-workspace
+Description: Tools for using Gazebo Sim simulation with ROS.
