@@ -284,13 +284,12 @@ bridge may be specified:
   gz_topic_name: "gz_chatter"
   ros_type_name: "std_msgs/msg/String"
   gz_type_name: "gz.msgs.StringMsg"
-  subscriber_queue: 5       # Default 10 if qos_profile is empty, otherwise not set by default
-  publisher_queue: 6        # Default 10 if qos_profile is empty, otherwise not set by default
+  subscriber_queue: 5       # Default 10
+  publisher_queue: 6        # Default 10
   lazy: true                # Default "false"
   direction: BIDIRECTIONAL  # Default "BIDIRECTIONAL" - Bridge both directions
                             # "GZ_TO_ROS" - Bridge Gz topic to ROS
                             # "ROS_TO_GZ" - Bridge ROS topic to Gz
-  qos_profile: SENSOR_DATA  # Default is a default-constructed QoS with appropriate queue size
 ```
 
 To run the bridge node with the above configuration:
@@ -310,7 +309,7 @@ Use tag `<ros_gz_bridge>` and add `<topic>` and `<service>` subelements, one for
   <ros_gz_bridge bridge_name="clock_bridge">
     <topic ros_topic_name="/clock" gz_topic_name="/clock"
            ros_type_name="rosgraph_msgs/msg/Clock" gz_type_name="gz.msgs.Clock"
-           lazy="False" direction="GZ_TO_ROS" qos_profile="CLOCK" />
+           lazy="False" direction="GZ_TO_ROS" />
     <service service_name="/world/$(var world_name)/control"
              ros_type_name="ros_gz_interfaces/srv/ControlWorld"
              gz_req_type_name="gz.msgs.WorldControl" gz_rep_type_name="gz.msgs.Boolean" />
@@ -324,29 +323,7 @@ as shown in this example. YAML config does not support any substitutions.
 You can even combine this approach and YAML config. Just add config file to `<ros_gz_bridge config_file="PATH/to/yaml">`.
 Bridges from both the YAML file and the XML launch tags will be added.
 
-## Example 7: Configuring the Bridge via Python Launch file
-
-Similarly, bridges can be configured in Python launch files by listing the different bridge names under the bridge_names parameter,
-and configuring the settings for the bridge under the set of parameters using the bridge.bridge_name.setting naming convention:
-
-```Python
-Node(
-    package="ros_gz_bridge",
-    executable="parameter_bridge",
-    parameters=[
-        {"bridge_names": ["clock_bridge"]},
-        {"bridges.clock_bridge.ros_topic_name": "/clock"},
-        {"bridges.clock_bridge.gz_topic_name": "/clock"},
-        {"bridges.clock_bridge.ros_type_name": "rosgraph_msgs/msg/Clock"},
-        {"bridges.clock_bridge.gz_type_name": "gz.msgs.Clock"},
-        {"bridges.clock_bridge.direction": "GZ_TO_ROS"},
-        {"bridges.clock_bridge.lazy": "False"},
-        {"bridges.clock_bridge.qos_profile": "CLOCK"},
-    ],
-)
-```
-
-## Example 8: Using ROS namespace with the Bridge
+## Example 7: Using ROS namespace with the Bridge
 
 When spawning multiple robots inside the same ROS environment, it is convenient to use namespaces to avoid overlapping topic names.
 There are three main types of namespaces: relative, global (`/`) and private (`~/`). For more information, refer to ROS documentation.
