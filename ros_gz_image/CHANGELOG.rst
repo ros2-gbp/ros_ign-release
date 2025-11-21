@@ -2,59 +2,58 @@
 Changelog for package ros1_ign_image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.1.12 (2025-11-17)
+1.0.18 (2025-11-21)
 -------------------
 
-2.1.11 (2025-09-30)
+1.0.17 (2025-07-16)
 -------------------
 
-2.1.10 (2025-07-02)
+1.0.16 (2025-07-02)
 -------------------
 
-2.1.9 (2025-06-12)
+1.0.15 (2025-06-12)
+-------------------
+
+1.0.14 (2025-05-26)
+-------------------
+
+1.0.13 (2025-05-23)
+-------------------
+
+1.0.12 (2025-05-06)
+-------------------
+* Added codespell pre-commit hook. (`#721 <https://github.com/gazebosim/ros_gz/issues/721>`_) (`#722 <https://github.com/gazebosim/ros_gz/issues/722>`_)
+* Contributors: mergify[bot]
+
+1.0.11 (2025-03-21)
+-------------------
+
+1.0.10 (2025-02-24)
+-------------------
+
+1.0.9 (2025-02-12)
 ------------------
 
-2.1.8 (2025-05-26)
+1.0.8 (2025-01-14)
 ------------------
 
-2.1.7 (2025-05-06)
-------------------
-* use target_link_libraries instead of ament_target_dependencies (`#730 <https://github.com/gazebosim/ros_gz/issues/730>`_)
-* Added codespell pre-commit hook. (`#721 <https://github.com/gazebosim/ros_gz/issues/721>`_)
-* Contributors: Alejandro Hernández Cordero, Leander Stephen D'Souza
-
-2.1.6 (2025-03-21)
+1.0.7 (2024-11-08)
 ------------------
 
-2.1.5 (2025-02-24)
+1.0.6 (2024-10-31)
 ------------------
 
-2.1.4 (2025-02-12)
+1.0.5 (2024-10-14)
 ------------------
 
-2.1.3 (2025-01-14)
+1.0.4 (2024-08-29)
 ------------------
 
-2.1.2 (2024-10-31)
+1.0.3 (2024-07-22)
 ------------------
 
-2.1.1 (2024-10-14)
+1.0.2 (2024-07-03)
 ------------------
-
-2.1.0 (2024-09-12)
-------------------
-
-2.0.1 (2024-08-29)
-------------------
-
-2.0.0 (2024-07-22)
-------------------
-
-1.0.1 (2024-07-03)
-------------------
-* Merge pull request `#571 <https://github.com/gazebosim/ros_gz//issues/571>`_ from azeey/jazzy_to_ros2
-  Merge jazzy ➡️  ros2
-* Merge jazzy into ros2
 * Merge pull request `#569 <https://github.com/gazebosim/ros_gz//issues/569>`_ from azeey/iron_to_jazzy
   Merge iron ➡️  jazzy
 * Merge iron into jazzy
