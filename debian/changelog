@@ -1,0 +1,200 @@
+ros-humble-ros-gz-interfaces (0.244.21-1jammy) jammy; urgency=high
+
+
+
+ -- Louise Poubel <louise@openrobotics.org>  Mon, 19 Jan 2026 23:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.20-1jammy) jammy; urgency=high
+
+
+
+ -- Louise Poubel <louise@openrobotics.org>  Wed, 11 Jun 2025 22:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.19-1jammy) jammy; urgency=high
+
+
+
+ -- Louise Poubel <louise@openrobotics.org>  Sun, 25 May 2025 22:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.18-1jammy) jammy; urgency=high
+
+
+
+ -- Louise Poubel <louise@openrobotics.org>  Thu, 22 May 2025 22:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.17-1jammy) jammy; urgency=high
+
+  * Added codespell pre-commit hook. (backport #721 <https://github.com/gazebosim/ros_gz/issues/721>) (#723 <https://github.com/gazebosim/ros_gz/issues/723>)
+  * Add pre commit (backport #718 <https://github.com/gazebosim/ros_gz/issues/718>) (#720 <https://github.com/gazebosim/ros_gz/issues/720>)
+  * Contributors: mergify[bot]
+
+ -- Louise Poubel <louise@openrobotics.org>  Mon, 05 May 2025 22:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.16-1jammy) jammy; urgency=high
+
+
+
+ -- Louise Poubel <louise@openrobotics.org>  Sun, 21 Jul 2024 22:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.15-1jammy) jammy; urgency=high
+
+  * Add support for gz.msgs.EntityWrench (base branch: ros2) (backport #573 <https://github.com/gazebosim/ros_gz/issues/573>) (#575 <https://github.com/gazebosim/ros_gz/issues/575>)
+    * Add support for gz.msgs.EntityWrench (base branch: ros2) (#573 <https://github.com/gazebosim/ros_gz/issues/573>)
+    (cherry picked from commit f9afb69d1163633dd978024bb7271a28cf7b551a)
+    # Conflicts:
+    #     ros_gz_bridge/README.md
+    #     ros_gz_bridge/test/utils/gz_test_msg.hpp
+    * Fixed merge
+    * Update ros_gz_bridge/README.md
+    Co-authored-by: Addisu Z. Taddese <mailto:addisu@openrobotics.org>
+    ---------
+    Co-authored-by: Victor T. Noppeney <mailto:Vtn21@users.noreply.github.com>
+    Co-authored-by: Alejandro Hernández Cordero <mailto:ahcorde@gmail.com>
+    Co-authored-by: Addisu Z. Taddese <mailto:addisu@openrobotics.org>
+  * Contributors: mergify[bot]
+
+ -- Louise Poubel <louise@openrobotics.org>  Tue, 02 Jul 2024 22:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.14-1jammy) jammy; urgency=high
+
+  * Add option to change material color from ROS. (#486 <https://github.com/gazebosim/ros_gz/issues/486>)
+    * Message and bridge for MaterialColor.
+    This allows bridging MaterialColor from ROS to GZ and is
+    important for allowing simulation users to create status lights.
+    ---------
+    Co-authored-by: Alejandro Hernández Cordero <mailto:ahcorde@gmail.com>
+    Co-authored-by: Addisu Z. Taddese <mailto:addisuzt@intrinsic.ai>
+    Co-authored-by: Addisu Z. Taddese <mailto:addisu@openrobotics.org>
+  * Contributors: Benjamin Perseghetti
+
+ -- Louise Poubel <louise@openrobotics.org>  Sun, 07 Apr 2024 22:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.13-1jammy) jammy; urgency=high
+
+
+
+ -- Louise Poubel <louise@openrobotics.org>  Mon, 22 Jan 2024 23:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.12-1jammy) jammy; urgency=high
+
+  * [backport humble] SensorNoise msg bridging (#417 <https://github.com/gazebosim/ros_gz/issues/417>)
+  * [backport humble] Added Altimeter msg bridging (#413 <https://github.com/gazebosim/ros_gz/issues/413>) (#414 <https://github.com/gazebosim/ros_gz/issues/414>) (#426 <https://github.com/gazebosim/ros_gz/issues/426>)
+  * Contributors: Alejandro Hernández Cordero
+
+ -- Louise Poubel <louise@openrobotics.org>  Tue, 12 Dec 2023 23:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.11-1jammy) jammy; urgency=high
+
+
+
+ -- Louise Poubel <louise@openrobotics.org>  Mon, 22 May 2023 22:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.10-1jammy) jammy; urgency=high
+
+
+
+ -- Louise Poubel <louise@openrobotics.org>  Tue, 02 May 2023 22:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.9-1jammy) jammy; urgency=high
+
+  * Export rcl_interfaces exec dependency (#317 <https://github.com/gazebosim/ros_gz/issues/317>)
+  * Contributors: Michael Carroll
+
+ -- Louise Poubel <louise@openrobotics.org>  Wed, 02 Nov 2022 23:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.8-1jammy) jammy; urgency=high
+
+
+
+ -- Louise Poubel <louise@openrobotics.org>  Thu, 27 Oct 2022 22:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.7-1jammy) jammy; urgency=high
+
+  * Bridge between msgs::Float_V and ros_gz_interfaces/Float32Array msg types (#306 <https://github.com/gazebosim/ros_gz/issues/306>)
+    * bridge float_v and float32_multi_array msg type
+    Co-authored-by: Ian Chen <mailto:ichen@openrobotics.org>
+  * Merge pull request #275 <https://github.com/gazebosim/ros_gz/issues/275> (Galactic to Humble)
+    Galactic to Humble
+  * Merge branch 'ros2' into ports/galactic_to_ros2
+  * Contributors: Ian Chen, Michael Carroll
+
+ -- Louise Poubel <louise@openrobotics.org>  Tue, 11 Oct 2022 22:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.6-1jammy) jammy; urgency=high
+
+
+
+ -- Louise Poubel <louise@openrobotics.org>  Tue, 13 Sep 2022 22:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.5-1jammy) jammy; urgency=high
+
+  * Support ros_ign migration (#282 <https://github.com/gazebosim/ros_gz/issues/282>)
+    Clean up shared libraries, and tick-tock RosGzPointCloud
+    Tick-tock launch args
+    Hard-tock ign_ in sources
+    Migrate ign, ign_, IGN_ for sources, launch, and test files
+    Migrate IGN_XXX_VER, IGN_T, header guards
+    Migrate launchfile, launchfile args, and test source references
+    Migrate ros_ign_XXX and gz_gazebo -> gz_sim
+    Migrate ros_ign_XXX project names
+    Migrate Ign, ign-, IGN_DEPS, ign-gazebo
+    Migrate ignitionrobotics, ignitionrobotics/ros_ign, osrf/ros_ign
+    Migrate ignition-version, IGNITION_VERSION, Ignition <LIB>, ros_ign_ci
+  * Move packages and files to gz (#282 <https://github.com/gazebosim/ros_gz/issues/282>)
+  * Contributors: methylDragon
+
+ -- Louise Poubel <louise@openrobotics.org>  Sun, 11 Sep 2022 22:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.3-1jammy) jammy; urgency=high
+
+  * [ros2] README updates (service bridge, Gazebo rename) (#252 <https://github.com/gazebosim/ros_gz/issues/252>)
+  * Contributors: Louise Poubel
+
+ -- Louise Poubel <louise@openrobotics.org>  Wed, 18 May 2022 22:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.2-1jammy) jammy; urgency=high
+
+  * [ros_gz_interfaces] Add GuiCamera, StringVec, TrackVisual, VideoRecord (#214 <https://github.com/gazebosim/ros_gz/issues/214>)
+    * [ros_gz_interfaces] Add more interface definitions.
+    * Add conversion functions for the added messages
+    * Update the factory factory function with the new messages
+    * Add new messages to docs
+    * Add test cases for the new messages conversions
+  * Update maintainer for ros_gz_interfaces (#204 <https://github.com/gazebosim/ros_gz/issues/204>)
+  * [ros2]  new package ros_gz_interfaces, provide some  Gazebo-specific ROS messages. (#152 <https://github.com/gazebosim/ros_gz/issues/152>)
+    * add new package ros_gz_interfaces,provide some Gazebo-specific ros .msg and .srv files
+    * modify to match gz-msgs
+    * add author info
+    * modify comments
+    * update code and doc style
+  * Contributors: Alejandro Hernández Cordero, Ivan Santiago Paunovic, Louise Poubel, Michael Carroll, ahcorde, gezp
+
+ -- Louise Poubel <louise@openrobotics.org>  Sun, 24 Apr 2022 22:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.1-1jammy) jammy; urgency=high
+
+
+
+ -- Louise Poubel <louise@openrobotics.org>  Mon, 03 Jan 2022 23:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.244.0-1jammy) jammy; urgency=high
+
+  * New Light Message, also bridge Color (#187 <https://github.com/gazebosim/ros_gz/issues/187>)
+  * Expose Contacts through ROS bridge (#175 <https://github.com/gazebosim/ros_gz/issues/175>)
+  * Contributors: Guillaume Doisy, Vatan Aksoy Tezer, William Lew
+
+ -- Louise Poubel <louise@openrobotics.org>  Wed, 29 Dec 2021 23:00:00 -0000
+
+ros-humble-ros-gz-interfaces (0.233.2-1jammy) jammy; urgency=high
+
+  * [ros2]  new package ros_gz_interfaces, provide some  Gazebo-specific ROS messages. (#152 <https://github.com/gazebosim/ros_gz/issues/152>)
+    * add new package ros_gz_interfaces,provide some Gazebo-specific ros .msg and .srv files
+    * modify to match gz-msgs
+    * add author info
+    * modify comments
+    * update code and doc style
+  * Contributors: gezp
+
+ -- Louise Poubel <louise@openrobotics.org>  Mon, 19 Jul 2021 22:00:00 -0000
+
+
