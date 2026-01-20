@@ -2,153 +2,47 @@
 Changelog for package ros1_gz_sim_demos
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.0.18 (2025-11-21)
--------------------
+0.244.21 (2026-01-20)
+---------------------
 
-1.0.17 (2025-07-16)
--------------------
+0.244.20 (2025-06-12)
+---------------------
 
-1.0.16 (2025-07-02)
--------------------
-* Correct gz sim resource path in ros_gz_sim_demos (`#771 <https://github.com/gazebosim/ros_gz/issues/771>`_)
-* Contributors: Júlia Marsal Perendreu
+0.244.19 (2025-05-26)
+---------------------
 
-1.0.15 (2025-06-12)
--------------------
+0.244.18 (2025-05-23)
+---------------------
 
-1.0.14 (2025-05-26)
--------------------
-
-1.0.13 (2025-05-23)
--------------------
-
-1.0.12 (2025-05-06)
--------------------
-* Spawn, set pose and delete entities using ROS 2 (backport `#705 <https://github.com/gazebosim/ros_gz/issues/705>`_) (`#733 <https://github.com/gazebosim/ros_gz/issues/733>`_)
-* Add pre commit (`#718 <https://github.com/gazebosim/ros_gz/issues/718>`_) (`#719 <https://github.com/gazebosim/ros_gz/issues/719>`_)
+0.244.17 (2025-05-06)
+---------------------
+* Add pre commit (backport `#718 <https://github.com/gazebosim/ros_gz/issues/718>`_) (`#720 <https://github.com/gazebosim/ros_gz/issues/720>`_)
 * Contributors: mergify[bot]
 
-1.0.11 (2025-03-21)
--------------------
+0.244.16 (2024-07-22)
+---------------------
 
-1.0.10 (2025-02-24)
--------------------
-
-1.0.9 (2025-02-12)
-------------------
-
-1.0.8 (2025-01-14)
-------------------
-
-1.0.7 (2024-11-08)
-------------------
-
-1.0.6 (2024-10-31)
-------------------
-
-1.0.5 (2024-10-14)
-------------------
-
-1.0.4 (2024-08-29)
-------------------
-
-1.0.3 (2024-07-22)
-------------------
-
-1.0.2 (2024-07-03)
-------------------
-* Prepare for 1.0.0 Release (`#495 <https://github.com/gazebosim/ros_gz//issues/495>`_)
-* Use gz_vendor packages (`#531 <https://github.com/gazebosim/ros_gz//issues/531>`_)
+0.244.15 (2024-07-03)
+---------------------
 * [backport Humble] Create bridge for GPSFix msg (`#316 <https://github.com/gazebosim/ros_gz//issues/316>`_) (`#538 <https://github.com/gazebosim/ros_gz//issues/538>`_)
   Co-authored-by: Rousseau Vincent <vincentrou@gmail.com>
-* [backport Iron] Create bridge for GPSFix msg (`#316 <https://github.com/gazebosim/ros_gz//issues/316>`_) (`#537 <https://github.com/gazebosim/ros_gz//issues/537>`_)
-  Co-authored-by: Rousseau Vincent <vincentrou@gmail.com>
-* 0.244.14
-* Changelog
-* 0.244.13
-* Changelog
-* Remove deprecations using ros_gz_sim_create (`#476 <https://github.com/gazebosim/ros_gz//issues/476>`_)
-* 0.244.12
-* Changelog
-* 0.246.0
-* Update changelogs
-* Added more topic to the bridge (`#422 <https://github.com/gazebosim/ros_gz//issues/422>`_)
-* Fix incorrect subscription on demo (`#405 <https://github.com/gazebosim/ros_gz//issues/405>`_) (`#408 <https://github.com/gazebosim/ros_gz//issues/408>`_)
-  This PR fixes an incorrect subscription on one of the demos. Running
-  ```
-  ros2 launch ros_gz_sim_demos gpu_lidar_bridge.launch.py
-  ```
-  causes rviz2 to crash and exit with the error:
-  ```
-  rviz2-3]
-  [rviz2-3] >>> [rcutils|error_handling.c:108] rcutils_set_error_state()
-  [rviz2-3] This error state is being overwritten:
-  [rviz2-3]
-  [rviz2-3]   'create_subscription() called for existing topic name rt/lidar with incompatible type sensor_msgs::msg::dds\_::PointCloud2\_, at ./src/subscription.cpp:146, at ./src/rcl/subscription.c:108'
-  [rviz2-3]
-  [rviz2-3] with this new error message:
-  [rviz2-3]
-  [rviz2-3]   'invalid allocator, at ./src/rcl/subscription.c:218'
-  [rviz2-3]
-  [rviz2-3] rcutils_reset_error() should be called after error handling to avoid this.
-  ```
-  This is due to an incorrect subscription on the part of the demo. This
-  PR fixes it by getting a subscription to the right topic for the
-  pointcloud display. (`lidar/points` instead of `lidar`). Was tested on
-  garden + humble.
-  Co-authored-by: Arjo Chakravarty <arjoc@intrinsic.ai>
-* Port: humble to ros2 (`#386 <https://github.com/gazebosim/ros_gz//issues/386>`_)
-* Merge branch 'humble' into mjcarroll/humble_to_ros2
-* Update maintainers (`#376 <https://github.com/gazebosim/ros_gz//issues/376>`_)
-* Rename 'ign gazebo' to 'gz sim' (`#343 <https://github.com/gazebosim/ros_gz//issues/343>`_)
-* Create bridge for GPSFix msg (`#316 <https://github.com/gazebosim/ros_gz//issues/316>`_)
-* Humble ➡️ ROS2 (`#323 <https://github.com/gazebosim/ros_gz//issues/323>`_)
-  Humble ➡️ ROS2
-* Merge branch 'humble' into ports/humble_to_ros2
-* Fixed ros_gz_sim_demos launch files (`#319 <https://github.com/gazebosim/ros_gz//issues/319>`_)
-* 0.245.0
-* Changelog
-* humble to ros2 (`#311 <https://github.com/gazebosim/ros_gz//issues/311>`_)
-  Co-authored-by: Michael Carroll <michael@openrobotics.org>
-* Merge remote-tracking branch 'origin/humble' into ahcorde/humble_to_ros2
-* Remove all ignition references on ROS 2 branch (`#302 <https://github.com/gazebosim/ros_gz//issues/302>`_)
-  * Remove all shims
-  * Update CMakeLists and package.xml for garden
-  * Complete garden gz renaming
-  * Drop fortress CI
-* Contributors: Addisu Z. Taddese, Aditya Pande, Alejandro Hernández Cordero, Clyde McQueen, Jose Luis Rivero, Michael Carroll, Rousseau Vincent, ahcorde
+* Contributors: Alejandro Hernández Cordero
 
-1.0.0 (2024-04-24)
-------------------
-* Use gz_vendor packages (`#531 <https://github.com/gazebosim/ros_gz/issues/531>`_)
-* Remove deprecations using ros_gz_sim_create (`#476 <https://github.com/gazebosim/ros_gz/issues/476>`_)
-* Contributors: Addisu Z. Taddese, Alejandro Hernández Cordero
+0.244.14 (2024-04-08)
+---------------------
 
-0.246.0 (2023-08-31)
---------------------
+0.244.13 (2024-01-23)
+---------------------
+
+0.244.12 (2023-12-13)
+---------------------
+* [backport Humble] Added more topic to the bridge (`#422 <https://github.com/gazebosim/ros_gz/issues/422>`_)
 * Added more topic to the bridge (`#422 <https://github.com/gazebosim/ros_gz/issues/422>`_)
-* Fix incorrect subscription on demo (`#405 <https://github.com/gazebosim/ros_gz/issues/405>`_) (`#408 <https://github.com/gazebosim/ros_gz/issues/408>`_)
-  Co-authored-by: Arjo Chakravarty <arjoc@intrinsic.ai>
-* Port: humble to ros2 (`#386 <https://github.com/gazebosim/ros_gz/issues/386>`_)
-* Merge branch 'humble' into mjcarroll/humble_to_ros2
-* Update maintainers (`#376 <https://github.com/gazebosim/ros_gz/issues/376>`_)
-* Rename 'ign gazebo' to 'gz sim' (`#343 <https://github.com/gazebosim/ros_gz/issues/343>`_)
-* Create bridge for GPSFix msg (`#316 <https://github.com/gazebosim/ros_gz/issues/316>`_)
-* Humble ➡️ ROS2 (`#323 <https://github.com/gazebosim/ros_gz/issues/323>`_)
-* Fixed ros_gz_sim_demos launch files (`#319 <https://github.com/gazebosim/ros_gz/issues/319>`_)
-* Contributors: Aditya Pande, Alejandro Hernández Cordero, Clyde McQueen, Michael Carroll, Rousseau Vincent, ahcorde
+* Fix incorrect subscription on demo (`#405 <https://github.com/gazebosim/ros_gz/issues/405>`_)
+* Contributors: Alejandro Hernández Cordero, Arjo Chakravarty
 
-0.245.0 (2022-10-12)
---------------------
-* humble to ros2 (`#311 <https://github.com/gazebosim/ros_gz/issues/311>`_)
-  Co-authored-by: Michael Carroll <michael@openrobotics.org>
-* Merge remote-tracking branch 'origin/humble' into ahcorde/humble_to_ros2
-* Remove all ignition references on ROS 2 branch (`#302 <https://github.com/gazebosim/ros_gz/issues/302>`_)
-  * Remove all shims
-  * Update CMakeLists and package.xml for garden
-  * Complete garden gz renaming
-  * Drop fortress CI
-* Contributors: Alejandro Hernández Cordero, Michael Carroll, ahcorde
+0.244.11 (2023-05-23)
+---------------------
 
 0.244.10 (2023-05-03)
 ---------------------

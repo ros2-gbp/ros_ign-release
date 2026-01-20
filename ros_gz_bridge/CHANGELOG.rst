@@ -2,166 +2,61 @@
 Changelog for package ros_gz_bridge
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.0.18 (2025-11-21)
--------------------
+0.244.21 (2026-01-20)
+---------------------
 
-1.0.17 (2025-07-16)
--------------------
-* Added missing test and parse service name from YAML (`#776 <https://github.com/gazebosim/ros_gz/issues/776>`_)
-* Contributors: Alejandro Hernández Cordero
+0.244.20 (2025-06-12)
+---------------------
 
-1.0.16 (2025-07-02)
--------------------
-* Fix crash on old bridge definition (`#775 <https://github.com/gazebosim/ros_gz/issues/775>`_)
-* Contributors: Jasper van Brakel
+0.244.19 (2025-05-26)
+---------------------
 
-1.0.15 (2025-06-12)
--------------------
-* Added easy way to configure bridge from XML launch files. (backport `#735 <https://github.com/gazebosim/ros_gz/issues/735>`_) (`#754 <https://github.com/gazebosim/ros_gz/issues/754>`_)
-* Contributors: mergify[bot]
+0.244.18 (2025-05-23)
+---------------------
 
-1.0.14 (2025-05-26)
--------------------
+0.244.17 (2025-05-06)
+---------------------
+* Added LaserScan-Range bridge (`#736 <https://github.com/gazebosim/ros_gz/issues/736>`_)
+* Backported override_timestamps_with_wall_time to humble (`#731 <https://github.com/gazebosim/ros_gz/issues/731>`_)
+* Added codespell pre-commit hook. (backport `#721 <https://github.com/gazebosim/ros_gz/issues/721>`_) (`#723 <https://github.com/gazebosim/ros_gz/issues/723>`_)
+* Add pre commit (backport `#718 <https://github.com/gazebosim/ros_gz/issues/718>`_) (`#720 <https://github.com/gazebosim/ros_gz/issues/720>`_)
+* Fix missing child_frame_id in TF2 message conversion (`#710 <https://github.com/gazebosim/ros_gz/issues/710>`_)
+* Add SpawnEntity, DeleteEntity, & SetEntityPose Support (backport `#380 <https://github.com/gazebosim/ros_gz/issues/380>`_) (`#713 <https://github.com/gazebosim/ros_gz/issues/713>`_)
+* Contributors: Noa Thouard, chcaya, mergify[bot]
 
-1.0.13 (2025-05-23)
--------------------
-
-1.0.12 (2025-05-06)
--------------------
-* Added LaserScan-Range bridge (backport `#736 <https://github.com/gazebosim/ros_gz/issues/736>`_) (`#739 <https://github.com/gazebosim/ros_gz/issues/739>`_)
-* Added codespell pre-commit hook. (`#721 <https://github.com/gazebosim/ros_gz/issues/721>`_) (`#722 <https://github.com/gazebosim/ros_gz/issues/722>`_)
-* Add pre commit (`#718 <https://github.com/gazebosim/ros_gz/issues/718>`_) (`#719 <https://github.com/gazebosim/ros_gz/issues/719>`_)
-* Contributors: mergify[bot]
-
-1.0.11 (2025-03-21)
--------------------
-* Add SpawnEntity, DeleteEntity, & SetEntityPose Support (backport `#380 <https://github.com/gazebosim/ros_gz/issues/380>`_) (`#712 <https://github.com/gazebosim/ros_gz/issues/712>`_)
-  Co-authored-by: Afereti Pama <79831813+retinfai@users.noreply.github.com>
+0.244.16 (2024-07-22)
+---------------------
+* Add support for gz.msgs.EntityWrench (base branch: ros2) (backport `#573 <https://github.com/gazebosim/ros_gz/issues/573>`_) (`#575 <https://github.com/gazebosim/ros_gz/issues/575>`_)
+  * Add support for gz.msgs.EntityWrench (base branch: ros2) (`#573 <https://github.com/gazebosim/ros_gz/issues/573>`_)
+  (cherry picked from commit f9afb69d1163633dd978024bb7271a28cf7b551a)
+  # Conflicts:
+  #	ros_gz_bridge/README.md
+  #	ros_gz_bridge/test/utils/gz_test_msg.hpp
+  * Fixed merge
+  * Update ros_gz_bridge/README.md
+  Co-authored-by: Addisu Z. Taddese <addisu@openrobotics.org>
+  ---------
+  Co-authored-by: Victor T. Noppeney <Vtn21@users.noreply.github.com>
   Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
-
-1.0.10 (2025-02-24)
--------------------
-* Add LogicalCameraImage support (`#698 <https://github.com/gazebosim/ros_gz/issues/698>`_) (`#699 <https://github.com/gazebosim/ros_gz/issues/699>`_)
-  (cherry picked from commit 16fbab43f8b984c4d23a7d9b8c53910f486f6fd1)
-  Co-authored-by: Dyst-0 <69257845+Dyst-0@users.noreply.github.com>
-* Contributors: mergify[bot]
-
-1.0.9 (2025-02-12)
-------------------
-* Minor optimization to avoid dynamic casting in Gazebo callbacks (`#692 <https://github.com/gazebosim/ros_gz/issues/692>`_) (`#693 <https://github.com/gazebosim/ros_gz/issues/693>`_)
-  (cherry picked from commit f646d5cade730166f8cb408d483c24b6d382ca0e)
   Co-authored-by: Addisu Z. Taddese <addisu@openrobotics.org>
 * Contributors: mergify[bot]
 
-1.0.8 (2025-01-14)
-------------------
-* Merge pull request `#670 <https://github.com/gazebosim/ros_gz/issues/670>`_ from gazebosim/ahcorde/jazzy/bp/663
-  [backport Jazzy] Improve argument parsing in Actions (`#663 <https://github.com/gazebosim/ros_gz/issues/663>`_)
-* Fix linter errors
-* Improve argument parsing in Actions
-  The `RosGzBridge` and `GzServer` now support different spellings for
-  boolean arguments (`True`, `true`). This also simplifies how
-  conditionals are used to create composable nodes by evaluating the
-  conditionals and using them as regular Python booleans instead of
-  relying on `PythonExpression`. It was actually the `PythonExpression`
-  that was preventing support of boolean arguments spelled `true`/`false`.
-* Fix use_respawn argument causing errors (`#651 <https://github.com/gazebosim/ros_gz/issues/651>`_) (`#654 <https://github.com/gazebosim/ros_gz/issues/654>`_)
-  (cherry picked from commit cfd0f8c74ded9efdcb35410135d0a1da1727dcff)
-  Co-authored-by: Aarav Gupta <amronos275@gmail.com>
-  Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
-* Add a way to pass extra parameters to ros_gz_bridge (`#628 <https://github.com/gazebosim/ros_gz/issues/628>`_) (`#648 <https://github.com/gazebosim/ros_gz/issues/648>`_)
-  * Add bridge_params argument to ros_gz_bridge
-  Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
-  Co-authored-by: Wiktor Bajor <69388767+Wiktor-99@users.noreply.github.com>
-  (cherry picked from commit 558a1cfd55f9921e78a87c563d8ed847e9eae6bd)
-  Co-authored-by: Aarav Gupta <amronos275@gmail.com>
-* Contributors: Addisu Z. Taddese, Alejandro Hernández Cordero, mergify[bot]
-
-1.0.7 (2024-11-08)
-------------------
-
-1.0.6 (2024-10-31)
-------------------
-* Extra parameter to start a container (`#616 <https://github.com/gazebosim/ros_gz/issues/616>`_) (`#618 <https://github.com/gazebosim/ros_gz/issues/618>`_)
-  (cherry picked from commit 8115ccaaedea718841367eb64e500e13df392fd7)
-  Co-authored-by: Carlos Agüero <caguero@openrobotics.org>
-* Contributors: mergify[bot]
-
-1.0.5 (2024-10-14)
-------------------
-* Merge pull request `#607 <https://github.com/gazebosim/ros_gz/issues/607>`_ from Amronos/ros2-jazzy-backport
-* Fix changelogs and versions
-* adds deadline and liveliness QoSPolicyKinds to qos_overriding_options (`#609 <https://github.com/gazebosim/ros_gz/issues/609>`_) (`#613 <https://github.com/gazebosim/ros_gz/issues/613>`_)
-* Remove default_value for required arguments (`#602 <https://github.com/gazebosim/ros_gz/issues/602>`_)
-* Fix errors with name of bridge not being given (`#600 <https://github.com/gazebosim/ros_gz/issues/600>`_)
-* Use optional parameters in actions (`#601 <https://github.com/gazebosim/ros_gz/issues/601>`_)
-* Making use_composition true by default (`#578 <https://github.com/gazebosim/ros_gz/issues/578>`_)
-* Use `ignoreLocalMessages` in the bridge (`#559 <https://github.com/gazebosim/ros_gz/issues/559>`_)
-* Update launch files with name parameter (`#556 <https://github.com/gazebosim/ros_gz/issues/556>`_)
-* Ensure the same container is used for the bridge and gz_server (`#553 <https://github.com/gazebosim/ros_gz/issues/553>`_)
-* Launch ros_gz_bridge from xml (`#550 <https://github.com/gazebosim/ros_gz/issues/550>`_)
-* Launch gzserver and the bridge as composable nodes (`#528 <https://github.com/gazebosim/ros_gz/issues/528>`_)
-* adds deadline and liveliness QoSPolicyKinds to qos_overriding_options (`#609 <https://github.com/gazebosim/ros_gz/issues/609>`_) (`#613 <https://github.com/gazebosim/ros_gz/issues/613>`_)
-* Contributors: Aarav Gupta, Addisu Z. Taddese, Alejandro Hernández Cordero, Amronos, Carlos Agüero, mergify[bot]
-
-1.0.4 (2024-08-29)
-------------------
-* feat: `override_timestamps_with_wall_time` parameter (backport `#562 <https://github.com/gazebosim/ros_gz/issues/562>`_) (`#584 <https://github.com/gazebosim/ros_gz/issues/584>`_)
-  Co-authored-by: Rein Appeldoorn <rein.appeldoorn@nobleo.nl>
-* Use memcpy instead of std::copy when bridging images (`#565 <https://github.com/gazebosim/ros_gz/issues/565>`_) (`#585 <https://github.com/gazebosim/ros_gz/issues/585>`_)
-  While testing ros <-> gz communication using the bridge I noticed that the bridge was talking quite a bit of time copying images from Gazebo to ROS. I found that the std::copy operation that we're doing is substantially slower than the memcpy alternative. I think that in principle this shouldn't happen but the numbers are quite clear. Perhaps std::copy is doing something that doesn't use cache effectively
-  ---------
-  Co-authored-by: Jose Luis Rivero <jrivero@osrfoundation.org>
-  (cherry picked from commit a781b78852112246245c05481db6335388d4f736)
-  Co-authored-by: Carlos Agüero <caguero@openrobotics.org>
-* Contributors: mergify[bot]
-
-1.0.3 (2024-07-22)
-------------------
-* Add support for gz.msgs.EntityWrench (base branch: ros2) (`#573 <https://github.com/gazebosim/ros_gz/issues/573>`_) (`#574 <https://github.com/gazebosim/ros_gz/issues/574>`_)
-  (cherry picked from commit f9afb69d1163633dd978024bb7271a28cf7b551a)
-  Co-authored-by: Victor T. Noppeney <Vtn21@users.noreply.github.com>
-* Contributors: mergify[bot]
-
-1.0.2 (2024-07-03)
-------------------
-* Merge pull request `#569 <https://github.com/gazebosim/ros_gz//issues/569>`_ from azeey/iron_to_jazzy
-  Merge iron ➡️  jazzy
-* Merge iron into jazzy
-* Add option to change material color from ROS. (`#521 <https://github.com/gazebosim/ros_gz//issues/521>`_)
-  Forward port of `#486 <https://github.com/gazebosim/ros_gz//issues/486>`_.
-  * Message and bridge for MaterialColor.
-  This allows bridging MaterialColor from ROS to GZ and is
-  important for allowing simulation users to create status lights.
-  (cherry picked from commit 78dc4823121f085594e6028a93f1e571eb04f58b)
-* Merge pull request `#564 <https://github.com/gazebosim/ros_gz//issues/564>`_ from azeey/humble_to_iron
-  Humble ➡️ Iron
-* Merge humble -> iron
-* populate imu covariances when converting (`#375 <https://github.com/gazebosim/ros_gz//issues/375>`_) (`#540 <https://github.com/gazebosim/ros_gz//issues/540>`_)
-  Co-authored-by: El Jawad Alaa <ejalaa12@gmail.com>
-* Prepare for 1.0.0 Release (`#495 <https://github.com/gazebosim/ros_gz//issues/495>`_)
-* Use gz_vendor packages (`#531 <https://github.com/gazebosim/ros_gz//issues/531>`_)
+0.244.15 (2024-07-03)
+---------------------
 * [backport Humble] Create bridge for GPSFix msg (`#316 <https://github.com/gazebosim/ros_gz//issues/316>`_) (`#538 <https://github.com/gazebosim/ros_gz//issues/538>`_)
   Co-authored-by: Rousseau Vincent <vincentrou@gmail.com>
-* [backport Iron] Create bridge for GPSFix msg (`#316 <https://github.com/gazebosim/ros_gz//issues/316>`_) (`#537 <https://github.com/gazebosim/ros_gz//issues/537>`_)
-  Co-authored-by: Rousseau Vincent <vincentrou@gmail.com>
-* 0.244.14
-* Changelog
-* Added conversion for Detection3D and Detection3DArray (`#523 <https://github.com/gazebosim/ros_gz//issues/523>`_) (`#526 <https://github.com/gazebosim/ros_gz//issues/526>`_)
+* Contributors: Alejandro Hernández Cordero
+
+0.244.14 (2024-04-08)
+---------------------
+* Added conversion for Detection3D and Detection3DArray (`#523 <https://github.com/gazebosim/ros_gz/issues/523>`_) (`#526 <https://github.com/gazebosim/ros_gz/issues/526>`_)
   Co-authored-by: wittenator <9154515+wittenator@users.noreply.github.com>
-* Added conversion for Detection3D and Detection3DArray (`#523 <https://github.com/gazebosim/ros_gz//issues/523>`_) (`#525 <https://github.com/gazebosim/ros_gz//issues/525>`_)
-  Co-authored-by: wittenator <9154515+wittenator@users.noreply.github.com>
-* [Backport rolling] Add ROS namespaces to GZ topics (`#517 <https://github.com/gazebosim/ros_gz//issues/517>`_)
-  Co-authored-by: Krzysztof Wojciechowski <49921081+Kotochleb@users.noreply.github.com>
-* ign to gz (`#519 <https://github.com/gazebosim/ros_gz//issues/519>`_)
-* Add ROS namespaces to GZ topics (`#512 <https://github.com/gazebosim/ros_gz//issues/512>`_)
+* Add ROS namespaces to GZ topics (`#512 <https://github.com/gazebosim/ros_gz/issues/512>`_)
   Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
-* Correctly export ros_gz_bridge for downstream targets (`#503 <https://github.com/gazebosim/ros_gz//issues/503>`_) (`#506 <https://github.com/gazebosim/ros_gz//issues/506>`_)
-* Add a virtual destructor to suppress compiler warning (`#502 <https://github.com/gazebosim/ros_gz//issues/502>`_) (`#505 <https://github.com/gazebosim/ros_gz//issues/505>`_)
+* Correctly export ros_gz_bridge for downstream targets (`#503 <https://github.com/gazebosim/ros_gz/issues/503>`_) (`#506 <https://github.com/gazebosim/ros_gz/issues/506>`_)
+* Add a virtual destructor to suppress compiler warning (`#502 <https://github.com/gazebosim/ros_gz/issues/502>`_) (`#505 <https://github.com/gazebosim/ros_gz/issues/505>`_)
   Co-authored-by: Michael Carroll <mjcarroll@intrinsic.ai>
-* Correctly export ros_gz_bridge for downstream targets (`#503 <https://github.com/gazebosim/ros_gz//issues/503>`_)
-* Add a virtual destructor to suppress compiler warning (`#502 <https://github.com/gazebosim/ros_gz//issues/502>`_)
-* Add option to change material color from ROS. (`#486 <https://github.com/gazebosim/ros_gz//issues/486>`_)
+* Add option to change material color from ROS. (`#486 <https://github.com/gazebosim/ros_gz/issues/486>`_)
   * Message and bridge for MaterialColor.
   This allows bridging MaterialColor from ROS to GZ and is
   important for allowing simulation users to create status lights.
@@ -169,126 +64,30 @@ Changelog for package ros_gz_bridge
   Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
   Co-authored-by: Addisu Z. Taddese <addisuzt@intrinsic.ai>
   Co-authored-by: Addisu Z. Taddese <addisu@openrobotics.org>
-* 0.244.13
-* Changelog
-* backport pr 374 (`#489 <https://github.com/gazebosim/ros_gz//issues/489>`_)
-* populate imu covariances when converting (`#488 <https://github.com/gazebosim/ros_gz//issues/488>`_)
-* 0.244.12
-* Changelog
-* Backport: Add conversion for geometry_msgs/msg/TwistStamped <-> gz.msgs.Twist (`#468 <https://github.com/gazebosim/ros_gz//issues/468>`_) (`#470 <https://github.com/gazebosim/ros_gz//issues/470>`_)
-* Add conversion for geometry_msgs/msg/TwistStamped <-> gz.msgs.Twist (`#468 <https://github.com/gazebosim/ros_gz//issues/468>`_)
-* Added messages for 2D Bounding Boxes to ros_gz_bridge (`#458 <https://github.com/gazebosim/ros_gz//issues/458>`_) (`#466 <https://github.com/gazebosim/ros_gz//issues/466>`_)
-  Co-authored-by: Alejandro Hernandez Cordero <ahcorde@gmail.com>
-* populate imu covariances when converting (`#375 <https://github.com/gazebosim/ros_gz//issues/375>`_)
-* 0.246.0
-* Update changelogs
-* Add harmonic CI (`#447 <https://github.com/gazebosim/ros_gz//issues/447>`_)
-  * Add harmonic CI
-  * Include garden options
-  * Add harmonic stanza
-  * Additional message headers
-  ---------
-* SensorNoise msg bridging (`#417 <https://github.com/gazebosim/ros_gz//issues/417>`_)
-* Added Altimeter msg bridging (`#413 <https://github.com/gazebosim/ros_gz//issues/413>`_)
-* Update README.md (`#411 <https://github.com/gazebosim/ros_gz//issues/411>`_)
+* Contributors: Alejandro Hernández Cordero, Benjamin Perseghetti, Krzysztof Wojciechowski, Michael Carroll
+
+0.244.13 (2024-01-23)
+---------------------
+* backport pr 374 (`#489 <https://github.com/gazebosim/ros_gz/issues/489>`_)
+* populate imu covariances when converting (`#488 <https://github.com/gazebosim/ros_gz/issues/488>`_)
+* Contributors: El Jawad Alaa
+
+0.244.12 (2023-12-13)
+---------------------
+* Backport: Add conversion for geometry_msgs/msg/TwistStamped <-> gz.msgs.Twist (`#468 <https://github.com/gazebosim/ros_gz/issues/468>`_) (`#470 <https://github.com/gazebosim/ros_gz/issues/470>`_)
+* Add support for Harmonic/Humble pairing (`#462 <https://github.com/gazebosim/ros_gz/issues/462>`_)
+* Added messages for 2D Bounding Boxes to ros_gz_bridge (`#458 <https://github.com/gazebosim/ros_gz/issues/458>`_)
+* Fix double wait in ros_gz_bridge (`#347 <https://github.com/gazebosim/ros_gz/issues/347>`_) (`#450 <https://github.com/gazebosim/ros_gz/issues/450>`_)
+* [backport humble] SensorNoise msg bridging (`#417 <https://github.com/gazebosim/ros_gz/issues/417>`_)
+* [backport humble] Added Altimeter msg bridging (`#413 <https://github.com/gazebosim/ros_gz/issues/413>`_) (`#414 <https://github.com/gazebosim/ros_gz/issues/414>`_) (`#426 <https://github.com/gazebosim/ros_gz/issues/426>`_)
+* [backport humble] Update README.md (`#411 <https://github.com/gazebosim/ros_gz/issues/411>`_)
   The ROS type for gz.msgs.NavSat messages should be **sensor_msgs/msg/NavSatFix** instead of **sensor_msgs/msg/NavSatFixed**
-* Add missing rosidl_cmake dep to ros_gz_bridge (`#391 <https://github.com/gazebosim/ros_gz//issues/391>`_)
-  Co-authored-by: Chris Lalancette <clalancette@gmail.com>
-* allow converting from/to TwistWithCovarianceStamped (`#374 <https://github.com/gazebosim/ros_gz//issues/374>`_)
-  * allow converting from/to TwistWithCovarianceStamped
-  --------
-  Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
-* Added doc (`#393 <https://github.com/gazebosim/ros_gz//issues/393>`_)
-* Port: humble to ros2 (`#386 <https://github.com/gazebosim/ros_gz//issues/386>`_)
-* Merge branch 'humble' into mjcarroll/humble_to_ros2
-* allow converting from/to PoseWithCovarianceStamped (`#381 <https://github.com/gazebosim/ros_gz//issues/381>`_)
-  * allow converting from/to PoseWithCovarianceStamped
-* Add actuator_msgs to bridge. (`#378 <https://github.com/gazebosim/ros_gz//issues/378>`_)
-* Update maintainers (`#376 <https://github.com/gazebosim/ros_gz//issues/376>`_)
-* Fix warning message (`#371 <https://github.com/gazebosim/ros_gz//issues/371>`_)
-* Improve error messages around config loading (`#356 <https://github.com/gazebosim/ros_gz//issues/356>`_)
-* Bringing the Joy to gazebo. (`#350 <https://github.com/gazebosim/ros_gz//issues/350>`_)
-  Enable using the gazebo bridge with Joy.
-* Fix double wait in ros_gz_bridge (`#347 <https://github.com/gazebosim/ros_gz//issues/347>`_)
-* Create bridge for GPSFix msg (`#316 <https://github.com/gazebosim/ros_gz//issues/316>`_)
-* Humble ➡️ ROS2 (`#323 <https://github.com/gazebosim/ros_gz//issues/323>`_)
-  Humble ➡️ ROS2
-* Merge branch 'humble' into ports/humble_to_ros2
-* 0.245.0
-* Changelog
-* humble to ros2 (`#311 <https://github.com/gazebosim/ros_gz//issues/311>`_)
-  Co-authored-by: Michael Carroll <michael@openrobotics.org>
-* Remove Humble+ deprecations (`#312 <https://github.com/gazebosim/ros_gz//issues/312>`_)
-  * Remove Humble+ deprecations
-* Merge remote-tracking branch 'origin/humble' into ahcorde/humble_to_ros2
-* Remove all ignition references on ROS 2 branch (`#302 <https://github.com/gazebosim/ros_gz//issues/302>`_)
-  * Remove all shims
-  * Update CMakeLists and package.xml for garden
-  * Complete garden gz renaming
-  * Drop fortress CI
-* Contributors: Addisu Z. Taddese, Aditya Pande, Alejandro Hernández Cordero, Arjun K Haridas, Benjamin Perseghetti, El Jawad Alaa, Jose Luis Rivero, Krzysztof Wojciechowski, Michael Carroll, Rousseau Vincent, Yadu, ahcorde, wittenator, ymd-stella
+* Contributors: Addisu Z. Taddese, Alejandro Hernández Cordero, Arjun K Haridas, wittenator
 
-1.0.0 (2024-04-24)
-------------------
-* Use gz_vendor packages (`#531 <https://github.com/gazebosim/ros_gz/issues/531>`_)
-* Added conversion for Detection3D and Detection3DArray (`#523 <https://github.com/gazebosim/ros_gz/issues/523>`_) (`#525 <https://github.com/gazebosim/ros_gz/issues/525>`_)
-  Co-authored-by: wittenator <9154515+wittenator@users.noreply.github.com>
-* [Backport rolling] Add ROS namespaces to GZ topics (`#517 <https://github.com/gazebosim/ros_gz/issues/517>`_)
-  Co-authored-by: Krzysztof Wojciechowski <49921081+Kotochleb@users.noreply.github.com>
-* ign to gz (`#519 <https://github.com/gazebosim/ros_gz/issues/519>`_)
-* Correctly export ros_gz_bridge for downstream targets (`#503 <https://github.com/gazebosim/ros_gz/issues/503>`_)
-* Add a virtual destructor to suppress compiler warning (`#502 <https://github.com/gazebosim/ros_gz/issues/502>`_)
-* Add conversion for geometry_msgs/msg/TwistStamped <-> gz.msgs.Twist (`#468 <https://github.com/gazebosim/ros_gz/issues/468>`_)
-* Added messages for 2D Bounding Boxes to ros_gz_bridge (`#458 <https://github.com/gazebosim/ros_gz/issues/458>`_) (`#466 <https://github.com/gazebosim/ros_gz/issues/466>`_)
-  Co-authored-by: Alejandro Hernandez Cordero <ahcorde@gmail.com>
-* populate imu covariances when converting (`#375 <https://github.com/gazebosim/ros_gz/issues/375>`_)
-* Contributors: Addisu Z. Taddese, Alejandro Hernández Cordero, El Jawad Alaa, Michael Carroll
-
-0.246.0 (2023-08-31)
---------------------
-* Add harmonic CI (`#447 <https://github.com/gazebosim/ros_gz/issues/447>`_)
-  * Add harmonic CI
-  * Include garden options
-  * Add harmonic stanza
-  * Additional message headers
-  ---------
-* SensorNoise msg bridging (`#417 <https://github.com/gazebosim/ros_gz/issues/417>`_)
-* Added Altimeter msg bridging (`#413 <https://github.com/gazebosim/ros_gz/issues/413>`_)
-* Update README.md (`#411 <https://github.com/gazebosim/ros_gz/issues/411>`_)
-  The ROS type for gz.msgs.NavSat messages should be **sensor_msgs/msg/NavSatFix** instead of **sensor_msgs/msg/NavSatFixed**
-* Add missing rosidl_cmake dep to ros_gz_bridge (`#391 <https://github.com/gazebosim/ros_gz/issues/391>`_)
-  Co-authored-by: Chris Lalancette <clalancette@gmail.com>
-* allow converting from/to TwistWithCovarianceStamped (`#374 <https://github.com/gazebosim/ros_gz/issues/374>`_)
-  Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
-* Added doc (`#393 <https://github.com/gazebosim/ros_gz/issues/393>`_)
-* Port: humble to ros2 (`#386 <https://github.com/gazebosim/ros_gz/issues/386>`_)
-* Merge branch 'humble' into mjcarroll/humble_to_ros2
-* allow converting from/to PoseWithCovarianceStamped (`#381 <https://github.com/gazebosim/ros_gz/issues/381>`_)
-  * allow converting from/to PoseWithCovarianceStamped
-* Add actuator_msgs to bridge. (`#378 <https://github.com/gazebosim/ros_gz/issues/378>`_)
-* Update maintainers (`#376 <https://github.com/gazebosim/ros_gz/issues/376>`_)
-* Fix warning message (`#371 <https://github.com/gazebosim/ros_gz/issues/371>`_)
-* Improve error messages around config loading (`#356 <https://github.com/gazebosim/ros_gz/issues/356>`_)
-* Bringing the Joy to gazebo. (`#350 <https://github.com/gazebosim/ros_gz/issues/350>`_)
-  Enable using the gazebo bridge with Joy.
-* Fix double wait in ros_gz_bridge (`#347 <https://github.com/gazebosim/ros_gz/issues/347>`_)
-* Create bridge for GPSFix msg (`#316 <https://github.com/gazebosim/ros_gz/issues/316>`_)
-* Humble ➡️ ROS2 (`#323 <https://github.com/gazebosim/ros_gz/issues/323>`_)
-* Contributors: Aditya Pande, Alejandro Hernández Cordero, Arjun K Haridas, Benjamin Perseghetti, El Jawad Alaa, Michael Carroll, Rousseau Vincent, Yadu, ahcorde, ymd-stella
-
-0.245.0 (2022-10-12)
---------------------
-* humble to ros2 (`#311 <https://github.com/gazebosim/ros_gz/issues/311>`_)
-  Co-authored-by: Michael Carroll <michael@openrobotics.org>
-* Remove Humble+ deprecations (`#312 <https://github.com/gazebosim/ros_gz/issues/312>`_)
-  * Remove Humble+ deprecations
-* Merge remote-tracking branch 'origin/humble' into ahcorde/humble_to_ros2
-* Remove all ignition references on ROS 2 branch (`#302 <https://github.com/gazebosim/ros_gz/issues/302>`_)
-  * Remove all shims
-  * Update CMakeLists and package.xml for garden
-  * Complete garden gz renaming
-  * Drop fortress CI
-* Contributors: Alejandro Hernández Cordero, Michael Carroll, ahcorde
+0.244.11 (2023-05-23)
+---------------------
+* Add actuator_msgs to humble bridge. (`#394 <https://github.com/gazebosim/ros_gz/issues/394>`_)
+* Contributors: Benjamin Perseghetti
 
 0.244.10 (2023-05-03)
 ---------------------
