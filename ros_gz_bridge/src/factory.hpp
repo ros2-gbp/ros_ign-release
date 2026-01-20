@@ -22,6 +22,7 @@
 #include <type_traits>
 
 #include <gz/transport/Node.hh>
+#include <gz/transport/SubscribeOptions.hh>
 
 // include ROS 2
 #include <rclcpp/rclcpp.hpp>
@@ -64,9 +65,11 @@ public:
     auto options = rclcpp::PublisherOptions();
     options.qos_overriding_options = rclcpp::QosOverridingOptions {
       {
+        rclcpp::QosPolicyKind::Deadline,
         rclcpp::QosPolicyKind::Depth,
         rclcpp::QosPolicyKind::Durability,
         rclcpp::QosPolicyKind::History,
+        rclcpp::QosPolicyKind::Liveliness,
         rclcpp::QosPolicyKind::Reliability
       },
     };
@@ -118,18 +121,20 @@ public:
     rclcpp::PublisherBase::SharedPtr ros_pub,
     bool override_timestamps_with_wall_time)
   {
-    std::function<void(const GZ_T &,
-      const gz::transport::MessageInfo &)> subCb =
-      [this, ros_pub, override_timestamps_with_wall_time](const GZ_T & _msg,
-        const gz::transport::MessageInfo & _info)
+    auto pub = std::dynamic_pointer_cast<rclcpp::Publisher<ROS_T>>(ros_pub);
+    if (pub == nullptr) {
+      return;
+    }
+    std::function<void(const GZ_T &)> subCb =
+      [this, pub, override_timestamps_with_wall_time](const GZ_T & _msg)
       {
-        // Ignore messages that are published from this bridge.
-        if (!_info.IntraProcess()) {
-          this->gz_callback(_msg, ros_pub, override_timestamps_with_wall_time);
-        }
+        this->gz_callback(_msg, pub, override_timestamps_with_wall_time);
       };
 
-    node->Subscribe(topic_name, subCb);
+    // Ignore messages that are published from this bridge.
+    gz::transport::SubscribeOptions opts;
+    opts.SetIgnoreLocalMessages(true);
+    node->Subscribe(topic_name, subCb, opts);
   }
 
 protected:
@@ -153,7 +158,7 @@ protected:
   static
   void gz_callback(
     const GZ_T & gz_msg,
-    rclcpp::PublisherBase::SharedPtr ros_pub,
+    std::shared_ptr<rclcpp::Publisher<ROS_T>> ros_pub,
     bool override_timestamps_with_wall_time)
   {
     ROS_T ros_msg;
@@ -167,11 +172,7 @@ protected:
         ros_msg.header.stamp.nanosec = ns - ros_msg.header.stamp.sec * 1e9;
       }
     }
-    std::shared_ptr<rclcpp::Publisher<ROS_T>> pub =
-      std::dynamic_pointer_cast<rclcpp::Publisher<ROS_T>>(ros_pub);
-    if (pub != nullptr) {
-      pub->publish(ros_msg);
-    }
+    ros_pub->publish(ros_msg);
   }
 
 public:
