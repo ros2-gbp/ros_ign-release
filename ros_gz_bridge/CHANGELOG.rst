@@ -2,73 +2,71 @@
 Changelog for package ros_gz_bridge
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.1.14 (2026-02-04)
+1.0.20 (2026-02-04)
 -------------------
-* Add support for configurable frame_id in Gazebo subscriber (backport `#825 <https://github.com/gazebosim/ros_gz/issues/825>`_) (`#830 <https://github.com/gazebosim/ros_gz/issues/830>`_)
-* Add override_frame_id parameter (backport `#826 <https://github.com/gazebosim/ros_gz/issues/826>`_) (`#827 <https://github.com/gazebosim/ros_gz/issues/827>`_)
-* Fix missing timestamp in Pose_V -> PoseArray bridge (`#812 <https://github.com/gazebosim/ros_gz/issues/812>`_) (`#821 <https://github.com/gazebosim/ros_gz/issues/821>`_)
+* Add support for configurable frame_id in Gazebo subscriber (backport `#825 <https://github.com/gazebosim/ros_gz/issues/825>`_) (`#831 <https://github.com/gazebosim/ros_gz/issues/831>`_)
+* Add override_frame_id parameter (backport `#826 <https://github.com/gazebosim/ros_gz/issues/826>`_) (`#828 <https://github.com/gazebosim/ros_gz/issues/828>`_)
+* Fix missing timestamp in Pose_V -> PoseArray bridge (`#812 <https://github.com/gazebosim/ros_gz/issues/812>`_) (`#822 <https://github.com/gazebosim/ros_gz/issues/822>`_)
 * Contributors: mergify[bot]
 
-2.1.13 (2026-01-20)
+1.0.19 (2026-01-20)
 -------------------
 
-2.1.12 (2025-11-17)
+1.0.18 (2025-11-21)
 -------------------
 
-2.1.11 (2025-09-30)
+1.0.17 (2025-07-16)
 -------------------
-* Added missing test and parse service name from YAML (backport `#776 <https://github.com/gazebosim/ros_gz/issues/776>`_) (`#786 <https://github.com/gazebosim/ros_gz/issues/786>`_)
+* Added missing test and parse service name from YAML (`#776 <https://github.com/gazebosim/ros_gz/issues/776>`_)
+* Contributors: Alejandro Hernández Cordero
+
+1.0.16 (2025-07-02)
+-------------------
+* Fix crash on old bridge definition (`#775 <https://github.com/gazebosim/ros_gz/issues/775>`_)
+* Contributors: Jasper van Brakel
+
+1.0.15 (2025-06-12)
+-------------------
+* Added easy way to configure bridge from XML launch files. (backport `#735 <https://github.com/gazebosim/ros_gz/issues/735>`_) (`#754 <https://github.com/gazebosim/ros_gz/issues/754>`_)
 * Contributors: mergify[bot]
 
-2.1.10 (2025-07-02)
+1.0.14 (2025-05-26)
 -------------------
 
-2.1.9 (2025-06-12)
-------------------
-* Added easy way to configure bridge from XML launch files. (`#735 <https://github.com/gazebosim/ros_gz/issues/735>`_) (`#753 <https://github.com/gazebosim/ros_gz/issues/753>`_)
+1.0.13 (2025-05-23)
+-------------------
+
+1.0.12 (2025-05-06)
+-------------------
+* Added LaserScan-Range bridge (backport `#736 <https://github.com/gazebosim/ros_gz/issues/736>`_) (`#739 <https://github.com/gazebosim/ros_gz/issues/739>`_)
+* Added codespell pre-commit hook. (`#721 <https://github.com/gazebosim/ros_gz/issues/721>`_) (`#722 <https://github.com/gazebosim/ros_gz/issues/722>`_)
+* Add pre commit (`#718 <https://github.com/gazebosim/ros_gz/issues/718>`_) (`#719 <https://github.com/gazebosim/ros_gz/issues/719>`_)
 * Contributors: mergify[bot]
 
-2.1.8 (2025-05-26)
-------------------
-
-2.1.7 (2025-05-06)
-------------------
-* Added LaserScan-Range bridge (backport `#736 <https://github.com/gazebosim/ros_gz/issues/736>`_) (`#740 <https://github.com/gazebosim/ros_gz/issues/740>`_)
-* use target_link_libraries instead of ament_target_dependencies (`#730 <https://github.com/gazebosim/ros_gz/issues/730>`_)
-* Added codespell pre-commit hook. (`#721 <https://github.com/gazebosim/ros_gz/issues/721>`_)
-* Add pre commit (`#718 <https://github.com/gazebosim/ros_gz/issues/718>`_)
-* Contributors: Alejandro Hernández Cordero, Leander Stephen D'Souza, mergify[bot]
-
-2.1.6 (2025-03-21)
-------------------
-* make linters happy (`#709 <https://github.com/gazebosim/ros_gz/issues/709>`_)
-* Add SpawnEntity, DeleteEntity, & SetEntityPose Support (`#380 <https://github.com/gazebosim/ros_gz/issues/380>`_)
-* Contributors: Afereti Pama, Alejandro Hernández Cordero
-
-2.1.5 (2025-02-24)
-------------------
-* Add LogicalCameraImage support (`#698 <https://github.com/gazebosim/ros_gz/issues/698>`_)
-* Contributors: Dyst-0
-
-2.1.4 (2025-02-12)
-------------------
-* Minor optimization to avoid dynamic casting in Gazebo callbacks (`#692 <https://github.com/gazebosim/ros_gz/issues/692>`_)
-* Contributors: Addisu Z. Taddese
-
-2.1.3 (2025-01-14)
-------------------
-* Use both ROS package and message name for unique mappings (`#656 <https://github.com/gazebosim/ros_gz/issues/656>`_)
-  Co-authored-by: Addisu Z. Taddese <addisu@openrobotics.org>
-* Merge pull request `#664 <https://github.com/gazebosim/ros_gz/issues/664>`_ from azeey/improve_parameter_handling
+1.0.11 (2025-03-21)
+-------------------
+* Add SpawnEntity, DeleteEntity, & SetEntityPose Support (backport `#380 <https://github.com/gazebosim/ros_gz/issues/380>`_) (`#712 <https://github.com/gazebosim/ros_gz/issues/712>`_)
+  Co-authored-by: Afereti Pama <79831813+retinfai@users.noreply.github.com>
   Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
-* Merge pull request `#663 <https://github.com/gazebosim/ros_gz/issues/663>`_ from azeey/improve_arg_parsing
-  The `RosGzBridge` and `GzServer` now support different spellings for
-  boolean arguments (`True`, `true`). This also simplifies how
-  conditionals are used to create composable nodes by evaluating the
-  conditionals and using them as regular Python booleans instead of
-  relying on `PythonExpression`. It was actually the `PythonExpression`
-  that was preventing support of boolean arguments spelled `true`/`false`.
-* Improve parameter handling for RosGzBridge
+
+1.0.10 (2025-02-24)
+-------------------
+* Add LogicalCameraImage support (`#698 <https://github.com/gazebosim/ros_gz/issues/698>`_) (`#699 <https://github.com/gazebosim/ros_gz/issues/699>`_)
+  (cherry picked from commit 16fbab43f8b984c4d23a7d9b8c53910f486f6fd1)
+  Co-authored-by: Dyst-0 <69257845+Dyst-0@users.noreply.github.com>
+* Contributors: mergify[bot]
+
+1.0.9 (2025-02-12)
+------------------
+* Minor optimization to avoid dynamic casting in Gazebo callbacks (`#692 <https://github.com/gazebosim/ros_gz/issues/692>`_) (`#693 <https://github.com/gazebosim/ros_gz/issues/693>`_)
+  (cherry picked from commit f646d5cade730166f8cb408d483c24b6d382ca0e)
+  Co-authored-by: Addisu Z. Taddese <addisu@openrobotics.org>
+* Contributors: mergify[bot]
+
+1.0.8 (2025-01-14)
+------------------
+* Merge pull request `#670 <https://github.com/gazebosim/ros_gz/issues/670>`_ from gazebosim/ahcorde/jazzy/bp/663
+  [backport Jazzy] Improve argument parsing in Actions (`#663 <https://github.com/gazebosim/ros_gz/issues/663>`_)
 * Fix linter errors
 * Improve argument parsing in Actions
   The `RosGzBridge` and `GzServer` now support different spellings for
@@ -77,53 +75,66 @@ Changelog for package ros_gz_bridge
   conditionals and using them as regular Python booleans instead of
   relying on `PythonExpression`. It was actually the `PythonExpression`
   that was preventing support of boolean arguments spelled `true`/`false`.
-* Fix use_respawn argument causing errors (`#651 <https://github.com/gazebosim/ros_gz/issues/651>`_)
-* Add a way to pass extra parameters to ros_gz_bridge (`#628 <https://github.com/gazebosim/ros_gz/issues/628>`_)
+* Fix use_respawn argument causing errors (`#651 <https://github.com/gazebosim/ros_gz/issues/651>`_) (`#654 <https://github.com/gazebosim/ros_gz/issues/654>`_)
+  (cherry picked from commit cfd0f8c74ded9efdcb35410135d0a1da1727dcff)
+  Co-authored-by: Aarav Gupta <amronos275@gmail.com>
+  Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
+* Add a way to pass extra parameters to ros_gz_bridge (`#628 <https://github.com/gazebosim/ros_gz/issues/628>`_) (`#648 <https://github.com/gazebosim/ros_gz/issues/648>`_)
   * Add bridge_params argument to ros_gz_bridge
   Co-authored-by: Alejandro Hernández Cordero <ahcorde@gmail.com>
   Co-authored-by: Wiktor Bajor <69388767+Wiktor-99@users.noreply.github.com>
-* Contributors: Aarav Gupta, Addisu Z. Taddese, Alejandro Hernández Cordero, Øystein Sture
+  (cherry picked from commit 558a1cfd55f9921e78a87c563d8ed847e9eae6bd)
+  Co-authored-by: Aarav Gupta <amronos275@gmail.com>
+* Contributors: Addisu Z. Taddese, Alejandro Hernández Cordero, mergify[bot]
 
-2.1.2 (2024-10-31)
+1.0.7 (2024-11-08)
 ------------------
 
-2.1.1 (2024-10-14)
+1.0.6 (2024-10-31)
 ------------------
-* Extra parameter to start a container (`#616 <https://github.com/gazebosim/ros_gz/issues/616>`_)
-* adds deadline and liveliness QoSPolicyKinds to qos_overriding_options (`#609 <https://github.com/gazebosim/ros_gz/issues/609>`_)
-  Co-authored-by: nora <nko@bogaertsgl.com>
-* Contributors: Carlos Agüero, norakon
+* Extra parameter to start a container (`#616 <https://github.com/gazebosim/ros_gz/issues/616>`_) (`#618 <https://github.com/gazebosim/ros_gz/issues/618>`_)
+  (cherry picked from commit 8115ccaaedea718841367eb64e500e13df392fd7)
+  Co-authored-by: Carlos Agüero <caguero@openrobotics.org>
+* Contributors: mergify[bot]
 
-2.1.0 (2024-09-12)
+1.0.5 (2024-10-14)
 ------------------
-* Remove default_value for required arguments (`#602 <https://github.com/gazebosim/ros_gz//issues/602>`_)
-  * Remove default_value for config_file
-* Fix errors with name of bridge not being given (`#600 <https://github.com/gazebosim/ros_gz//issues/600>`_)
-  * Add argument bridge_name to fix errors
-* Use optional parameters in actions (`#601 <https://github.com/gazebosim/ros_gz//issues/601>`_)
-* Contributors: Amronos, Carlos Agüero
-
-2.0.1 (2024-08-29)
-------------------
-* Stamp all outgoing headers with the wall time if parameter override_timestamps_with_wall_time is set to true (`#562 <https://github.com/gazebosim/ros_gz/issues/562>`_)
-* Contributors: Rein Appeldoorn
-
-2.0.0 (2024-07-22)
-------------------
+* Merge pull request `#607 <https://github.com/gazebosim/ros_gz/issues/607>`_ from Amronos/ros2-jazzy-backport
+* Fix changelogs and versions
+* adds deadline and liveliness QoSPolicyKinds to qos_overriding_options (`#609 <https://github.com/gazebosim/ros_gz/issues/609>`_) (`#613 <https://github.com/gazebosim/ros_gz/issues/613>`_)
+* Remove default_value for required arguments (`#602 <https://github.com/gazebosim/ros_gz/issues/602>`_)
+* Fix errors with name of bridge not being given (`#600 <https://github.com/gazebosim/ros_gz/issues/600>`_)
+* Use optional parameters in actions (`#601 <https://github.com/gazebosim/ros_gz/issues/601>`_)
 * Making use_composition true by default (`#578 <https://github.com/gazebosim/ros_gz/issues/578>`_)
-* Contributors: Addisu Z. Taddese
+* Use `ignoreLocalMessages` in the bridge (`#559 <https://github.com/gazebosim/ros_gz/issues/559>`_)
+* Update launch files with name parameter (`#556 <https://github.com/gazebosim/ros_gz/issues/556>`_)
+* Ensure the same container is used for the bridge and gz_server (`#553 <https://github.com/gazebosim/ros_gz/issues/553>`_)
+* Launch ros_gz_bridge from xml (`#550 <https://github.com/gazebosim/ros_gz/issues/550>`_)
+* Launch gzserver and the bridge as composable nodes (`#528 <https://github.com/gazebosim/ros_gz/issues/528>`_)
+* adds deadline and liveliness QoSPolicyKinds to qos_overriding_options (`#609 <https://github.com/gazebosim/ros_gz/issues/609>`_) (`#613 <https://github.com/gazebosim/ros_gz/issues/613>`_)
+* Contributors: Aarav Gupta, Addisu Z. Taddese, Alejandro Hernández Cordero, Amronos, Carlos Agüero, mergify[bot]
 
-1.0.1 (2024-07-03)
+1.0.4 (2024-08-29)
 ------------------
-* Add support for gz.msgs.EntityWrench (base branch: ros2) (`#573 <https://github.com/gazebosim/ros_gz//issues/573>`_)
-* Merge pull request `#571 <https://github.com/gazebosim/ros_gz//issues/571>`_ from azeey/jazzy_to_ros2
-  Merge jazzy ➡️  ros2
-* Merge branch 'ros2' into jazzy_to_ros2
-* Use memcpy instead of std::copy when bridging images (`#565 <https://github.com/gazebosim/ros_gz//issues/565>`_)
+* feat: `override_timestamps_with_wall_time` parameter (backport `#562 <https://github.com/gazebosim/ros_gz/issues/562>`_) (`#584 <https://github.com/gazebosim/ros_gz/issues/584>`_)
+  Co-authored-by: Rein Appeldoorn <rein.appeldoorn@nobleo.nl>
+* Use memcpy instead of std::copy when bridging images (`#565 <https://github.com/gazebosim/ros_gz/issues/565>`_) (`#585 <https://github.com/gazebosim/ros_gz/issues/585>`_)
   While testing ros <-> gz communication using the bridge I noticed that the bridge was talking quite a bit of time copying images from Gazebo to ROS. I found that the std::copy operation that we're doing is substantially slower than the memcpy alternative. I think that in principle this shouldn't happen but the numbers are quite clear. Perhaps std::copy is doing something that doesn't use cache effectively
   ---------
   Co-authored-by: Jose Luis Rivero <jrivero@osrfoundation.org>
-* Merge jazzy into ros2
+  (cherry picked from commit a781b78852112246245c05481db6335388d4f736)
+  Co-authored-by: Carlos Agüero <caguero@openrobotics.org>
+* Contributors: mergify[bot]
+
+1.0.3 (2024-07-22)
+------------------
+* Add support for gz.msgs.EntityWrench (base branch: ros2) (`#573 <https://github.com/gazebosim/ros_gz/issues/573>`_) (`#574 <https://github.com/gazebosim/ros_gz/issues/574>`_)
+  (cherry picked from commit f9afb69d1163633dd978024bb7271a28cf7b551a)
+  Co-authored-by: Victor T. Noppeney <Vtn21@users.noreply.github.com>
+* Contributors: mergify[bot]
+
+1.0.2 (2024-07-03)
+------------------
 * Merge pull request `#569 <https://github.com/gazebosim/ros_gz//issues/569>`_ from azeey/iron_to_jazzy
   Merge iron ➡️  jazzy
 * Merge iron into jazzy
@@ -136,22 +147,6 @@ Changelog for package ros_gz_bridge
 * Merge pull request `#564 <https://github.com/gazebosim/ros_gz//issues/564>`_ from azeey/humble_to_iron
   Humble ➡️ Iron
 * Merge humble -> iron
-* Use `ignoreLocalMessages` in the bridge (`#559 <https://github.com/gazebosim/ros_gz//issues/559>`_)
-  * Ignore local messages
-* Update launch files with name parameter (`#556 <https://github.com/gazebosim/ros_gz//issues/556>`_)
-  * Name is required.
-* Ensure the same container is used for the bridge and gz_server (`#553 <https://github.com/gazebosim/ros_gz//issues/553>`_)
-  This also adds a required `name` parameter for the bridge so that
-  multiple different bridges can be created without name collision
-* Launch ros_gz_bridge from xml (`#550 <https://github.com/gazebosim/ros_gz//issues/550>`_)
-  * Add gzserver with ability to load an SDF file or string
-* Launch gzserver and the bridge as composable nodes (`#528 <https://github.com/gazebosim/ros_gz//issues/528>`_)
-  * Add gzserver with ability to load an SDF file or string
-* Add option to change material color from ROS. (`#521 <https://github.com/gazebosim/ros_gz//issues/521>`_)
-  Forward port of `#486 <https://github.com/gazebosim/ros_gz//issues/486>`_.
-  * Message and bridge for MaterialColor.
-  This allows bridging MaterialColor from ROS to GZ and is
-  important for allowing simulation users to create status lights.
 * populate imu covariances when converting (`#375 <https://github.com/gazebosim/ros_gz//issues/375>`_) (`#540 <https://github.com/gazebosim/ros_gz//issues/540>`_)
   Co-authored-by: El Jawad Alaa <ejalaa12@gmail.com>
 * Prepare for 1.0.0 Release (`#495 <https://github.com/gazebosim/ros_gz//issues/495>`_)
@@ -241,7 +236,7 @@ Changelog for package ros_gz_bridge
   * Update CMakeLists and package.xml for garden
   * Complete garden gz renaming
   * Drop fortress CI
-* Contributors: Addisu Z. Taddese, Aditya Pande, Alejandro Hernández Cordero, Arjun K Haridas, Benjamin Perseghetti, Carlos Agüero, El Jawad Alaa, Jose Luis Rivero, Krzysztof Wojciechowski, Michael Carroll, Rousseau Vincent, Victor T. Noppeney, Yadu, ahcorde, wittenator, ymd-stella
+* Contributors: Addisu Z. Taddese, Aditya Pande, Alejandro Hernández Cordero, Arjun K Haridas, Benjamin Perseghetti, El Jawad Alaa, Jose Luis Rivero, Krzysztof Wojciechowski, Michael Carroll, Rousseau Vincent, Yadu, ahcorde, wittenator, ymd-stella
 
 1.0.0 (2024-04-24)
 ------------------

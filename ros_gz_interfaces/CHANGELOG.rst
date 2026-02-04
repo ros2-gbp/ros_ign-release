@@ -2,76 +2,79 @@
 Changelog for package ros_gz_interfaces
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.1.14 (2026-02-04)
+1.0.20 (2026-02-04)
 -------------------
 
-2.1.13 (2026-01-20)
+1.0.19 (2026-01-20)
 -------------------
 
-2.1.12 (2025-11-17)
+1.0.18 (2025-11-21)
 -------------------
 
-2.1.11 (2025-09-30)
+1.0.17 (2025-07-16)
 -------------------
 
-2.1.10 (2025-07-02)
+1.0.16 (2025-07-02)
 -------------------
 
-2.1.9 (2025-06-12)
+1.0.15 (2025-06-12)
+-------------------
+
+1.0.14 (2025-05-26)
+-------------------
+
+1.0.13 (2025-05-23)
+-------------------
+
+1.0.12 (2025-05-06)
+-------------------
+* Added codespell pre-commit hook. (`#721 <https://github.com/gazebosim/ros_gz/issues/721>`_) (`#722 <https://github.com/gazebosim/ros_gz/issues/722>`_)
+* Add pre commit (`#718 <https://github.com/gazebosim/ros_gz/issues/718>`_) (`#719 <https://github.com/gazebosim/ros_gz/issues/719>`_)
+* Contributors: mergify[bot]
+
+1.0.11 (2025-03-21)
+-------------------
+
+1.0.10 (2025-02-24)
+-------------------
+* Add LogicalCameraImage support (`#698 <https://github.com/gazebosim/ros_gz/issues/698>`_) (`#699 <https://github.com/gazebosim/ros_gz/issues/699>`_)
+  (cherry picked from commit 16fbab43f8b984c4d23a7d9b8c53910f486f6fd1)
+  Co-authored-by: Dyst-0 <69257845+Dyst-0@users.noreply.github.com>
+* Contributors: mergify[bot]
+
+1.0.9 (2025-02-12)
 ------------------
 
-2.1.8 (2025-05-26)
+1.0.8 (2025-01-14)
 ------------------
 
-2.1.7 (2025-05-06)
-------------------
-* Added codespell pre-commit hook. (`#721 <https://github.com/gazebosim/ros_gz/issues/721>`_)
-* Add pre commit (`#718 <https://github.com/gazebosim/ros_gz/issues/718>`_)
-* Contributors: Leander Stephen D'Souza
-
-2.1.6 (2025-03-21)
+1.0.7 (2024-11-08)
 ------------------
 
-2.1.5 (2025-02-24)
-------------------
-* Add LogicalCameraImage support (`#698 <https://github.com/gazebosim/ros_gz/issues/698>`_)
-* Contributors: Dyst-0
-
-2.1.4 (2025-02-12)
+1.0.6 (2024-10-31)
 ------------------
 
-2.1.3 (2025-01-14)
+1.0.5 (2024-10-14)
 ------------------
 
-2.1.2 (2024-10-31)
+1.0.4 (2024-08-29)
 ------------------
 
-2.1.1 (2024-10-14)
+1.0.3 (2024-07-22)
 ------------------
+* Add support for gz.msgs.EntityWrench (base branch: ros2) (`#573 <https://github.com/gazebosim/ros_gz/issues/573>`_) (`#574 <https://github.com/gazebosim/ros_gz/issues/574>`_)
+  (cherry picked from commit f9afb69d1163633dd978024bb7271a28cf7b551a)
+  Co-authored-by: Victor T. Noppeney <Vtn21@users.noreply.github.com>
+* Contributors: mergify[bot]
 
-2.1.0 (2024-09-12)
+1.0.2 (2024-07-03)
 ------------------
-
-2.0.1 (2024-08-29)
-------------------
-
-2.0.0 (2024-07-22)
-------------------
-
-1.0.1 (2024-07-03)
-------------------
-* Add support for gz.msgs.EntityWrench (base branch: ros2) (`#573 <https://github.com/gazebosim/ros_gz//issues/573>`_)
 * Add option to change material color from ROS. (`#521 <https://github.com/gazebosim/ros_gz//issues/521>`_)
   Forward port of `#486 <https://github.com/gazebosim/ros_gz//issues/486>`_.
   * Message and bridge for MaterialColor.
   This allows bridging MaterialColor from ROS to GZ and is
   important for allowing simulation users to create status lights.
   (cherry picked from commit 78dc4823121f085594e6028a93f1e571eb04f58b)
-* Add option to change material color from ROS. (`#521 <https://github.com/gazebosim/ros_gz//issues/521>`_)
-  Forward port of `#486 <https://github.com/gazebosim/ros_gz//issues/486>`_.
-  * Message and bridge for MaterialColor.
-  This allows bridging MaterialColor from ROS to GZ and is
-  important for allowing simulation users to create status lights.
 * Prepare for 1.0.0 Release (`#495 <https://github.com/gazebosim/ros_gz//issues/495>`_)
 * 0.244.14
 * Changelog
@@ -103,7 +106,7 @@ Changelog for package ros_gz_interfaces
 * humble to ros2 (`#311 <https://github.com/gazebosim/ros_gz//issues/311>`_)
   Co-authored-by: Michael Carroll <michael@openrobotics.org>
 * Merge remote-tracking branch 'origin/humble' into ahcorde/humble_to_ros2
-* Contributors: Addisu Z. Taddese, Aditya Pande, Alejandro Hernández Cordero, Benjamin Perseghetti, Jose Luis Rivero, Michael Carroll, Victor T. Noppeney, ahcorde
+* Contributors: Addisu Z. Taddese, Aditya Pande, Alejandro Hernández Cordero, Benjamin Perseghetti, Jose Luis Rivero, Michael Carroll, ahcorde
 
 1.0.0 (2024-04-24)
 ------------------
