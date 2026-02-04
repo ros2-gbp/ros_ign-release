@@ -1,4 +1,4 @@
-From 768b4f95fdc5ec487ab413d1e8616cd21e49f64b Mon Sep 17 00:00:00 2001
+From c47ec27b857635eb116b3065b93e73f01da6c916 Mon Sep 17 00:00:00 2001
 From: Jose Luis Rivero <jrivero@osrfoundation.org>
 Date: Wed, 15 Mar 2023 18:42:35 +0100
 Subject: [PATCH 2/3] Set up a conflict with official ROS packages
