@@ -28,8 +28,6 @@ set(msg_files
   "msg/GuiCamera.msg"
   "msg/JointWrench.msg"
   "msg/Light.msg"
-  "msg/LogicalCameraImage.msg"
-  "msg/LogicalCameraImageModel.msg"
   "msg/MaterialColor.msg"
   "msg/ParamVec.msg"
   "msg/SensorNoise.msg"

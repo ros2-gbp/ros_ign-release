@@ -22,7 +22,6 @@
 #include <type_traits>
 
 #include <gz/transport/Node.hh>
-#include <gz/transport/SubscribeOptions.hh>
 
 // include ROS 2
 #include <rclcpp/rclcpp.hpp>
@@ -65,11 +64,9 @@ public:
     auto options = rclcpp::PublisherOptions();
     options.qos_overriding_options = rclcpp::QosOverridingOptions {
       {
-        rclcpp::QosPolicyKind::Deadline,
         rclcpp::QosPolicyKind::Depth,
         rclcpp::QosPolicyKind::Durability,
         rclcpp::QosPolicyKind::History,
-        rclcpp::QosPolicyKind::Liveliness,
         rclcpp::QosPolicyKind::Reliability
       },
     };
@@ -119,22 +116,20 @@ public:
     const std::string & topic_name,
     size_t /*queue_size*/,
     rclcpp::PublisherBase::SharedPtr ros_pub,
-    const BridgeHandleGzToRosParameters & gz_to_ros_parameters) override
+    const BridgeHandleGzToRosParameters & gz_to_ros_parameters)
   {
-    auto pub = std::dynamic_pointer_cast<rclcpp::Publisher<ROS_T>>(ros_pub);
-    if (pub == nullptr) {
-      return;
-    }
-    std::function<void(const GZ_T &)> subCb =
-      [this, pub, gz_to_ros_parameters](const GZ_T & _msg)
+    std::function<void(const GZ_T &,
+      const gz::transport::MessageInfo &)> subCb =
+      [this, ros_pub, gz_to_ros_parameters](const GZ_T & _msg,
+        const gz::transport::MessageInfo & _info)
       {
-        this->gz_callback(_msg, pub, gz_to_ros_parameters);
+        // Ignore messages that are published from this bridge.
+        if (!_info.IntraProcess()) {
+          this->gz_callback(_msg, ros_pub, gz_to_ros_parameters);
+        }
       };
 
-    // Ignore messages that are published from this bridge.
-    gz::transport::SubscribeOptions opts;
-    opts.SetIgnoreLocalMessages(true);
-    node->Subscribe(topic_name, subCb, opts);
+    node->Subscribe(topic_name, subCb);
   }
 
 protected:
@@ -158,7 +153,7 @@ protected:
   static
   void gz_callback(
     const GZ_T & gz_msg,
-    std::shared_ptr<rclcpp::Publisher<ROS_T>> ros_pub,
+    rclcpp::PublisherBase::SharedPtr ros_pub,
     const BridgeHandleGzToRosParameters & gz_to_ros_parameters)
   {
     ROS_T ros_msg;
@@ -175,7 +170,11 @@ protected:
         ros_msg.header.frame_id = gz_to_ros_parameters.override_frame_id;
       }
     }
-    ros_pub->publish(ros_msg);
+    std::shared_ptr<rclcpp::Publisher<ROS_T>> pub =
+      std::dynamic_pointer_cast<rclcpp::Publisher<ROS_T>>(ros_pub);
+    if (pub != nullptr) {
+      pub->publish(ros_msg);
+    }
   }
 
 public:
