@@ -59,7 +59,7 @@ public:
   create_ros_publisher(
     rclcpp::Node::SharedPtr ros_node,
     const std::string & topic_name,
-    size_t queue_size)
+    const rclcpp::QoS & qos)
   {
     // Allow QoS overriding
     auto options = rclcpp::PublisherOptions();
@@ -75,8 +75,7 @@ public:
     };
 
     std::shared_ptr<rclcpp::Publisher<ROS_T>> publisher =
-      ros_node->create_publisher<ROS_T>(
-      topic_name, rclcpp::QoS(rclcpp::KeepLast(queue_size)), options);
+      ros_node->create_publisher<ROS_T>(topic_name, qos, options);
     return publisher;
   }
 
@@ -93,7 +92,7 @@ public:
   create_ros_subscriber(
     rclcpp::Node::SharedPtr ros_node,
     const std::string & topic_name,
-    size_t queue_size,
+    const rclcpp::QoS & qos,
     gz::transport::Node::Publisher & gz_pub)
   {
     std::function<void(std::shared_ptr<const ROS_T>)> fn = std::bind(
@@ -108,8 +107,7 @@ public:
     options.qos_overriding_options =
       rclcpp::QosOverridingOptions::with_default_policies();
     std::shared_ptr<rclcpp::Subscription<ROS_T>> subscription =
-      ros_node->create_subscription<ROS_T>(
-      topic_name, rclcpp::QoS(rclcpp::KeepLast(queue_size)), fn, options);
+      ros_node->create_subscription<ROS_T>(topic_name, qos, fn, options);
     return subscription;
   }
 
@@ -119,16 +117,16 @@ public:
     const std::string & topic_name,
     size_t /*queue_size*/,
     rclcpp::PublisherBase::SharedPtr ros_pub,
-    bool override_timestamps_with_wall_time)
+    const BridgeHandleGzToRosParameters & gz_to_ros_parameters) override
   {
     auto pub = std::dynamic_pointer_cast<rclcpp::Publisher<ROS_T>>(ros_pub);
     if (pub == nullptr) {
       return;
     }
     std::function<void(const GZ_T &)> subCb =
-      [this, pub, override_timestamps_with_wall_time](const GZ_T & _msg)
+      [this, pub, gz_to_ros_parameters](const GZ_T & _msg)
       {
-        this->gz_callback(_msg, pub, override_timestamps_with_wall_time);
+        this->gz_callback(_msg, pub, gz_to_ros_parameters);
       };
 
     // Ignore messages that are published from this bridge.
@@ -159,17 +157,20 @@ protected:
   void gz_callback(
     const GZ_T & gz_msg,
     std::shared_ptr<rclcpp::Publisher<ROS_T>> ros_pub,
-    bool override_timestamps_with_wall_time)
+    const BridgeHandleGzToRosParameters & gz_to_ros_parameters)
   {
     ROS_T ros_msg;
     convert_gz_to_ros(gz_msg, ros_msg);
     if constexpr (has_header<ROS_T>::value) {
-      if (override_timestamps_with_wall_time) {
+      if (gz_to_ros_parameters.override_timestamps_with_wall_time) {
         auto now = std::chrono::system_clock::now().time_since_epoch();
         auto ns =
           std::chrono::duration_cast<std::chrono::nanoseconds>(now).count();
         ros_msg.header.stamp.sec = ns / 1e9;
         ros_msg.header.stamp.nanosec = ns - ros_msg.header.stamp.sec * 1e9;
+      }
+      if (!gz_to_ros_parameters.override_frame_id.empty()) {
+        ros_msg.header.frame_id = gz_to_ros_parameters.override_frame_id;
       }
     }
     ros_pub->publish(ros_msg);

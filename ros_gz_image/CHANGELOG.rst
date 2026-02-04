@@ -2,25 +2,27 @@
 Changelog for package ros1_ign_image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.1.13 (2026-01-20)
--------------------
+3.0.6 (2026-02-04)
+------------------
+* Remove image_transport deprecation (`#814 <https://github.com/gazebosim/ros_gz/issues/814>`_)
+* Contributors: Alejandro Hernández Cordero
 
-2.1.12 (2025-11-17)
--------------------
-
-2.1.11 (2025-09-30)
--------------------
-
-2.1.10 (2025-07-02)
--------------------
-
-2.1.9 (2025-06-12)
+3.0.5 (2025-11-17)
 ------------------
 
-2.1.8 (2025-05-26)
+3.0.4 (2025-09-30)
 ------------------
 
-2.1.7 (2025-05-06)
+3.0.3 (2025-07-02)
+------------------
+
+3.0.2 (2025-06-12)
+------------------
+
+3.0.1 (2025-05-26)
+------------------
+
+3.0.0 (2025-05-06)
 ------------------
 * use target_link_libraries instead of ament_target_dependencies (`#730 <https://github.com/gazebosim/ros_gz/issues/730>`_)
 * Added codespell pre-commit hook. (`#721 <https://github.com/gazebosim/ros_gz/issues/721>`_)
