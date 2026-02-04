@@ -1,0 +1,12 @@
+Source: ros-humble-ros-gz-bridge
+Section: misc
+Priority: optional
+Maintainer: Louise Poubel <louise@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), libignition-msgs8-dev, libignition-transport11-dev, pkg-config, ros-humble-actuator-msgs, ros-humble-ament-cmake, ros-humble-ament-cmake-gtest <!nocheck>, ros-humble-ament-lint-auto <!nocheck>, ros-humble-ament-lint-common <!nocheck>, ros-humble-geometry-msgs, ros-humble-gps-msgs, ros-humble-launch-ros <!nocheck>, ros-humble-launch-testing <!nocheck>, ros-humble-launch-testing-ament-cmake <!nocheck>, ros-humble-nav-msgs, ros-humble-rclcpp, ros-humble-rclcpp-components, ros-humble-ros-gz-interfaces, ros-humble-rosgraph-msgs, ros-humble-sensor-msgs, ros-humble-std-msgs, ros-humble-tf2-msgs, ros-humble-trajectory-msgs, ros-humble-vision-msgs, ros-humble-yaml-cpp-vendor, ros-humble-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-humble-ros-gz-bridge
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libignition-msgs8-dev, libignition-transport11-dev, ros-humble-actuator-msgs, ros-humble-geometry-msgs, ros-humble-gps-msgs, ros-humble-nav-msgs, ros-humble-rclcpp, ros-humble-rclcpp-components, ros-humble-ros-gz-interfaces, ros-humble-rosgraph-msgs, ros-humble-sensor-msgs, ros-humble-std-msgs, ros-humble-tf2-msgs, ros-humble-trajectory-msgs, ros-humble-vision-msgs, ros-humble-yaml-cpp-vendor, ros-humble-ros-workspace
+Description: Bridge communication between ROS and Gazebo Transport
