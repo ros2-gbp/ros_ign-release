@@ -28,6 +28,9 @@ set(msg_files
   "msg/GuiCamera.msg"
   "msg/JointWrench.msg"
   "msg/Light.msg"
+  "msg/LogicalCameraImage.msg"
+  "msg/LogicalCameraImageModel.msg"
+  "msg/LogPlaybackStatistics.msg"
   "msg/MaterialColor.msg"
   "msg/ParamVec.msg"
   "msg/SensorNoise.msg"
@@ -36,6 +39,7 @@ set(msg_files
   "msg/VideoRecord.msg"
   "msg/WorldControl.msg"
   "msg/WorldReset.msg"
+  "msg/WorldStatistics.msg"
 )
 
 set(srv_files

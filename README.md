@@ -8,13 +8,14 @@ Humble | Harmonic | [humble](https://github.com/gazebosim/ros_gz/tree/humble) | 
 Jazzy | Garden | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source [^2]
 Jazzy | Harmonic | [jazzy](https://github.com/gazebosim/ros_gz/tree/jazzy) | https://packages.ros.org
 Kilted | Ionic | [kilted](https://github.com/gazebosim/ros_gz/tree/kilted) | https://packages.ros.org
-Rolling | Garden | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source [^2]
 Rolling | Harmonic | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source
+Rolling | Ionic | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source
+Rolling | Jetty | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | https://packages.ros.org
 
 [^1]: Binaries for these pairings are provided from the packages.osrfoundation.org repository. Refer to https://gazebosim.org/docs/latest/ros_installation for installation instructions.
 [^2]: Note that the Gazebo version on this row has reached end-of-life.
 
-For information on ROS 2 and Gazebo compatibility, refer to the [melodic branch README](https://github.com/gazebosim/ros_gz/tree/melodic)
+For information on ROS(1) and Gazebo compatibility, refer to the [noetic branch README](https://github.com/gazebosim/ros_gz/tree/noetic)
 
 [Details about the renaming process](README_RENAME.md) from `ign` to `gz` .
 
@@ -51,11 +52,11 @@ This repository holds packages that provide integration between
 
 ## Install
 
-This branch supports ROS Humble. See above for other ROS versions.
+This branch supports ROS Rolling. See above for other ROS versions.
 
 ### Binaries
 
-Humble binaries are available for Fortress.
+Rolling binaries are available for Fortress.
 They are hosted at https://packages.ros.org.
 
 1. Add https://packages.ros.org
@@ -66,26 +67,19 @@ They are hosted at https://packages.ros.org.
 
 1. Install `ros_gz`
 
-        sudo apt install ros-humble-ros-gz
+        sudo apt install ros-rolling-ros-gz
 
 ### From source
 
 #### ROS
 
 Be sure you've installed
-[ROS Humble](https://docs.ros.org/en/humble/Installation.html)
+[ROS Rolling](https://docs.ros.org/en/rolling/index.html)
 (at least ROS-Base). More ROS dependencies will be installed below.
 
 #### Gazebo
 
-Install either [Fortress, Harmonic or Ionic](https://gazebosim.org/docs).
-
-Set the `GZ_VERSION` environment variable to the Gazebo version you'd
-like to compile against. For example:
-
-    export GZ_VERSION=edifice # IMPORTANT: Replace with correct version
-
-> You only need to set this variable when compiling, not when running.
+The version of Gazebo paired with Rolling will automatically be installed when running `rosdep` below.
 
 #### Compile ros_gz
 
@@ -99,14 +93,14 @@ The following steps are for Linux and macOS.
     cd ~/ws/src
 
     # Download needed software
-    git clone https://github.com/gazebosim/ros_gz.git -b humble
+    git clone https://github.com/gazebosim/ros_gz.git -b ros2
     ```
 
 1. Install dependencies (this may also install Gazebo):
 
     ```
     cd ~/ws
-    rosdep install -r --from-paths src -i -y --rosdistro humble
+    rosdep install -r --from-paths src -i -y --rosdistro rolling
     ```
 
     > If `rosdep` fails to install Gazebo libraries and you have not installed them before, please follow [Gazebo installation instructions](https://gazebosim.org/docs/latest/install).
@@ -125,22 +119,6 @@ The following steps are for Linux and macOS.
   > The `ros_gz` library makes heavy use of templates which causes compilers to consume a lot of memory. If your build fails with `c++: fatal error: Killed signal terminated program cc1plus`
   > try building with `colcon build --parallel-workers=1 --executor sequential`. You might also have to set `export MAKEFLAGS="-j 1"` before running `colcon build` to limit
   > the number of processors used to build a single package.
-
-    If `colcon build` fails with [this issue](https://github.com/gazebosim/ros_gz/issues/401)
-
-    ```
-    CMake Error at CMakeLists.txt:81 (find_package):
-      By not providing "Findactuator_msgs.cmake" in CMAKE_MODULE_PATH this
-      project has asked CMake to find a package configuration file provided by
-      "actuator_msgs", but CMake did not find one.
-    ```
-
-    ```bash
-    cd src
-    git clone git@github.com:rudislabs/actuator_msgs.git
-    cd ../
-    colcon build
-    ```
 
 ## ROSCon 2022
 

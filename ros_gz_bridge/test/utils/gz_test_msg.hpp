@@ -31,8 +31,8 @@
 #include <gz/msgs/entity.pb.h>
 #include <gz/msgs/entity_factory.pb.h>
 #include <gz/msgs/entity_wrench.pb.h>
+#include <gz/msgs/dataframe.pb.h>
 #include <gz/msgs/float.pb.h>
-#include <gz/msgs/float_v.pb.h>
 #include <gz/msgs/fluid_pressure.pb.h>
 #include <gz/msgs/gui_camera.pb.h>
 #include <gz/msgs/header.pb.h>
@@ -44,7 +44,10 @@
 #include <gz/msgs/joy.pb.h>
 #include <gz/msgs/laserscan.pb.h>
 #include <gz/msgs/light.pb.h>
+#include <gz/msgs/logical_camera_image.pb.h>
+#include <gz/msgs/log_playback_stats.pb.h>
 #include <gz/msgs/magnetometer.pb.h>
+#include <gz/msgs/material_color.pb.h>
 #include <gz/msgs/model.pb.h>
 #include <gz/msgs/navsat.pb.h>
 #include <gz/msgs/odometry.pb.h>
@@ -68,17 +71,11 @@
 #include <gz/msgs/wrench.pb.h>
 #include <gz/msgs/annotated_axis_aligned_2d_box_v.pb.h>
 #include <gz/msgs/annotated_oriented_3d_box_v.pb.h>
+#include <gz/msgs/world_stats.pb.h>
 
 #include <memory>
 
 #include <ros_gz_bridge/ros_gz_bridge.hpp>
-#if HAVE_DATAFRAME
-#include <gz/msgs/dataframe.pb.h>
-#endif  // HAVE_DATAFRAME
-
-#if HAVE_MATERIALCOLOR
-#include <gz/msgs/material_color.pb.h>
-#endif  // HAVE_MATERIALCOLOR
 
 namespace ros_gz_bridge
 {
@@ -174,15 +171,15 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Clock> & _msg);
 
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
-void createTestMsg(gz::msgs::StringMsg & _msg);
-
-/// \brief Create a message used for testing.
-/// \param[out] _msg The message populated.
 void createTestMsg(gz::msgs::SensorNoise & _msg);
 
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<gz::msgs::SensorNoise> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(gz::msgs::StringMsg & _msg);
 
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
@@ -332,7 +329,6 @@ void createTestMsg(gz::msgs::Contacts & _msg);
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<gz::msgs::Contacts> & _msg);
 
-#if HAVE_DATAFRAME
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
 void createTestMsg(gz::msgs::Dataframe & _msg);
@@ -340,7 +336,6 @@ void createTestMsg(gz::msgs::Dataframe & _msg);
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<gz::msgs::Dataframe> & _msg);
-#endif  // HAVE_DATAFRAME
 
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
@@ -478,7 +473,6 @@ void createTestMsg(gz::msgs::Light & _msg);
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<gz::msgs::Light> & _msg);
 
-#if HAVE_MATERIALCOLOR
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
 void createTestMsg(gz::msgs::MaterialColor & _msg);
@@ -486,7 +480,6 @@ void createTestMsg(gz::msgs::MaterialColor & _msg);
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<gz::msgs::MaterialColor> & _msg);
-#endif  // HAVE_MATERIALCOLOR
 
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
@@ -559,6 +552,30 @@ void createTestMsg(gz::msgs::AnnotatedOriented3DBox_V & _msg);
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<gz::msgs::AnnotatedOriented3DBox_V> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(gz::msgs::LogicalCameraImage & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<gz::msgs::LogicalCameraImage> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(gz::msgs::LogPlaybackStatistics & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<gz::msgs::LogPlaybackStatistics> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(gz::msgs::WorldStatistics & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<gz::msgs::WorldStatistics> & _msg);
 
 }  // namespace testing
 }  // namespace ros_gz_bridge

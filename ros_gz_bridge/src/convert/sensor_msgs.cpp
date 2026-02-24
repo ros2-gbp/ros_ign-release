@@ -98,6 +98,22 @@ convert_ros_to_gz(
     gz_msg.set_pixel_format_type(gz::msgs::PixelFormatType::R_FLOAT32);
     num_channels = 1;
     octets_per_channel = 4u;
+  } else if (ros_msg.encoding == "bayer_rggb8") {
+    gz_msg.set_pixel_format_type(gz::msgs::PixelFormatType::BAYER_RGGB8);
+    num_channels = 1;
+    octets_per_channel = 1u;
+  } else if (ros_msg.encoding == "bayer_bggr8") {
+    gz_msg.set_pixel_format_type(gz::msgs::PixelFormatType::BAYER_BGGR8);
+    num_channels = 1;
+    octets_per_channel = 1u;
+  } else if (ros_msg.encoding == "bayer_gbrg8") {
+    gz_msg.set_pixel_format_type(gz::msgs::PixelFormatType::BAYER_GBRG8);
+    num_channels = 1;
+    octets_per_channel = 1u;
+  } else if (ros_msg.encoding == "bayer_grbg8") {
+    gz_msg.set_pixel_format_type(gz::msgs::PixelFormatType::BAYER_GRBG8);
+    num_channels = 1;
+    octets_per_channel = 1u;
   } else {
     gz_msg.set_pixel_format_type(gz::msgs::PixelFormatType::UNKNOWN_PIXEL_FORMAT);
     std::cerr << "Unsupported pixel format [" << ros_msg.encoding << "]" << std::endl;
@@ -159,6 +175,22 @@ convert_gz_to_ros(
     ros_msg.encoding = "32FC1";
     num_channels = 1;
     octets_per_channel = 4u;
+  } else if (gz_msg.pixel_format_type() == gz::msgs::PixelFormatType::BAYER_RGGB8) {
+    ros_msg.encoding = "bayer_rggb8";
+    num_channels = 1;
+    octets_per_channel = 1u;
+  } else if (gz_msg.pixel_format_type() == gz::msgs::PixelFormatType::BAYER_BGGR8) {
+    ros_msg.encoding = "bayer_bggr8";
+    num_channels = 1;
+    octets_per_channel = 1u;
+  } else if (gz_msg.pixel_format_type() == gz::msgs::PixelFormatType::BAYER_GBRG8) {
+    ros_msg.encoding = "bayer_gbrg8";
+    num_channels = 1;
+    octets_per_channel = 1u;
+  } else if (gz_msg.pixel_format_type() == gz::msgs::PixelFormatType::BAYER_GRBG8) {
+    ros_msg.encoding = "bayer_grbg8";
+    num_channels = 1;
+    octets_per_channel = 1u;
   } else {
     std::cerr << "Unsupported pixel format [" << gz_msg.pixel_format_type() << "]" << std::endl;
     return;
@@ -166,13 +198,11 @@ convert_gz_to_ros(
 
   ros_msg.is_bigendian = false;
   ros_msg.step = ros_msg.width * num_channels * octets_per_channel;
-
-  auto count = ros_msg.step * ros_msg.height;
   ros_msg.data.resize(ros_msg.step * ros_msg.height);
-  std::copy(
-    gz_msg.data().begin(),
-    gz_msg.data().begin() + count,
-    ros_msg.data.begin());
+
+  // Prefer memcpy over std::copy for performance reasons,
+  // see https://github.com/gazebosim/ros_gz/pull/565
+  memcpy(ros_msg.data.data(), gz_msg.data().c_str(), gz_msg.data().size());
 }
 
 template<>
@@ -578,7 +608,7 @@ convert_gz_to_ros(
   ros_msg.longitude = gz_msg.longitude_deg();
   ros_msg.altitude = gz_msg.altitude();
 
-  // position_covariance is not supported in Ignition::Msgs::NavSat.
+  // position_covariance is not supported in gz::msgs::NavSat.
   ros_msg.position_covariance_type = sensor_msgs::msg::NavSatFix::COVARIANCE_TYPE_UNKNOWN;
   ros_msg.status.status = sensor_msgs::msg::NavSatStatus::STATUS_FIX;
 }

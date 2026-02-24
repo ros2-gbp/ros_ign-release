@@ -58,6 +58,14 @@ void compareTestMsg(const std::shared_ptr<std_msgs::msg::Bool> & _msg)
   EXPECT_EQ(expected_msg.data, _msg->data);
 }
 
+void createTestMsg(std_msgs::msg::ColorRGBA & _msg)
+{
+  _msg.r = 0.2;
+  _msg.g = 0.4;
+  _msg.b = 0.6;
+  _msg.a = 0.8;
+}
+
 void createTestMsg(actuator_msgs::msg::Actuators & _msg)
 {
   std_msgs::msg::Header header_msg;
@@ -87,14 +95,6 @@ void compareTestMsg(const std::shared_ptr<actuator_msgs::msg::Actuators> & _msg)
   for (auto i = 0u; i < _msg->normalized.size(); ++i) {
     EXPECT_FLOAT_EQ(expected_msg.normalized[i], _msg->normalized[i]);
   }
-}
-
-void createTestMsg(std_msgs::msg::ColorRGBA & _msg)
-{
-  _msg.r = 0.2;
-  _msg.g = 0.4;
-  _msg.b = 0.6;
-  _msg.a = 0.8;
 }
 
 void compareTestMsg(const std::shared_ptr<std_msgs::msg::ColorRGBA> & _msg)
@@ -381,6 +381,18 @@ void compareTestMsg(const std::shared_ptr<geometry_msgs::msg::PoseWithCovariance
   }
 }
 
+void createTestMsg(geometry_msgs::msg::PoseWithCovarianceStamped & _msg)
+{
+  createTestMsg(_msg.header);
+  createTestMsg(_msg.pose);
+}
+
+void compareTestMsg(const std::shared_ptr<geometry_msgs::msg::PoseWithCovarianceStamped> & _msg)
+{
+  compareTestMsg(std::make_shared<geometry_msgs::msg::PoseWithCovariance>(_msg->pose));
+  compareTestMsg(std::make_shared<std_msgs::msg::Header>(_msg->header));
+}
+
 void createTestMsg(geometry_msgs::msg::PoseStamped & _msg)
 {
   createTestMsg(_msg.header);
@@ -610,7 +622,6 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Light> & _msg)
   EXPECT_FLOAT_EQ(expected_msg.intensity, _msg->intensity);
 }
 
-#if HAVE_MATERIALCOLOR
 void createTestMsg(ros_gz_interfaces::msg::MaterialColor & _msg)
 {
   createTestMsg(_msg.header);
@@ -638,7 +649,6 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::MaterialColor>
   EXPECT_EQ(expected_msg.shininess, _msg->shininess);
   EXPECT_EQ(expected_msg.entity_match, _msg->entity_match);
 }
-#endif  // HAVE_MATERIALCOLOR
 
 void createTestMsg(ros_gz_interfaces::msg::GuiCamera & _msg)
 {
@@ -948,7 +958,6 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Contacts> & _m
   }
 }
 
-#if HAVE_DATAFRAME
 void createTestMsg(ros_gz_interfaces::msg::Dataframe & _msg)
 {
   createTestMsg(_msg.header);
@@ -974,7 +983,6 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Dataframe> & _
     EXPECT_EQ(expected_msg.data[ii], _msg->data[ii]);
   }
 }
-#endif  // HAVE_DATAFRAME
 
 void createTestMsg(nav_msgs::msg::Odometry & _msg)
 {
@@ -1634,6 +1642,128 @@ void compareTestMsg(const std::shared_ptr<vision_msgs::msg::Detection3DArray> & 
   for (size_t i = 0; i < _msg->detections.size(); i++) {
     compareTestMsg(std::make_shared<vision_msgs::msg::Detection3D>(_msg->detections[i]));
   }
+}
+
+void createTestMsg(ros_gz_interfaces::msg::LogicalCameraImage & _msg)
+{
+  std_msgs::msg::Header header_msg;
+  createTestMsg(header_msg);
+  _msg.header = header_msg;
+
+  geometry_msgs::msg::Pose pose_msg;
+  createTestMsg(pose_msg);
+  _msg.pose = pose_msg;
+
+  for (int i = 0; i < 4; ++i) {
+    ros_gz_interfaces::msg::LogicalCameraImageModel model;
+    model.name = "model_" + std::to_string(i);
+    model.pose = pose_msg;
+    _msg.model.push_back(model);
+  }
+}
+
+void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::LogicalCameraImage> & _msg)
+{
+  ros_gz_interfaces::msg::LogicalCameraImage expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(std::make_shared<std_msgs::msg::Header>(_msg->header));
+  compareTestMsg(std::make_shared<geometry_msgs::msg::Pose>(_msg->pose));
+
+  ASSERT_EQ(expected_msg.model.size(), _msg->model.size());
+  for (size_t i = 0; i < _msg->model.size(); ++i) {
+    EXPECT_EQ(expected_msg.model[i].name, _msg->model[i].name);
+    compareTestMsg(std::make_shared<geometry_msgs::msg::Pose>(_msg->model[i].pose));
+  }
+}
+
+void createTestMsg(ros_gz_interfaces::msg::LogPlaybackStatistics & _msg)
+{
+  std_msgs::msg::Header header_msg;
+  createTestMsg(header_msg);
+  _msg.header = header_msg;
+
+  builtin_interfaces::msg::Time start_time;
+  createTestMsg(start_time);
+  _msg.start_time = start_time;
+
+  builtin_interfaces::msg::Time end_time;
+  createTestMsg(end_time);
+  _msg.end_time = end_time;
+}
+
+void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::LogPlaybackStatistics> & _msg)
+{
+  ros_gz_interfaces::msg::LogPlaybackStatistics expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(std::make_shared<std_msgs::msg::Header>(_msg->header));
+  compareTestMsg(std::make_shared<builtin_interfaces::msg::Time>(_msg->start_time));
+  compareTestMsg(std::make_shared<builtin_interfaces::msg::Time>(_msg->end_time));
+}
+
+void createTestMsg(ros_gz_interfaces::msg::WorldStatistics & _msg)
+{
+  std_msgs::msg::Header header_msg;
+  createTestMsg(header_msg);
+  _msg.header = header_msg;
+
+  builtin_interfaces::msg::Time sim_time;
+  createTestMsg(sim_time);
+  _msg.sim_time = sim_time;
+
+  builtin_interfaces::msg::Time pause_time;
+  createTestMsg(pause_time);
+  _msg.pause_time = pause_time;
+
+  builtin_interfaces::msg::Time real_time;
+  createTestMsg(real_time);
+  _msg.real_time = real_time;
+
+  _msg.paused = false;
+
+  _msg.iterations = 123;
+
+  _msg.model_count = 10;
+
+  ros_gz_interfaces::msg::LogPlaybackStatistics log_playback_statistics;
+  createTestMsg(log_playback_statistics);
+  _msg.log_playback_statistics = log_playback_statistics;
+
+  _msg.real_time_factor = 0.75;
+
+  builtin_interfaces::msg::Time step_size;
+  createTestMsg(step_size);
+  _msg.step_size = step_size;
+
+  _msg.stepping = true;
+}
+
+void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::WorldStatistics> & _msg)
+{
+  ros_gz_interfaces::msg::WorldStatistics expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(std::make_shared<std_msgs::msg::Header>(_msg->header));
+
+  compareTestMsg(std::make_shared<builtin_interfaces::msg::Time>(_msg->sim_time));
+  compareTestMsg(std::make_shared<builtin_interfaces::msg::Time>(_msg->pause_time));
+  compareTestMsg(std::make_shared<builtin_interfaces::msg::Time>(_msg->real_time));
+
+  EXPECT_EQ(expected_msg.paused, _msg->paused);
+
+  EXPECT_EQ(expected_msg.iterations, _msg->iterations);
+
+  EXPECT_EQ(expected_msg.model_count, _msg->model_count);
+
+  compareTestMsg(std::make_shared<ros_gz_interfaces::msg::LogPlaybackStatistics>(
+        _msg->log_playback_statistics));
+
+  EXPECT_FLOAT_EQ(expected_msg.real_time_factor, _msg->real_time_factor);
+
+  compareTestMsg(std::make_shared<builtin_interfaces::msg::Time>(_msg->step_size));
+
+  EXPECT_EQ(expected_msg.stepping, _msg->stepping);
 }
 
 }  // namespace testing
