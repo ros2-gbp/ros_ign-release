@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Launch Gazebo Sim with command line arguments."""
+
 import os
 
 from ament_index_python.packages import get_package_share_directory
@@ -30,36 +32,28 @@ def generate_launch_description():
 
     pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
 
-    # RQt
-    rqt = Node(
-        package='rqt_plot',
-        executable='rqt_plot',
-        # FIXME: Why isn't the topic being populated on the UI? RQt issue?
-        arguments=['--force-discover',
-                   '/model/vehicle_blue/battery/linear_battery/state/percentage'],
-        condition=IfCondition(LaunchConfiguration('rqt'))
+    # Bridge
+    bridge = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        arguments=['/air_pressure@sensor_msgs/msg/FluidPressure@gz.msgs.FluidPressure'],
+        parameters=[{'qos_overrides./air_pressure.publisher.reliability': 'best_effort'}],
+        output='screen'
     )
 
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
-        launch_arguments={
-            'gz_args': '-r -z 1000000 linear_battery_demo.sdf'
-        }.items(),
+        launch_arguments={'gz_args': '-r sensors.sdf'}.items(),
     )
 
-    # Bridge
-    bridge = Node(
-        package='ros_gz_bridge',
-        executable='parameter_bridge',
-        arguments=[
-            '/model/vehicle_blue/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
-            '/model/vehicle_blue/battery/linear_battery/state@sensor_msgs/msg/BatteryState@'
-            'gz.msgs.BatteryState'
-        ],
-        output='screen'
+    # RQt
+    rqt = Node(
+        package='rqt_topic',
+        executable='rqt_topic',
+        arguments=['-t'],
+        condition=IfCondition(LaunchConfiguration('rqt'))
     )
-
     return LaunchDescription([
         gz_sim,
         DeclareLaunchArgument('rqt', default_value='true',
