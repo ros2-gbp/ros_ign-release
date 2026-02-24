@@ -24,7 +24,8 @@ jobs:
       matrix:
         include:
           - docker-image: "ubuntu:24.04"
-            ros-distro: "rolling"
+            gz-version: "harmonic"
+            ros-distro: "kilted"
     container:
       image: ${{ matrix.docker-image }}
     steps:
@@ -34,4 +35,5 @@ jobs:
         run: .github/workflows/build-and-test.sh
         env:
           DOCKER_IMAGE: ${{ matrix.docker-image }}
+          GZ_VERSION: ${{ matrix.gz-version  }}
           ROS_DISTRO: ${{ matrix.ros-distro }}

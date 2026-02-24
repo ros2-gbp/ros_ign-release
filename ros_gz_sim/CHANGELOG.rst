@@ -2,42 +2,44 @@
 Changelog for package ros_gz_sim
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-3.0.7 (2026-02-24)
-------------------
-* Added descriptions to gz_server and ros_gz_sim launch files (`#838 <https://github.com/gazebosim/ros_gz/issues/838>`_)
-* Added verbosity_level parameter. (`#833 <https://github.com/gazebosim/ros_gz/issues/833>`_)
-* Contributors: Martin Pecka
+2.1.15 (2026-02-24)
+-------------------
+* Added descriptions to gz_server and ros_gz_sim launch files (`#838 <https://github.com/gazebosim/ros_gz/issues/838>`_) (`#839 <https://github.com/gazebosim/ros_gz/issues/839>`_)
+* Added verbosity_level parameter. (`#833 <https://github.com/gazebosim/ros_gz/issues/833>`_) (`#835 <https://github.com/gazebosim/ros_gz/issues/835>`_)
+* Contributors: mergify[bot]
 
-3.0.6 (2026-02-04)
-------------------
-* Add dependency to ros2pkg (`#816 <https://github.com/gazebosim/ros_gz/issues/816>`_)
-* Contributors: Felix Exner
+2.1.14 (2026-02-04)
+-------------------
 
-3.0.5 (2025-11-17)
-------------------
+2.1.13 (2026-01-20)
+-------------------
+* Add dependency to ros2pkg (`#816 <https://github.com/gazebosim/ros_gz/issues/816>`_) (`#817 <https://github.com/gazebosim/ros_gz/issues/817>`_)
+* Contributors: mergify[bot]
 
-3.0.4 (2025-09-30)
-------------------
-* Implement ROS standard simulation interfaces (`#790 <https://github.com/gazebosim/ros_gz/issues/790>`_)
-* Add Windows support for ros_gz_bridge and ros_gz_sim (`#781 <https://github.com/gazebosim/ros_gz/issues/781>`_)
-* Contributors: Addisu Z. Taddese, Silvio Traversaro
+2.1.12 (2025-11-17)
+-------------------
+* Implement ROS standard simulation interfaces (`#790 <https://github.com/gazebosim/ros_gz/issues/790>`_) (`#801 <https://github.com/gazebosim/ros_gz/issues/801>`_)
+* Contributors: mergify[bot]
 
-3.0.3 (2025-07-02)
-------------------
+2.1.11 (2025-09-30)
+-------------------
 
-3.0.2 (2025-06-12)
-------------------
-* OS agnostic 'which' command (`#762 <https://github.com/gazebosim/ros_gz/issues/762>`_) (`#765 <https://github.com/gazebosim/ros_gz/issues/765>`_)
-* ros_gz_sim: Added support for passing initial_sim_time to Gazebo. (`#756 <https://github.com/gazebosim/ros_gz/issues/756>`_)
-* Contributors: Alejandro Hernandez Cordero, Martin Pecka, mergify[bot]
+2.1.10 (2025-07-02)
+-------------------
 
-3.0.1 (2025-05-26)
+2.1.9 (2025-06-12)
 ------------------
-* Fix debug_env (`#747 <https://github.com/gazebosim/ros_gz/issues/747>`_)
-* Log environment variables with which gazebo was launched (`#680 <https://github.com/gazebosim/ros_gz/issues/680>`_)
-* Contributors: Alejandro Hernández Cordero, Arjo Chakravarty
+* OS agnostic 'which' command (`#762 <https://github.com/gazebosim/ros_gz/issues/762>`_) (`#763 <https://github.com/gazebosim/ros_gz/issues/763>`_)
+* ros_gz_sim: Added support for passing initial_sim_time to Gazebo. (`#756 <https://github.com/gazebosim/ros_gz/issues/756>`_) (`#758 <https://github.com/gazebosim/ros_gz/issues/758>`_)
+* Contributors: mergify[bot]
 
-3.0.0 (2025-05-06)
+2.1.8 (2025-05-26)
+------------------
+* Fix debug_env (`#747 <https://github.com/gazebosim/ros_gz/issues/747>`_) (`#748 <https://github.com/gazebosim/ros_gz/issues/748>`_)
+* Log environment variables with which gazebo was launched (`#680 <https://github.com/gazebosim/ros_gz/issues/680>`_) (`#743 <https://github.com/gazebosim/ros_gz/issues/743>`_)
+* Contributors: mergify[bot]
+
+2.1.7 (2025-05-06)
 ------------------
 * Spawn, set pose and delete entities using ROS 2 (`#705 <https://github.com/gazebosim/ros_gz/issues/705>`_)
 * use target_link_libraries instead of ament_target_dependencies (`#730 <https://github.com/gazebosim/ros_gz/issues/730>`_)
