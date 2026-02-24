@@ -1,0 +1,12 @@
+Source: ros-rolling-ros-gz-bridge
+Section: misc
+Priority: optional
+Maintainer: Aditya Pande <adityapande@intrinsic.ai>
+Build-Depends: debhelper (>= 9.0.0), pkg-config, ros-rolling-actuator-msgs, ros-rolling-ament-cmake, ros-rolling-ament-cmake-gtest <!nocheck>, ros-rolling-ament-cmake-python, ros-rolling-ament-lint-auto <!nocheck>, ros-rolling-ament-lint-common <!nocheck>, ros-rolling-geometry-msgs, ros-rolling-gps-msgs, ros-rolling-gz-msgs-vendor, ros-rolling-gz-transport-vendor, ros-rolling-launch, ros-rolling-launch-ros, ros-rolling-launch-ros <!nocheck>, ros-rolling-launch-testing <!nocheck>, ros-rolling-launch-testing-ament-cmake <!nocheck>, ros-rolling-nav-msgs, ros-rolling-rclcpp, ros-rolling-rclcpp-components, ros-rolling-ros-gz-interfaces, ros-rolling-rosgraph-msgs, ros-rolling-rosidl-pycommon, ros-rolling-sensor-msgs, ros-rolling-std-msgs, ros-rolling-tf2-msgs, ros-rolling-trajectory-msgs, ros-rolling-vision-msgs, ros-rolling-yaml-cpp-vendor, ros-rolling-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-rolling-ros-gz-bridge
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-rolling-actuator-msgs, ros-rolling-geometry-msgs, ros-rolling-gps-msgs, ros-rolling-gz-msgs-vendor, ros-rolling-gz-transport-vendor, ros-rolling-launch, ros-rolling-launch-ros, ros-rolling-nav-msgs, ros-rolling-rclcpp, ros-rolling-rclcpp-components, ros-rolling-ros-gz-interfaces, ros-rolling-rosgraph-msgs, ros-rolling-sensor-msgs, ros-rolling-std-msgs, ros-rolling-tf2-msgs, ros-rolling-trajectory-msgs, ros-rolling-vision-msgs, ros-rolling-yaml-cpp-vendor, ros-rolling-ros-workspace
+Description: Bridge communication between ROS and Gazebo Transport
