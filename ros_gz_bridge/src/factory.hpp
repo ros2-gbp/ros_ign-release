@@ -217,7 +217,6 @@ public:
     const GZ_T & gz_msg,
     ROS_T & ros_msg);
 
-private:
   std::string ros_type_name_;
   std::string gz_type_name_;
 };

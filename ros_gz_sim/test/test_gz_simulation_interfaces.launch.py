@@ -212,7 +212,7 @@ class TestGzSimulationInterfaces(unittest.TestCase):
         spawn_entity, request = self.setup_client(
             si.SpawnEntity, 'spawn_entity')
         request.name = 'test_sphere'
-        request.entity_resource.resource_string = sdf_string
+        request.resource_string = sdf_string
         # spawn at 4, -20, 2 so that when the ball falls on the incline and start
         # rolling without any external commands
         request.initial_pose.pose.position.x = 4.0
@@ -260,7 +260,7 @@ class TestGzSimulationInterfaces(unittest.TestCase):
         spawn_entity, request = self.setup_client(
             si.SpawnEntity, 'spawn_entity')
         request.name = 'test_duplicate'
-        request.entity_resource.resource_string = sdf_string
+        request.resource_string = sdf_string
 
         self.assert_result_ok(self.call_and_spin(spawn_entity, request))
         time.sleep(2)
@@ -284,7 +284,7 @@ class TestGzSimulationInterfaces(unittest.TestCase):
         spawn_entity, request = self.setup_client(
             si.SpawnEntity, 'spawn_entity')
         request.name = 'test_empty'
-        request.entity_resource.resource_string = sdf_string
+        request.resource_string = sdf_string
 
         self.assert_result_ok(self.call_and_spin(spawn_entity, request))
         time.sleep(2)

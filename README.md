@@ -1,8 +1,5 @@
 [![Build Status](https://github.com/gazebosim/ros_gz/actions/workflows/ros2-ci.yml/badge.svg?branch=ros2)](https://github.com/gazebosim/ros_gz/actions/workflows/ros2-ci.yml)
 
-Package Build Status: [![Package Build Status](https://build.ros2.org/buildStatus/icon?job=Rbin_uN64__ros_gz_bridge__ubuntu_noble_amd64__binary)](https://build.ros2.org/job/Rbin_uN64__ros_gz_bridge__ubuntu_noble_amd64__binary/)
-
-
 ROS 2 version | Gazebo version | Branch | Binaries hosted at
 -- | -- | -- | --
 Humble | Fortress | [humble](https://github.com/gazebosim/ros_gz/tree/humble) | https://packages.ros.org
@@ -11,9 +8,9 @@ Humble | Harmonic | [humble](https://github.com/gazebosim/ros_gz/tree/humble) | 
 Jazzy | Garden | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source [^2]
 Jazzy | Harmonic | [jazzy](https://github.com/gazebosim/ros_gz/tree/jazzy) | https://packages.ros.org
 Kilted | Ionic | [kilted](https://github.com/gazebosim/ros_gz/tree/kilted) | https://packages.ros.org
+Rolling | Garden | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source [^2]
 Rolling | Harmonic | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source
-Rolling | Ionic | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | only from source
-Rolling | Jetty | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | https://packages.ros.org
+Rolling | Ionic | [ros2](https://github.com/gazebosim/ros_gz/tree/ros2) | https://packages.ros.org
 
 [^1]: Binaries for these pairings are provided from the packages.osrfoundation.org repository. Refer to https://gazebosim.org/docs/latest/ros_installation for installation instructions.
 [^2]: Note that the Gazebo version on this row has reached end-of-life.
@@ -82,7 +79,14 @@ Be sure you've installed
 
 #### Gazebo
 
-The version of Gazebo paired with Rolling will automatically be installed when running `rosdep` below.
+Install either [Fortress, Harmonic or Ionic](https://gazebosim.org/docs).
+
+Set the `GZ_VERSION` environment variable to the Gazebo version you'd
+like to compile against. For example:
+
+    export GZ_VERSION=harmonic # IMPORTANT: Replace with correct version
+
+> You only need to set this variable when compiling, not when running.
 
 #### Compile ros_gz
 

@@ -98,22 +98,6 @@ convert_ros_to_gz(
     gz_msg.set_pixel_format_type(gz::msgs::PixelFormatType::R_FLOAT32);
     num_channels = 1;
     octets_per_channel = 4u;
-  } else if (ros_msg.encoding == "bayer_rggb8") {
-    gz_msg.set_pixel_format_type(gz::msgs::PixelFormatType::BAYER_RGGB8);
-    num_channels = 1;
-    octets_per_channel = 1u;
-  } else if (ros_msg.encoding == "bayer_bggr8") {
-    gz_msg.set_pixel_format_type(gz::msgs::PixelFormatType::BAYER_BGGR8);
-    num_channels = 1;
-    octets_per_channel = 1u;
-  } else if (ros_msg.encoding == "bayer_gbrg8") {
-    gz_msg.set_pixel_format_type(gz::msgs::PixelFormatType::BAYER_GBRG8);
-    num_channels = 1;
-    octets_per_channel = 1u;
-  } else if (ros_msg.encoding == "bayer_grbg8") {
-    gz_msg.set_pixel_format_type(gz::msgs::PixelFormatType::BAYER_GRBG8);
-    num_channels = 1;
-    octets_per_channel = 1u;
   } else {
     gz_msg.set_pixel_format_type(gz::msgs::PixelFormatType::UNKNOWN_PIXEL_FORMAT);
     std::cerr << "Unsupported pixel format [" << ros_msg.encoding << "]" << std::endl;
@@ -175,22 +159,6 @@ convert_gz_to_ros(
     ros_msg.encoding = "32FC1";
     num_channels = 1;
     octets_per_channel = 4u;
-  } else if (gz_msg.pixel_format_type() == gz::msgs::PixelFormatType::BAYER_RGGB8) {
-    ros_msg.encoding = "bayer_rggb8";
-    num_channels = 1;
-    octets_per_channel = 1u;
-  } else if (gz_msg.pixel_format_type() == gz::msgs::PixelFormatType::BAYER_BGGR8) {
-    ros_msg.encoding = "bayer_bggr8";
-    num_channels = 1;
-    octets_per_channel = 1u;
-  } else if (gz_msg.pixel_format_type() == gz::msgs::PixelFormatType::BAYER_GBRG8) {
-    ros_msg.encoding = "bayer_gbrg8";
-    num_channels = 1;
-    octets_per_channel = 1u;
-  } else if (gz_msg.pixel_format_type() == gz::msgs::PixelFormatType::BAYER_GRBG8) {
-    ros_msg.encoding = "bayer_grbg8";
-    num_channels = 1;
-    octets_per_channel = 1u;
   } else {
     std::cerr << "Unsupported pixel format [" << gz_msg.pixel_format_type() << "]" << std::endl;
     return;
@@ -336,20 +304,26 @@ convert_gz_to_ros(
   convert_gz_to_ros(gz_msg.linear_acceleration(), ros_msg.linear_acceleration);
 
 #ifdef GZ_MSGS_IMU_HAS_COVARIANCE
-  if (gz_msg.linear_acceleration_covariance().data_size() == 9) {
-    const auto & accel_cov = gz_msg.linear_acceleration_covariance().data();
-    std::copy(accel_cov.begin(), accel_cov.end(),
-      ros_msg.linear_acceleration_covariance.begin());
+  int data_size = gz_msg.linear_acceleration_covariance().data_size();
+  if (data_size == 9) {
+    for (int i = 0; i < data_size; ++i) {
+      auto data = gz_msg.linear_acceleration_covariance().data()[i];
+      ros_msg.linear_acceleration_covariance[i] = data;
+    }
   }
-  if (gz_msg.angular_velocity_covariance().data_size() == 9) {
-    const auto & gyro_cov = gz_msg.angular_velocity_covariance().data();
-    std::copy(gyro_cov.begin(), gyro_cov.end(),
-      ros_msg.angular_velocity_covariance.begin());
+  data_size = gz_msg.angular_velocity_covariance().data_size();
+  if (data_size == 9) {
+    for (int i = 0; i < data_size; ++i) {
+      auto data = gz_msg.angular_velocity_covariance().data()[i];
+      ros_msg.angular_velocity_covariance[i] = data;
+    }
   }
-  if (gz_msg.orientation_covariance().data_size() == 9) {
-    const auto & orient_cov = gz_msg.orientation_covariance().data();
-    std::copy(orient_cov.begin(), orient_cov.end(),
-      ros_msg.orientation_covariance.begin());
+  data_size = gz_msg.orientation_covariance().data_size();
+  if (data_size == 9) {
+    for (int i = 0; i < data_size; ++i) {
+      auto data = gz_msg.orientation_covariance().data()[i];
+      ros_msg.orientation_covariance[i] = data;
+    }
   }
 #endif
 }
@@ -412,12 +386,10 @@ convert_gz_to_ros(
 {
   convert_gz_to_ros(gz_msg.header(), ros_msg.header);
 
-  ros_msg.axes.reserve(gz_msg.axes_size());
   for (auto i = 0; i < gz_msg.axes_size(); ++i) {
     ros_msg.axes.push_back(gz_msg.axes(i));
   }
 
-  ros_msg.buttons.reserve(gz_msg.buttons_size());
   for (auto i = 0; i < gz_msg.buttons_size(); ++i) {
     ros_msg.buttons.push_back(gz_msg.buttons(i));
   }
