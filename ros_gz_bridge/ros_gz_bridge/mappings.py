@@ -36,6 +36,7 @@ MAPPINGS = {
         Mapping('PoseArray', 'Pose_V'),
         Mapping('PoseStamped', 'Pose'),
         Mapping('PoseWithCovariance', 'PoseWithCovariance'),
+        Mapping('PoseWithCovarianceStamped', 'PoseWithCovariance'),
         Mapping('Quaternion', 'Quaternion'),
         Mapping('Transform', 'Pose'),
         Mapping('TransformStamped', 'Pose'),
@@ -50,6 +51,9 @@ MAPPINGS = {
     'gps_msgs': [
         Mapping('GPSFix', 'NavSat'),
     ],
+    'marine_acoustic_msgs': [
+        Mapping('Dvl', 'DVLVelocityTracking'),
+    ],
     'nav_msgs': [
         Mapping('Odometry', 'Odometry'),
         Mapping('Odometry', 'OdometryWithCovariance'),
@@ -61,6 +65,7 @@ MAPPINGS = {
         Mapping('Altimeter', 'Altimeter'),
         Mapping('Contact', 'Contact'),
         Mapping('Contacts', 'Contacts'),
+        Mapping('Dataframe', 'Dataframe'),
         Mapping('Entity', 'Entity'),
         Mapping('EntityFactory', 'EntityFactory'),
         Mapping('EntityWrench', 'EntityWrench'),
@@ -68,7 +73,9 @@ MAPPINGS = {
         Mapping('GuiCamera', 'GUICamera'),
         Mapping('JointWrench', 'JointWrench'),
         Mapping('Light', 'Light'),
+        Mapping('LogicalCameraImage', 'LogicalCameraImage'),
         Mapping('LogPlaybackStatistics', 'LogPlaybackStatistics'),
+        Mapping('MaterialColor', 'MaterialColor'),
         Mapping('ParamVec', 'Param'),
         Mapping('ParamVec', 'Param_V'),
         Mapping('SensorNoise', 'SensorNoise'),
@@ -116,17 +123,5 @@ MAPPINGS = {
         Mapping('Detection2D', 'AnnotatedAxisAligned2DBox'),
         Mapping('Detection3DArray', 'AnnotatedOriented3DBox_V'),
         Mapping('Detection3D', 'AnnotatedOriented3DBox'),
-    ],
-}
-
-MAPPINGS_8_4_0 = {
-    'ros_gz_interfaces': [
-        Mapping('Dataframe', 'Dataframe'),
-    ],
-}
-
-MAPPINGS_10_1_0 = {
-    'ros_gz_interfaces': [
-        Mapping('MaterialColor', 'MaterialColor'),
     ],
 }

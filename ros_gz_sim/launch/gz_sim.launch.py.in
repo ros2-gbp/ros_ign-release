@@ -95,22 +95,9 @@ def launch_gz(context, *args, **kwargs):
                 plugin_paths,
             ]
         ),
-        "IGN_GAZEBO_SYSTEM_PLUGIN_PATH": os.pathsep.join(  # TODO(azeey): To support pre-garden. Deprecated.
-            [
-                environ.get("IGN_GAZEBO_SYSTEM_PLUGIN_PATH", default=""),
-                environ.get("LD_LIBRARY_PATH", default=""),
-                plugin_paths,
-            ]
-        ),
         "GZ_SIM_RESOURCE_PATH": os.pathsep.join(
             [
                 environ.get("GZ_SIM_RESOURCE_PATH", default=""),
-                model_paths,
-            ]
-        ),
-        "IGN_GAZEBO_RESOURCE_PATH": os.pathsep.join(  # TODO(azeey): To support pre-garden. Deprecated.
-            [
-                environ.get("IGN_GAZEBO_RESOURCE_PATH", default=""),
                 model_paths,
             ]
         ),
@@ -143,13 +130,14 @@ def launch_gz(context, *args, **kwargs):
     else:
         debug_prefix = None
 
-    if on_exit_shutdown:
+    if on_exit_shutdown != 'false':
         on_exit = Shutdown()
     else:
         on_exit = None
 
     ld = [ExecuteProcess(
                 cmd=[exec, exec_args, '--force-version', gz_version],
+                name='gazebo',
                 output='screen',
                 additional_env=env,
                 shell=True,

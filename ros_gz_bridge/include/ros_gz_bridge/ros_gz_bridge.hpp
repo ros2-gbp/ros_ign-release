@@ -24,25 +24,6 @@
 #include <rclcpp/node.hpp>
 #include "ros_gz_bridge/bridge_config.hpp"
 
-// Dataframe is available from versions 8.4.0 (fortress) forward
-// This can be removed when the minimum supported version passes 8.4.0
-#if (IGNITION_MSGS_MAJOR_VERSION > 8) || \
-  ((IGNITION_MSGS_MAJOR_VERSION == 8) && (IGNITION_MSGS_MINOR_VERSION >= 4))
-#define HAVE_DATAFRAME true
-#endif
-
-#if (GZ_MSGS_MAJOR_VERSION > 8) || \
-  ((GZ_MSGS_MAJOR_VERSION == 8) && (GZ_MSGS_MINOR_VERSION >= 4))
-#define HAVE_DATAFRAME true
-#endif
-
-// MaterialColor is available from versions 10.1.0 (Harmonic) forward
-// This can be removed when the minimum supported version passes 10.1.0
-#if (GZ_MSGS_MAJOR_VERSION > 10) || \
-  ((GZ_MSGS_MAJOR_VERSION == 10) && (GZ_MSGS_MINOR_VERSION >= 1))
-#define HAVE_MATERIALCOLOR true
-#endif
-
 namespace ros_gz_bridge
 {
 /// Forward declarations
@@ -56,14 +37,14 @@ public:
   /// \param[in] options options control creation of the ROS 2 node
   explicit RosGzBridge(const rclcpp::NodeOptions & options = rclcpp::NodeOptions());
 
-  /// \brief Add a new ROS-IGN bridge to the node
+  /// \brief Add a new ROS-GZ bridge to the node
   /// \param[in] config Parameters to control creation of a new bridge
   void add_bridge(const BridgeConfig & config);
 
   /// \brief Create a new ROS-GZ bridge for a service
-  /// \param[in] ros_type_name Name of the ROS service (eg ros_bz_interfaces/srv/ControlWorld)
+  /// \param[in] ros_type_name Name of the ROS service (eg ros_gz_interfaces/srv/ControlWorld)
   /// \param[in] gz_req_type_name Gazebo service request type
-  /// \param[in] gz_req_type_name Gazebo service response type
+  /// \param[in] gz_rep_type_name Gazebo service response type
   /// \param[in] service_name Address of the service to be bridged
   void add_service_bridge(
     const std::string & ros_type_name,

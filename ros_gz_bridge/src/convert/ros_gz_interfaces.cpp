@@ -172,11 +172,11 @@ convert_ros_to_gz(
       std::endl;
   }
 
-  if (has_sdf) {
+  if(has_sdf) {
     gz_msg.set_sdf(ros_msg.sdf);
-  } else if (has_sdf_filename) {
+  } else if(has_sdf_filename) {
     gz_msg.set_sdf_filename(ros_msg.sdf_filename);
-  } else if (has_clone_name) {
+  } else if(has_clone_name) {
     gz_msg.set_clone_name(ros_msg.clone_name);
   } else {
     std::cerr << "Must provide one of: sdf, sdf_filname, or clone_name" << std::endl;
@@ -232,7 +232,7 @@ convert_ros_to_gz(
   gz::msgs::Contact & gz_msg)
 {
   convert_ros_to_gz(ros_msg.collision1, (*gz_msg.mutable_collision1()));
-  convert_ros_to_gz(ros_msg.collision1, (*gz_msg.mutable_collision2()));
+  convert_ros_to_gz(ros_msg.collision2, (*gz_msg.mutable_collision2()));
   gz_msg.clear_position();
   for (auto const & ros_position : ros_msg.positions) {
     auto gz_position = gz_msg.add_position();
@@ -261,19 +261,23 @@ convert_gz_to_ros(
 {
   convert_gz_to_ros(gz_msg.collision1(), ros_msg.collision1);
   convert_gz_to_ros(gz_msg.collision2(), ros_msg.collision2);
+  ros_msg.positions.reserve(gz_msg.position_size());
   for (auto i = 0; i < gz_msg.position_size(); ++i) {
     geometry_msgs::msg::Vector3 ros_position;
     convert_gz_to_ros(gz_msg.position(i), ros_position);
     ros_msg.positions.push_back(ros_position);
   }
+  ros_msg.normals.reserve(gz_msg.normal_size());
   for (auto i = 0; i < gz_msg.normal_size(); ++i) {
     geometry_msgs::msg::Vector3 ros_normal;
     convert_gz_to_ros(gz_msg.normal(i), ros_normal);
     ros_msg.normals.push_back(ros_normal);
   }
+  ros_msg.depths.reserve(gz_msg.depth_size());
   for (auto i = 0; i < gz_msg.depth_size(); ++i) {
     ros_msg.depths.push_back(gz_msg.depth(i));
   }
+  ros_msg.wrenches.reserve(gz_msg.wrench_size());
   for (auto i = 0; i < gz_msg.wrench_size(); ++i) {
     ros_gz_interfaces::msg::JointWrench ros_joint_wrench;
     convert_gz_to_ros(gz_msg.wrench(i), ros_joint_wrench);
@@ -302,6 +306,7 @@ convert_gz_to_ros(
   ros_gz_interfaces::msg::Contacts & ros_msg)
 {
   convert_gz_to_ros(gz_msg.header(), ros_msg.header);
+  ros_msg.contacts.reserve(gz_msg.contact_size());
   for (auto i = 0; i < gz_msg.contact_size(); ++i) {
     ros_gz_interfaces::msg::Contact ros_contact;
     convert_gz_to_ros(gz_msg.contact(i), ros_contact);
@@ -309,7 +314,6 @@ convert_gz_to_ros(
   }
 }
 
-#if HAVE_DATAFRAME
 template<>
 void
 convert_ros_to_gz(
@@ -359,7 +363,6 @@ convert_gz_to_ros(
     gz_msg.data().begin() + gz_msg.data().size(),
     ros_msg.data.begin());
 }
-#endif  // HAVE_DATAFRAME
 
 template<>
 void
@@ -466,7 +469,6 @@ convert_gz_to_ros(
   ros_msg.intensity = gz_msg.intensity();
 }
 
-#if HAVE_MATERIALCOLOR
 template<>
 void
 convert_ros_to_gz(
@@ -524,7 +526,6 @@ convert_gz_to_ros(
 
   ros_msg.shininess = gz_msg.shininess();
 }
-#endif  // HAVE_MATERIALCOLOR
 
 template<>
 void
@@ -561,9 +562,7 @@ convert_gz_to_ros(
     ros_msg.type = 0;
   } else if (gz_msg.type() == gz::msgs::SensorNoise_Type::SensorNoise_Type_GAUSSIAN) {
     ros_msg.type = 2;
-  } else if (gz_msg.type() ==  // NOLINT
-    gz::msgs::SensorNoise_Type::SensorNoise_Type_GAUSSIAN_QUANTIZED)  // NOLINT
-  {  // NOLINT
+  } else if (gz_msg.type() == gz::msgs::SensorNoise_Type::SensorNoise_Type_GAUSSIAN_QUANTIZED) {
     ros_msg.type = 3;
   }
 
@@ -812,6 +811,7 @@ convert_ros_to_gz(
   convert_ros_to_gz(ros_msg.log_playback_statistics, *gz_msg.mutable_log_playback_stats());
   gz_msg.set_real_time_factor(ros_msg.real_time_factor);
   convert_ros_to_gz(ros_msg.step_size, *gz_msg.mutable_step_size());
+  gz_msg.set_stepping(ros_msg.stepping);
 }
 
 template<>
@@ -830,6 +830,7 @@ convert_gz_to_ros(
   convert_gz_to_ros(gz_msg.log_playback_stats(), ros_msg.log_playback_statistics);
   ros_msg.real_time_factor = gz_msg.real_time_factor();
   convert_gz_to_ros(gz_msg.step_size(), ros_msg.step_size);
+  ros_msg.stepping = gz_msg.stepping();
 }
 
 
@@ -854,6 +855,41 @@ convert_gz_to_ros(
   ros_msg.data.clear();
   for (auto const & p : gz_msg.data()) {
     ros_msg.data.push_back(p);
+  }
+}
+
+template<>
+void
+convert_ros_to_gz(
+  const ros_gz_interfaces::msg::LogicalCameraImage & ros_msg,
+  gz::msgs::LogicalCameraImage & gz_msg)
+{
+  convert_ros_to_gz(ros_msg.header, *gz_msg.mutable_header());
+  convert_ros_to_gz(ros_msg.pose, *gz_msg.mutable_pose());
+
+  gz_msg.clear_model();
+  for(const auto & m : ros_msg.model) {
+    auto * model = gz_msg.add_model();
+    model->set_name(m.name);
+    convert_ros_to_gz(m.pose, *model->mutable_pose());
+  }
+}
+
+template<>
+void
+convert_gz_to_ros(
+  const gz::msgs::LogicalCameraImage & gz_msg,
+  ros_gz_interfaces::msg::LogicalCameraImage & ros_msg)
+{
+  convert_gz_to_ros(gz_msg.header(), ros_msg.header);
+  convert_gz_to_ros(gz_msg.pose(), ros_msg.pose);
+
+  ros_msg.model.clear();
+  for (const auto & m : gz_msg.model()) {
+    ros_gz_interfaces::msg::LogicalCameraImageModel model;
+    model.name = m.name();
+    convert_gz_to_ros(m.pose(), model.pose);
+    ros_msg.model.push_back(model);
   }
 }
 
