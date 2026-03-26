@@ -26,6 +26,7 @@ The following message types can be bridged for topics:
 | geometry_msgs/msg/Wrench                       | gz.msgs.Wrench                      |
 | geometry_msgs/msg/WrenchStamped                | gz.msgs.Wrench                      |
 | gps_msgs/msg/GPSFix                            | gz.msgs.NavSat                      |
+| marine_acoustic_msgs/msg/Dvl                   | gz.msgs.DVLVelocityTracking         |
 | nav_msgs/msg/Odometry                          | gz.msgs.Odometry                    |
 | nav_msgs/msg/Odometry                          | gz.msgs.OdometryWithCovariance      |
 | rcl_interfaces/msg/ParameterValue              | gz.msgs.Any                         |
@@ -330,10 +331,16 @@ Use tag `<ros_gz_bridge>` and add `<topic>` and `<service>` subelements, one for
 ```XML
 <launch>
   <arg name="world_name" default="empty" />
+  <arg name="robot_name" default="robot" />
   <ros_gz_bridge bridge_name="clock_bridge">
     <topic ros_topic_name="/clock" gz_topic_name="/clock"
            ros_type_name="rosgraph_msgs/msg/Clock" gz_type_name="gz.msgs.Clock"
            lazy="False" direction="GZ_TO_ROS" qos_profile="CLOCK" />
+  </ros_gz_bridge>
+  <ros_gz_bridge bridge_name="test_bridge">
+    <topic ros_topic_name="/camera/image" gz_topic_name="/world/$(var world_name)/model/$(var robot_name)/camera/sensor/image"
+           ros_type_name="sensor_msgs/msg/Image" gz_type_name="gz.msgs.Image"
+           lazy="True" direction="GZ_TO_ROS" frame_id="camera_optical_frame" />
     <service service_name="/world/$(var world_name)/control"
              ros_type_name="ros_gz_interfaces/srv/ControlWorld"
              gz_req_type_name="gz.msgs.WorldControl" gz_rep_type_name="gz.msgs.Boolean" />
