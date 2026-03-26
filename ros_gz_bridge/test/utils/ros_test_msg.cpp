@@ -20,8 +20,6 @@
 #include <string>
 #include <cstddef>
 
-#include <marine_acoustic_msgs/msg/dvl.hpp>
-
 #include "gz/msgs/config.hh"
 
 #if GZ_MSGS_MAJOR_VERSION >= 10
@@ -60,14 +58,6 @@ void compareTestMsg(const std::shared_ptr<std_msgs::msg::Bool> & _msg)
   EXPECT_EQ(expected_msg.data, _msg->data);
 }
 
-void createTestMsg(std_msgs::msg::ColorRGBA & _msg)
-{
-  _msg.r = 0.2;
-  _msg.g = 0.4;
-  _msg.b = 0.6;
-  _msg.a = 0.8;
-}
-
 void createTestMsg(actuator_msgs::msg::Actuators & _msg)
 {
   std_msgs::msg::Header header_msg;
@@ -97,6 +87,14 @@ void compareTestMsg(const std::shared_ptr<actuator_msgs::msg::Actuators> & _msg)
   for (auto i = 0u; i < _msg->normalized.size(); ++i) {
     EXPECT_FLOAT_EQ(expected_msg.normalized[i], _msg->normalized[i]);
   }
+}
+
+void createTestMsg(std_msgs::msg::ColorRGBA & _msg)
+{
+  _msg.r = 0.2;
+  _msg.g = 0.4;
+  _msg.b = 0.6;
+  _msg.a = 0.8;
 }
 
 void compareTestMsg(const std::shared_ptr<std_msgs::msg::ColorRGBA> & _msg)
@@ -383,18 +381,6 @@ void compareTestMsg(const std::shared_ptr<geometry_msgs::msg::PoseWithCovariance
   }
 }
 
-void createTestMsg(geometry_msgs::msg::PoseWithCovarianceStamped & _msg)
-{
-  createTestMsg(_msg.header);
-  createTestMsg(_msg.pose);
-}
-
-void compareTestMsg(const std::shared_ptr<geometry_msgs::msg::PoseWithCovarianceStamped> & _msg)
-{
-  compareTestMsg(std::make_shared<geometry_msgs::msg::PoseWithCovariance>(_msg->pose));
-  compareTestMsg(std::make_shared<std_msgs::msg::Header>(_msg->header));
-}
-
 void createTestMsg(geometry_msgs::msg::PoseStamped & _msg)
 {
   createTestMsg(_msg.header);
@@ -567,77 +553,6 @@ void compareTestMsg(const std::shared_ptr<gps_msgs::msg::GPSFix> & _msg)
   }
 }
 
-void createTestMsg(marine_acoustic_msgs::msg::Dvl & _msg)
-{
-  createTestMsg(_msg.header);
-  _msg.velocity_mode = marine_acoustic_msgs::msg::Dvl::DVL_MODE_BOTTOM;
-  _msg.dvl_type = marine_acoustic_msgs::msg::Dvl::DVL_TYPE_PISTON;
-
-  createTestMsg(_msg.velocity);
-  for (auto i = 0; i < 9; ++i) {
-    _msg.velocity_covar[i] = i;
-  }
-
-  _msg.altitude = 10;
-  _msg.course_gnd = std::atan2(_msg.velocity.y, _msg.velocity.x);
-  _msg.speed_gnd = std::sqrt(_msg.velocity.x * _msg.velocity.x + _msg.velocity.y *
-      _msg.velocity.y);
-
-  _msg.num_good_beams = 4;
-  _msg.sound_speed = -1;
-  _msg.beam_ranges_valid = true;
-  _msg.beam_velocities_valid = true;
-
-  double vLen = std::sqrt(1.0 * 1.0 + 2.0 * 2.0 + 3.0 * 3.0);
-  for (auto i = 0; i < _msg.num_good_beams; ++i) {
-    // beam_unit_vec = normalized velocity direction (1,2,3)/sqrt(14)
-    _msg.beam_unit_vec[i].x = 1.0 / vLen;
-    _msg.beam_unit_vec[i].y = 2.0 / vLen;
-    _msg.beam_unit_vec[i].z = 3.0 / vLen;
-    _msg.range[i] = 10;
-    _msg.range_covar[i] = 11;
-    _msg.beam_quality[i] = 100;
-    _msg.beam_velocity[i] = vLen;
-    _msg.beam_velocity_covar[i] = -1;
-  }
-}
-
-void compareTestMsg(const std::shared_ptr<marine_acoustic_msgs::msg::Dvl> & _msg)
-{
-  marine_acoustic_msgs::msg::Dvl expected_msg;
-  createTestMsg(expected_msg);
-
-  compareTestMsg(_msg->header);
-  EXPECT_EQ(expected_msg.velocity_mode, _msg->velocity_mode);
-  EXPECT_EQ(expected_msg.dvl_type, _msg->dvl_type);
-
-  compareTestMsg(std::make_shared<geometry_msgs::msg::Vector3>(_msg->velocity));
-  for (auto i = 0; i < 9; ++i) {
-    EXPECT_DOUBLE_EQ(expected_msg.velocity_covar[i], _msg->velocity_covar[i]);
-  }
-
-  EXPECT_DOUBLE_EQ(expected_msg.altitude, _msg->altitude);
-  EXPECT_DOUBLE_EQ(expected_msg.course_gnd, _msg->course_gnd);
-  EXPECT_DOUBLE_EQ(expected_msg.speed_gnd, _msg->speed_gnd);
-
-  ASSERT_EQ(expected_msg.num_good_beams, _msg->num_good_beams);
-  ASSERT_DOUBLE_EQ(expected_msg.sound_speed, _msg->sound_speed);
-  EXPECT_EQ(expected_msg.beam_ranges_valid, _msg->beam_ranges_valid);
-  EXPECT_EQ(expected_msg.beam_velocities_valid, _msg->beam_velocities_valid);
-
-  for (auto i = 0; i < _msg->num_good_beams; ++i) {
-    // Use EXPECT_NEAR for beam_unit_vec due to floating-point normalization.
-    EXPECT_NEAR(expected_msg.beam_unit_vec[i].x, _msg->beam_unit_vec[i].x, 1e-6);
-    EXPECT_NEAR(expected_msg.beam_unit_vec[i].y, _msg->beam_unit_vec[i].y, 1e-6);
-    EXPECT_NEAR(expected_msg.beam_unit_vec[i].z, _msg->beam_unit_vec[i].z, 1e-6);
-    EXPECT_DOUBLE_EQ(expected_msg.range[i], _msg->range[i]);
-    EXPECT_DOUBLE_EQ(expected_msg.range_covar[i], _msg->range_covar[i]);
-    EXPECT_DOUBLE_EQ(expected_msg.beam_quality[i], _msg->beam_quality[i]);
-    EXPECT_NEAR(expected_msg.beam_velocity[i], _msg->beam_velocity[i], 1e-6);
-    EXPECT_DOUBLE_EQ(expected_msg.beam_velocity_covar[i], _msg->beam_velocity_covar[i]);
-  }
-}
-
 void createTestMsg(ros_gz_interfaces::msg::Light & _msg)
 {
   createTestMsg(_msg.header);
@@ -695,6 +610,7 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Light> & _msg)
   EXPECT_FLOAT_EQ(expected_msg.intensity, _msg->intensity);
 }
 
+#if HAVE_MATERIALCOLOR
 void createTestMsg(ros_gz_interfaces::msg::MaterialColor & _msg)
 {
   createTestMsg(_msg.header);
@@ -722,6 +638,7 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::MaterialColor>
   EXPECT_EQ(expected_msg.shininess, _msg->shininess);
   EXPECT_EQ(expected_msg.entity_match, _msg->entity_match);
 }
+#endif  // HAVE_MATERIALCOLOR
 
 void createTestMsg(ros_gz_interfaces::msg::GuiCamera & _msg)
 {
@@ -1031,6 +948,7 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Contacts> & _m
   }
 }
 
+#if HAVE_DATAFRAME
 void createTestMsg(ros_gz_interfaces::msg::Dataframe & _msg)
 {
   createTestMsg(_msg.header);
@@ -1056,6 +974,7 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::Dataframe> & _
     EXPECT_EQ(expected_msg.data[ii], _msg->data[ii]);
   }
 }
+#endif  // HAVE_DATAFRAME
 
 void createTestMsg(nav_msgs::msg::Odometry & _msg)
 {
@@ -1717,39 +1636,6 @@ void compareTestMsg(const std::shared_ptr<vision_msgs::msg::Detection3DArray> & 
   }
 }
 
-void createTestMsg(ros_gz_interfaces::msg::LogicalCameraImage & _msg)
-{
-  std_msgs::msg::Header header_msg;
-  createTestMsg(header_msg);
-  _msg.header = header_msg;
-
-  geometry_msgs::msg::Pose pose_msg;
-  createTestMsg(pose_msg);
-  _msg.pose = pose_msg;
-
-  for (int i = 0; i < 4; ++i) {
-    ros_gz_interfaces::msg::LogicalCameraImageModel model;
-    model.name = "model_" + std::to_string(i);
-    model.pose = pose_msg;
-    _msg.model.push_back(model);
-  }
-}
-
-void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::LogicalCameraImage> & _msg)
-{
-  ros_gz_interfaces::msg::LogicalCameraImage expected_msg;
-  createTestMsg(expected_msg);
-
-  compareTestMsg(std::make_shared<std_msgs::msg::Header>(_msg->header));
-  compareTestMsg(std::make_shared<geometry_msgs::msg::Pose>(_msg->pose));
-
-  ASSERT_EQ(expected_msg.model.size(), _msg->model.size());
-  for (size_t i = 0; i < _msg->model.size(); ++i) {
-    EXPECT_EQ(expected_msg.model[i].name, _msg->model[i].name);
-    compareTestMsg(std::make_shared<geometry_msgs::msg::Pose>(_msg->model[i].pose));
-  }
-}
-
 void createTestMsg(ros_gz_interfaces::msg::LogPlaybackStatistics & _msg)
 {
   std_msgs::msg::Header header_msg;
@@ -1808,8 +1694,6 @@ void createTestMsg(ros_gz_interfaces::msg::WorldStatistics & _msg)
   builtin_interfaces::msg::Time step_size;
   createTestMsg(step_size);
   _msg.step_size = step_size;
-
-  _msg.stepping = true;
 }
 
 void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::WorldStatistics> & _msg)
@@ -1829,14 +1713,13 @@ void compareTestMsg(const std::shared_ptr<ros_gz_interfaces::msg::WorldStatistic
 
   EXPECT_EQ(expected_msg.model_count, _msg->model_count);
 
-  compareTestMsg(std::make_shared<ros_gz_interfaces::msg::LogPlaybackStatistics>(
-        _msg->log_playback_statistics));
+  compareTestMsg(
+    std::make_shared<ros_gz_interfaces::msg::LogPlaybackStatistics>(
+      _msg->log_playback_statistics));
 
   EXPECT_FLOAT_EQ(expected_msg.real_time_factor, _msg->real_time_factor);
 
   compareTestMsg(std::make_shared<builtin_interfaces::msg::Time>(_msg->step_size));
-
-  EXPECT_EQ(expected_msg.stepping, _msg->stepping);
 }
 
 }  // namespace testing

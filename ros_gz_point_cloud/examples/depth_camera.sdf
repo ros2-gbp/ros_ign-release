@@ -15,7 +15,7 @@
 
   3. Load the example world, unpaused:
 
-          gz sim -r examples/depth_camera.sdf
+          ign gazebo -r examples/depth_camera.sdf
 
   4. Launch RViz to visualize the point cloud:
 
