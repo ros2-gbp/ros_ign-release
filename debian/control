@@ -1,0 +1,12 @@
+Source: ros-jazzy-ros-gz-image
+Section: misc
+Priority: optional
+Maintainer: Aditya Pande <adityapande@intrinsic.ai>
+Build-Depends: debhelper (>= 9.0.0), pkg-config, ros-jazzy-ament-cmake, ros-jazzy-ament-lint-auto <!nocheck>, ros-jazzy-ament-lint-common <!nocheck>, ros-jazzy-gz-msgs-vendor, ros-jazzy-gz-transport-vendor, ros-jazzy-image-transport, ros-jazzy-rclcpp, ros-jazzy-ros-gz-bridge, ros-jazzy-sensor-msgs, ros-jazzy-ros-workspace
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-jazzy-ros-gz-image
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-jazzy-gz-msgs-vendor, ros-jazzy-gz-transport-vendor, ros-jazzy-image-transport, ros-jazzy-rclcpp, ros-jazzy-ros-gz-bridge, ros-jazzy-sensor-msgs, ros-jazzy-ros-workspace
+Description: Image utilities for Gazebo simulation with ROS.
