@@ -1,0 +1,12 @@
+Source: ros-lyrical-ros-gz-sim
+Section: misc
+Priority: optional
+Maintainer: Aditya Pande <adityapande@intrinsic.ai>
+Build-Depends: debhelper (>= 9.0.0), libcli11-dev, libgflags-dev, pkg-config, ros-lyrical-ament-cmake, ros-lyrical-ament-cmake-python, ros-lyrical-ament-index-python, ros-lyrical-ament-lint-auto <!nocheck>, ros-lyrical-ament-lint-common <!nocheck>, ros-lyrical-builtin-interfaces, ros-lyrical-geometry-msgs, ros-lyrical-gz-math-vendor, ros-lyrical-gz-msgs-vendor, ros-lyrical-gz-sim-vendor, ros-lyrical-gz-transport-vendor, ros-lyrical-launch, ros-lyrical-launch-ros, ros-lyrical-launch-ros <!nocheck>, ros-lyrical-launch-testing <!nocheck>, ros-lyrical-launch-testing-ament-cmake <!nocheck>, ros-lyrical-rclcpp, ros-lyrical-rclcpp-action, ros-lyrical-rclcpp-components, ros-lyrical-rcpputils, ros-lyrical-ros-gz-bridge <!nocheck>, ros-lyrical-ros-gz-interfaces, ros-lyrical-ros2pkg, ros-lyrical-simulation-interfaces, ros-lyrical-std-msgs, ros-lyrical-tf2, ros-lyrical-tf2-ros, ros-lyrical-ros-workspace
+Homepage: https://index.ros.org/p/ros_gz_sim/#lyrical
+Standards-Version: 3.9.2
+
+Package: ros-lyrical-ros-gz-sim
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libcli11-dev, libgflags-dev, ros-lyrical-ament-index-python, ros-lyrical-builtin-interfaces, ros-lyrical-geometry-msgs, ros-lyrical-gz-math-vendor, ros-lyrical-gz-msgs-vendor, ros-lyrical-gz-sim-vendor, ros-lyrical-gz-transport-vendor, ros-lyrical-launch, ros-lyrical-launch-ros, ros-lyrical-rclcpp, ros-lyrical-rclcpp-action, ros-lyrical-rclcpp-components, ros-lyrical-rcpputils, ros-lyrical-ros-gz-interfaces, ros-lyrical-ros2pkg, ros-lyrical-simulation-interfaces, ros-lyrical-std-msgs, ros-lyrical-tf2, ros-lyrical-tf2-ros, ros-lyrical-ros-workspace
+Description: Tools for using Gazebo Sim simulation with ROS.
