@@ -1,0 +1,12 @@
+Source: ros-lyrical-ros-gz-interfaces
+Section: misc
+Priority: optional
+Maintainer: Aditya Pande <adityapande@intrinsic.ai>
+Build-Depends: debhelper (>= 9.0.0), ros-lyrical-ament-cmake, ros-lyrical-ament-lint-common <!nocheck>, ros-lyrical-builtin-interfaces, ros-lyrical-geometry-msgs, ros-lyrical-rcl-interfaces, ros-lyrical-rosidl-default-generators, ros-lyrical-std-msgs, ros-lyrical-ros-workspace, ros-lyrical-rosidl-typesupport-fastrtps-c, ros-lyrical-rosidl-typesupport-fastrtps-cpp
+Homepage: https://index.ros.org/p/ros_gz_interfaces/#lyrical
+Standards-Version: 3.9.2
+
+Package: ros-lyrical-ros-gz-interfaces
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-lyrical-builtin-interfaces, ros-lyrical-geometry-msgs, ros-lyrical-rcl-interfaces, ros-lyrical-rosidl-default-runtime, ros-lyrical-std-msgs, ros-lyrical-ros-workspace
+Description: Message and service data structures for interacting with Gazebo from ROS2.
