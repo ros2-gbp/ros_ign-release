@@ -183,5 +183,4 @@ tracks:
     ros_distro: rolling
     vcs_type: git
     vcs_uri: https://github.com/gazebosim/ros_gz
-    version: 3.0.8
-    version_saved: :{auto}
+    version: :{auto}
