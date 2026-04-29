@@ -46,19 +46,19 @@ void usage()
     "the ROS service will forward request to the Gazebo service and then forward\n"
     "the response back to the ROS client.\n\n"
     "A bidirectional bridge example:\n" <<
-    "    parameter_bridge /chatter@std_msgs/String@ignition.msgs" <<
+    "    parameter_bridge /chatter@std_msgs/String@gz.msgs" <<
     ".StringMsg\n\n" <<
     "A bridge from Gazebo to ROS example:\n" <<
-    "    parameter_bridge /chatter@std_msgs/String[ignition.msgs" <<
+    "    parameter_bridge /chatter@std_msgs/String[gz.msgs" <<
     ".StringMsg\n\n" <<
     "A bridge from ROS to Gazebo example:\n" <<
-    "    parameter_bridge /chatter@std_msgs/String]ignition.msgs" <<
+    "    parameter_bridge /chatter@std_msgs/String]gz.msgs" <<
     ".StringMsg\n" <<
     "A service bridge:\n" <<
     "    parameter_bridge /world/default/control@ros_gz_interfaces/srv/ControlWorld\n" <<
     "Or equivalently:\n" <<
     "    parameter_bridge /world/default/control@ros_gz_interfaces/srv/ControlWorld@"
-    "ignition.msgs.WorldControl@ignition.msgs.Boolean\n" << std::endl;
+    "gz.msgs.WorldControl@gz.msgs.Boolean\n" << std::endl;
 }
 
 using RosGzBridge = ros_gz_bridge::RosGzBridge;
@@ -81,7 +81,6 @@ int main(int argc, char * argv[])
 
   // Set lazy subscriber on a global basis
   bool lazy_subscription = false;
-  bridge_node->declare_parameter<bool>("lazy", false);
   bridge_node->get_parameter("lazy", lazy_subscription);
 
   const std::string delim = "@";
@@ -166,6 +165,7 @@ int main(int argc, char * argv[])
       return -1;
     }
     config.gz_type_name = arg;
+    config.is_lazy = lazy_subscription;
     bridge_node->add_bridge(config);
   }
 

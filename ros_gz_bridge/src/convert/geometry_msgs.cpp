@@ -161,14 +161,32 @@ convert_gz_to_ros(
 {
   convert_gz_to_ros(gz_msg.pose().position(), ros_msg.pose.position);
   convert_gz_to_ros(gz_msg.pose().orientation(), ros_msg.pose.orientation);
-  int data_size = gz_msg.covariance().data_size();
-  if (data_size == 36) {
-    for (int i = 0; i < data_size; i++) {
-      auto data = gz_msg.covariance().data()[i];
-      ros_msg.covariance[i] = data;
-    }
+  if (gz_msg.covariance().data_size() == 36) {
+    const auto & cov = gz_msg.covariance().data();
+    std::copy(cov.begin(), cov.end(), ros_msg.covariance.begin());
   }
 }
+
+template<>
+void
+convert_ros_to_gz(
+  const geometry_msgs::msg::PoseWithCovarianceStamped & ros_msg,
+  gz::msgs::PoseWithCovariance & gz_msg)
+{
+  convert_ros_to_gz(ros_msg.header, (*gz_msg.mutable_pose()->mutable_header()));
+  convert_ros_to_gz(ros_msg.pose, gz_msg);
+}
+
+template<>
+void
+convert_gz_to_ros(
+  const gz::msgs::PoseWithCovariance & gz_msg,
+  geometry_msgs::msg::PoseWithCovarianceStamped & ros_msg)
+{
+  convert_gz_to_ros(gz_msg.pose().header(), ros_msg.header);
+  convert_gz_to_ros(gz_msg, ros_msg.pose);
+}
+
 
 template<>
 void
@@ -302,12 +320,9 @@ convert_gz_to_ros(
 {
   convert_gz_to_ros(gz_msg.twist().linear(), ros_msg.twist.linear);
   convert_gz_to_ros(gz_msg.twist().angular(), ros_msg.twist.angular);
-  int data_size = gz_msg.covariance().data_size();
-  if (data_size == 36) {
-    for (int i = 0; i < data_size; i++) {
-      auto data = gz_msg.covariance().data()[i];
-      ros_msg.covariance[i] = data;
-    }
+  if (gz_msg.covariance().data_size() == 36) {
+    const auto & cov = gz_msg.covariance().data();
+    std::copy(cov.begin(), cov.end(), ros_msg.covariance.begin());
   }
 }
 
