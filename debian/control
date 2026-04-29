@@ -1,0 +1,12 @@
+Source: ros-lyrical-ros-gz-sim-demos
+Section: misc
+Priority: optional
+Maintainer: Aditya Pande <adityapande@intrinsic.ai>
+Build-Depends: debhelper (>= 9.0.0), ros-lyrical-ament-cmake, ros-lyrical-ament-lint-auto <!nocheck>, ros-lyrical-ament-lint-common <!nocheck>, ros-lyrical-gz-sim-vendor, ros-lyrical-ros-workspace
+Homepage: https://index.ros.org/p/ros_gz_sim_demos/#lyrical
+Standards-Version: 3.9.2
+
+Package: ros-lyrical-ros-gz-sim-demos
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-lyrical-gz-sim-vendor, ros-lyrical-image-transport-plugins, ros-lyrical-marine-acoustic-msgs, ros-lyrical-robot-state-publisher, ros-lyrical-ros-gz-bridge, ros-lyrical-ros-gz-image, ros-lyrical-ros-gz-sim, ros-lyrical-rqt-image-view, ros-lyrical-rqt-plot, ros-lyrical-rqt-topic, ros-lyrical-rviz-imu-plugin, ros-lyrical-rviz2, ros-lyrical-sdformat-urdf, ros-lyrical-tf2-ros, ros-lyrical-xacro, ros-lyrical-ros-workspace
+Description: Demos using Gazebo Sim simulation with ROS.
