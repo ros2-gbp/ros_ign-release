@@ -1,1 +1,1 @@
-{"base": "d44092c3997b", "parent": "debian/rolling/ros_gz_interfaces", "previous": "adaa6c305a05", "trim": "", "trimbase": ""}
+{"base": "b42997eab376", "parent": "debian/lyrical/ros_gz_interfaces", "previous": "d183def33e00", "trim": "", "trimbase": ""}
