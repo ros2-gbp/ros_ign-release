@@ -1,4 +1,4 @@
-# Copyright 2019 Open Source Robotics Foundation, Inc.
+# Copyright 2022 Open Source Robotics Foundation, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,33 +30,27 @@ def generate_launch_description():
 
     pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
 
-    # RQt
-    rqt = Node(
-        package='rqt_plot',
-        executable='rqt_plot',
-        # FIXME: Why isn't the topic being populated on the UI? RQt issue?
-        arguments=['--force-discover',
-                   '/model/vehicle_blue/battery/linear_battery/state/percentage'],
-        condition=IfCondition(LaunchConfiguration('rqt'))
-    )
-
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
         launch_arguments={
-            'gz_args': '-r -z 1000000 linear_battery_demo.sdf'
+            'gz_args': '-v 4 -r spherical_coordinates.sdf'
         }.items(),
+    )
+
+    # RQt
+    rqt = Node(
+        package='rqt_topic',
+        executable='rqt_topic',
+        arguments=['-t'],
+        condition=IfCondition(LaunchConfiguration('rqt'))
     )
 
     # Bridge
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
-        arguments=[
-            '/model/vehicle_blue/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
-            '/model/vehicle_blue/battery/linear_battery/state@sensor_msgs/msg/BatteryState@'
-            'gz.msgs.BatteryState'
-        ],
+        arguments=['/navsat@gps_msgs/msg/GPSFix@gz.msgs.NavSat'],
         output='screen'
     )
 
