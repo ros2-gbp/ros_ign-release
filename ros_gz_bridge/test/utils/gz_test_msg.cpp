@@ -12,18 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <gtest/gtest.h>
-#include <gz/msgs/dvl_beam_state.pb.h>
-#include <gz/msgs/dvl_kinematic_estimate.pb.h>
-#include <gz/msgs/dvl_range_estimate.pb.h>
-#include <gz/msgs/dvl_tracking_target.pb.h>
-#include <gz/msgs/dvl_velocity_tracking.pb.h>
+#include "gz_test_msg.hpp"
 
-#include <cstddef>
+#include <gtest/gtest.h>
+
 #include <memory>
 #include <string>
-
-#include "gz_test_msg.hpp"
+#include <cstddef>
 
 #if GZ_MSGS_MAJOR_VERSION >= 10
 #define GZ_MSGS_IMU_HAS_COVARIANCE
@@ -79,154 +74,6 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Color> & _msg)
   EXPECT_EQ(expected_msg.g(), _msg->g());
   EXPECT_EQ(expected_msg.b(), _msg->b());
   EXPECT_EQ(expected_msg.a(), _msg->a());
-}
-
-void createTestMsg(gz::msgs::DVLBeamState & _msg)
-{
-  _msg.set_id(1.0);
-  createTestMsg(*_msg.mutable_velocity());
-  createTestMsg(*_msg.mutable_range());
-  _msg.set_rssi(100.0);
-  _msg.set_nsd(200.0);
-  _msg.set_locked(true);
-}
-
-void compareTestMsg(const std::shared_ptr<gz::msgs::DVLBeamState> & _msg)
-{
-  gz::msgs::DVLBeamState expected_msg;
-  createTestMsg(expected_msg);
-
-  EXPECT_EQ(expected_msg.id(), _msg->id());
-  compareTestMsg(std::make_shared<gz::msgs::DVLKinematicEstimate>(_msg->velocity()));
-  compareTestMsg(std::make_shared<gz::msgs::DVLRangeEstimate>(_msg->range()));
-  EXPECT_DOUBLE_EQ(expected_msg.rssi(), _msg->rssi());
-  EXPECT_DOUBLE_EQ(expected_msg.nsd(), _msg->nsd());
-  EXPECT_EQ(expected_msg.locked(), _msg->locked());
-}
-
-void createTestMsg(gz::msgs::DVLKinematicEstimate & _msg)
-{
-  _msg.set_reference(gz::msgs::DVLKinematicEstimate::DVL_REFERENCE_SHIP);
-  createTestMsg(*_msg.mutable_mean());
-  for (auto i = 0; i < 9; ++i) {
-    _msg.add_covariance(i);
-  }
-}
-
-void compareTestMsg(const std::shared_ptr<gz::msgs::DVLKinematicEstimate> & _msg)
-{
-  gz::msgs::DVLKinematicEstimate expected_msg;
-  createTestMsg(expected_msg);
-
-  EXPECT_EQ(expected_msg.reference(), _msg->reference());
-  compareTestMsg(std::make_shared<gz::msgs::Vector3d>(_msg->mean()));
-  ASSERT_EQ(expected_msg.covariance_size(), _msg->covariance_size());
-  for (auto i = 0; i < _msg->covariance_size(); ++i) {
-    EXPECT_DOUBLE_EQ(expected_msg.covariance(i), _msg->covariance(i));
-  }
-}
-
-void createTestMsg(gz::msgs::DVLRangeEstimate & _msg)
-{
-  _msg.set_mean(10.0);
-  _msg.set_variance(11.0);
-}
-
-void compareTestMsg(const std::shared_ptr<gz::msgs::DVLRangeEstimate> & _msg)
-{
-  gz::msgs::DVLRangeEstimate expected_msg;
-  createTestMsg(expected_msg);
-
-  EXPECT_DOUBLE_EQ(expected_msg.mean(), _msg->mean());
-  EXPECT_DOUBLE_EQ(expected_msg.variance(), _msg->variance());
-}
-
-void createTestMsg(gz::msgs::DVLTrackingTarget & _msg)
-{
-  _msg.set_type(gz::msgs::DVLTrackingTarget::DVL_TARGET_BOTTOM);
-  createTestMsg(*_msg.mutable_range());
-  createTestMsg(*_msg.mutable_position());
-}
-
-void compareTestMsg(const std::shared_ptr<gz::msgs::DVLTrackingTarget> & _msg)
-{
-  gz::msgs::DVLTrackingTarget expected_msg;
-  createTestMsg(expected_msg);
-
-  EXPECT_EQ(expected_msg.type(), _msg->type());
-  compareTestMsg(std::make_shared<gz::msgs::DVLRangeEstimate>(_msg->range()));
-  compareTestMsg(std::make_shared<gz::msgs::DVLKinematicEstimate>(_msg->position()));
-}
-
-void createTestMsg(gz::msgs::DVLVelocityTracking & _msg)
-{
-  createTestMsg(*_msg.mutable_header());
-
-  _msg.set_type(gz::msgs::DVLVelocityTracking::DVL_TYPE_PISTON);
-  createTestMsg(*_msg.mutable_target());
-  createTestMsg(*_msg.mutable_velocity());
-  uint8_t numBeams = 4u;
-  for (auto i = 0; i < numBeams; ++i) {
-    auto *beam = _msg.add_beams();
-    createTestMsg(*beam);
-    beam->set_id(i + 1);
-  }
-
-  _msg.set_status(0);
-}
-
-void compareTestMsg(const std::shared_ptr<gz::msgs::DVLVelocityTracking> & _msg)
-{
-  gz::msgs::DVLVelocityTracking expected_msg;
-  createTestMsg(expected_msg);
-
-  compareTestMsg(std::make_shared<gz::msgs::Header>(_msg->header()));
-  EXPECT_EQ(expected_msg.type(), _msg->type());
-
-  // Target type survives roundtrip.
-  EXPECT_EQ(expected_msg.target().type(), _msg->target().type());
-  // Target range mean survives via altitude mapping for bottom tracking.
-  EXPECT_DOUBLE_EQ(expected_msg.target().range().mean(), _msg->target().range().mean());
-  // target.range.variance and target.position do not survive the roundtrip
-  // because the ROS Dvl message has limited target information.
-
-  // Velocity survives roundtrip.
-  EXPECT_EQ(expected_msg.velocity().reference(), _msg->velocity().reference());
-  compareTestMsg(std::make_shared<gz::msgs::Vector3d>(_msg->velocity().mean()));
-  ASSERT_EQ(expected_msg.velocity().covariance_size(), _msg->velocity().covariance_size());
-  for (auto i = 0; i < _msg->velocity().covariance_size(); ++i) {
-    EXPECT_DOUBLE_EQ(expected_msg.velocity().covariance(i), _msg->velocity().covariance(i));
-  }
-
-  // Beams partially survive roundtrip.
-  ASSERT_EQ(expected_msg.beams_size(), _msg->beams_size());
-  for (auto i = 0; i < _msg->beams_size(); ++i) {
-    EXPECT_EQ(expected_msg.beams(i).locked(), _msg->beams(i).locked());
-
-    // Beam velocity mean survives roundtrip (via unit_vec * magnitude).
-    EXPECT_NEAR(
-      expected_msg.beams(i).velocity().mean().x(),
-      _msg->beams(i).velocity().mean().x(), 1e-6);
-    EXPECT_NEAR(
-      expected_msg.beams(i).velocity().mean().y(),
-      _msg->beams(i).velocity().mean().y(), 1e-6);
-    EXPECT_NEAR(
-      expected_msg.beams(i).velocity().mean().z(),
-      _msg->beams(i).velocity().mean().z(), 1e-6);
-
-    // Beam range survives roundtrip.
-    EXPECT_DOUBLE_EQ(
-      expected_msg.beams(i).range().mean(), _msg->beams(i).range().mean());
-    EXPECT_DOUBLE_EQ(
-      expected_msg.beams(i).range().variance(), _msg->beams(i).range().variance());
-
-    // Beam rssi survives roundtrip (via beam_quality mapping).
-    EXPECT_DOUBLE_EQ(expected_msg.beams(i).rssi(), _msg->beams(i).rssi());
-
-    // beam velocity covariance and nsd do not survive the roundtrip.
-  }
-
-  EXPECT_EQ(expected_msg.status(), _msg->status());
 }
 
 void createTestMsg(gz::msgs::Empty &)
@@ -529,7 +376,6 @@ void createTestMsg(gz::msgs::PoseWithCovariance & _msg)
 {
   createTestMsg(*_msg.mutable_pose()->mutable_position());
   createTestMsg(*_msg.mutable_pose()->mutable_orientation());
-  createTestMsg(*_msg.mutable_pose()->mutable_header());
   for (int i = 0; i < 36; i++) {
     _msg.mutable_covariance()->add_data(i);
   }
@@ -806,6 +652,7 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Contacts> & _msg)
   }
 }
 
+#if HAVE_DATAFRAME
 void createTestMsg(gz::msgs::Dataframe & _msg)
 {
   gz::msgs::Header header_msg;
@@ -843,6 +690,7 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Dataframe> & _msg)
   EXPECT_EQ(expected_msg.dst_address(), _msg->dst_address());
   EXPECT_EQ(expected_msg.data(), _msg->data());
 }
+#endif  // HAVE_DATAFRAME
 
 void createTestMsg(gz::msgs::Image & _msg)
 {
@@ -1566,6 +1414,7 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Light> & _msg)
   EXPECT_FLOAT_EQ(expected_msg.intensity(), _msg->intensity());
 }
 
+#if HAVE_MATERIALCOLOR
 void createTestMsg(gz::msgs::MaterialColor & _msg)
 {
   createTestMsg(*_msg.mutable_header());
@@ -1594,6 +1443,7 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::MaterialColor> & _msg)
   EXPECT_EQ(expected_msg.shininess(), _msg->shininess());
   EXPECT_EQ(expected_msg.entity_match(), _msg->entity_match());
 }
+#endif  // HAVE_MATERIALCOLOR
 
 void createTestMsg(gz::msgs::GUICamera & _msg)
 {
@@ -1896,33 +1746,6 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::AnnotatedOriented3DBox_V> & 
   }
 }
 
-void createTestMsg(gz::msgs::LogicalCameraImage & _msg)
-{
-  createTestMsg(*_msg.mutable_header());
-  createTestMsg(*_msg.mutable_pose());
-
-  for (int i = 0; i < 4; ++i) {
-    auto * model = _msg.add_model();
-    model->set_name("model_" + std::to_string(i));
-    createTestMsg(*model->mutable_pose());
-  }
-}
-
-void compareTestMsg(const std::shared_ptr<gz::msgs::LogicalCameraImage> & _msg)
-{
-  gz::msgs::LogicalCameraImage expected_msg;
-  createTestMsg(expected_msg);
-
-  compareTestMsg(std::make_shared<gz::msgs::Header>(_msg->header()));
-  compareTestMsg(std::make_shared<gz::msgs::Pose>(_msg->pose()));
-
-  ASSERT_EQ(expected_msg.model_size(), _msg->model_size());
-  for (int i = 0; i < _msg->model_size(); ++i) {
-    EXPECT_EQ(expected_msg.model(i).name(), _msg->model(i).name());
-    compareTestMsg(std::make_shared<gz::msgs::Pose>(_msg->model(i).pose()));
-  }
-}
-
 void createTestMsg(gz::msgs::LogPlaybackStatistics & _msg)
 {
   createTestMsg(*_msg.mutable_header());
@@ -1975,8 +1798,6 @@ void createTestMsg(gz::msgs::WorldStatistics & _msg)
   gz::msgs::Time step_size;
   createTestMsg(step_size);
   _msg.mutable_step_size()->CopyFrom(step_size);
-
-  _msg.set_stepping(true);
 }
 
 void compareTestMsg(const std::shared_ptr<gz::msgs::WorldStatistics> & _msg)
@@ -2000,8 +1821,6 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::WorldStatistics> & _msg)
 
   compareTestMsg(
     std::make_shared<gz::msgs::Time>(_msg->step_size()));
-
-  EXPECT_EQ(expected_msg.stepping(), _msg->stepping());
 }
 
 }  // namespace testing
