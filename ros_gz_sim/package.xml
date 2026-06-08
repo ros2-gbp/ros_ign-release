@@ -3,7 +3,7 @@
             schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>ros_gz_sim</name>
-  <version>4.0.0</version>
+  <version>3.0.9</version>
   <description>Tools for using Gazebo Sim simulation with ROS.</description>
 
   <!-- Maintainers -->
@@ -55,6 +55,5 @@
 
   <export>
     <build_type>ament_cmake</build_type>
-    <rosdoc2>rosdoc2.yaml</rosdoc2>
   </export>
 </package>
