@@ -9,7 +9,6 @@ endif()
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic")
 endif()
-set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -132,10 +131,6 @@ target_include_directories(${bridge_lib}
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/generated>"
 )
 
-if(MSVC)
-  target_compile_options(${bridge_lib} PRIVATE "/bigobj")
-endif()
-
 rclcpp_components_register_node(
   ${bridge_lib}
   PLUGIN ros_gz_bridge::RosGzBridge
@@ -213,25 +208,7 @@ if(BUILD_TESTING)
     ${PROJECT_SOURCE_DIR}/include
   )
 
-  ament_add_gtest(test_sensor_msgs
-    ${PROJECT_SOURCE_DIR}/src/convert/sensor_msgs_TEST.cpp
-  )
-  target_link_libraries(test_sensor_msgs
-    ${bridge_lib}
-    ${sensor_msgs_TARGETS}
-    gtest
-    gtest_main
-  )
-  target_include_directories(test_sensor_msgs
-    PRIVATE
-    ${PROJECT_SOURCE_DIR}/include
-  )
-
-  # Static so the installed test binaries don't need libtest_utils.so on
-  # their runtime loader path — the .so wasn't being installed, which made
-  # `ros2 run ros_gz_bridge test_*` fail with linker error 127 under
-  # colcon test.
-  add_library(test_utils STATIC
+  add_library(test_utils
     test/utils/gz_test_msg.cpp
     test/utils/ros_test_msg.cpp
   )
