@@ -2,19 +2,16 @@
 Changelog for package ros_gz_sim
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-4.0.1 (2026-08-31)
-------------------
-* Fix entity type values in sim tools and docs (`#927 <https://github.com/gazebosim/ros_gz/issues/927>`_)
-* Set default spawn pose arguments to 0.0 (`#926 <https://github.com/gazebosim/ros_gz/issues/926>`_)
-* Fix GzSpawnModel defaults for omitted arguments (`#909 <https://github.com/gazebosim/ros_gz/issues/909>`_)
-* Contributors: Jiayi Cai
+3.0.10 (2026-08-31)
+-------------------
+* Fix entity type values in sim tools and docs (`#927 <https://github.com/gazebosim/ros_gz/issues/927>`_) (`#946 <https://github.com/gazebosim/ros_gz/issues/946>`_)
+* Set default spawn pose arguments to 0.0 (`#926 <https://github.com/gazebosim/ros_gz/issues/926>`_) (`#939 <https://github.com/gazebosim/ros_gz/issues/939>`_)
+* Contributors: mergify[bot]
 
-4.0.0 (2026-06-08)
+3.0.9 (2026-06-08)
 ------------------
-* Fixed tests failures (`#900 <https://github.com/gazebosim/ros_gz/issues/900>`_)
-* Added rosdoc2 documentatation for ros_gz_sim (`#876 <https://github.com/gazebosim/ros_gz/issues/876>`_)
 * Restore rolling CI on Ubuntu 26.04 resolute (`#883 <https://github.com/gazebosim/ros_gz/issues/883>`_)
-* Contributors: Alejandro Hernández Cordero, Carlos Agüero
+* Contributors: Carlos Agüero
 
 3.0.8 (2026-03-26)
 ------------------

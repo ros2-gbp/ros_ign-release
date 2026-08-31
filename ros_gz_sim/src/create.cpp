@@ -171,10 +171,6 @@ int main(int _argc, char ** _argv)
     }
 
     world_name = worlds_msg.data(0);
-    RCLCPP_WARN(
-      ros2_node->get_logger(),
-      "World name was not provided. Using [%s] as the default world.",
-      world_name.c_str());
   }
   std::string service{"/world/" + world_name + "/create"};
 

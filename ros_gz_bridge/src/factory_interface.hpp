@@ -25,12 +25,11 @@
 #include <rclcpp/rclcpp.hpp>
 
 #include "bridge_handle_gz_to_ros_parameters.hpp"
-#include "ros_gz_bridge/visibility_control.hpp"
 
 namespace ros_gz_bridge
 {
 
-class ROS_GZ_BRIDGE_VISIBLE FactoryInterface
+class FactoryInterface
 {
 public:
   virtual ~FactoryInterface() = 0;

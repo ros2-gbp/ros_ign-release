@@ -2,23 +2,21 @@
 Changelog for package ros_gz_bridge
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-4.0.1 (2026-08-31)
-------------------
-* Break the parameter bridge handle ownership cycle (`#952 <https://github.com/gazebosim/ros_gz/issues/952>`_)
-* Document supported service bridge types (`#928 <https://github.com/gazebosim/ros_gz/issues/928>`_)
-* ros_gz_bridge: Explicitly handle visibility of exported symbols (`#930 <https://github.com/gazebosim/ros_gz/issues/930>`_)
-* Correctly initialize std::atomic_flag with ATOMIC_FLAG_INIT (`#929 <https://github.com/gazebosim/ros_gz/issues/929>`_)
-* Add AirSpeed message and bridge mapping (`#914 <https://github.com/gazebosim/ros_gz/issues/914>`_)
-* Contributors: Jiayi Cai, Sammy Dabbas, Silvio Traversaro, yeseorizi
+3.0.10 (2026-08-31)
+-------------------
+* Document supported service bridge types (`#928 <https://github.com/gazebosim/ros_gz/issues/928>`_) (`#942 <https://github.com/gazebosim/ros_gz/issues/942>`_)
+* Correctly initialize std::atomic_flag with ATOMIC_FLAG_INIT (`#929 <https://github.com/gazebosim/ros_gz/issues/929>`_) (`#934 <https://github.com/gazebosim/ros_gz/issues/934>`_)
+* Add AirSpeed message and bridge mapping (`#914 <https://github.com/gazebosim/ros_gz/issues/914>`_) (`#915 <https://github.com/gazebosim/ros_gz/issues/915>`_)
+* Contributors: mergify[bot]
 
-4.0.0 (2026-06-08)
+3.0.9 (2026-06-08)
 ------------------
-* Fix bridge params xml parse (`#903 <https://github.com/gazebosim/ros_gz/issues/903>`_)
-* Fix bridge_params TypeError (`#899 <https://github.com/gazebosim/ros_gz/issues/899>`_)
-* Added missing headers in convert (`#888 <https://github.com/gazebosim/ros_gz/issues/888>`_)
+* Fix bridge params xml parse (`#903 <https://github.com/gazebosim/ros_gz/issues/903>`_) (`#904 <https://github.com/gazebosim/ros_gz/issues/904>`_)
+* Fix bridge_params TypeError (`#899 <https://github.com/gazebosim/ros_gz/issues/899>`_) (`#901 <https://github.com/gazebosim/ros_gz/issues/901>`_)
+* Added missing headers in convert (`#888 <https://github.com/gazebosim/ros_gz/issues/888>`_) (`#889 <https://github.com/gazebosim/ros_gz/issues/889>`_)
 * sensor_msgs bounds fixes (`#882 <https://github.com/gazebosim/ros_gz/issues/882>`_)
 * Restore rolling CI on Ubuntu 26.04 resolute (`#883 <https://github.com/gazebosim/ros_gz/issues/883>`_)
-* Contributors: Alejandro Hernández Cordero, Carlos Agüero, JBeck-SRW
+* Contributors: Carlos Agüero, mergify[bot]
 
 3.0.8 (2026-03-26)
 ------------------
