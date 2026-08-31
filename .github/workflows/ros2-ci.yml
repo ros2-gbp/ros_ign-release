@@ -25,7 +25,7 @@ jobs:
         include:
           - docker-image: "ubuntu:24.04"
             gz-version: "harmonic"
-            ros-distro: "kilted"
+            ros-distro: "jazzy"
     container:
       image: ${{ matrix.docker-image }}
     steps:
