@@ -30,6 +30,7 @@ The following message types can be bridged for topics:
 | nav_msgs/msg/Odometry                          | gz.msgs.Odometry                    |
 | nav_msgs/msg/Odometry                          | gz.msgs.OdometryWithCovariance      |
 | rcl_interfaces/msg/ParameterValue              | gz.msgs.Any                         |
+| ros_gz_interfaces/msg/AirSpeed                 | gz.msgs.AirSpeed                    |
 | ros_gz_interfaces/msg/Altimeter                | gz.msgs.Altimeter                   |
 | ros_gz_interfaces/msg/Contact                  | gz.msgs.Contact                     |
 | ros_gz_interfaces/msg/Contacts                 | gz.msgs.Contacts                    |
@@ -83,6 +84,9 @@ And the following for services:
 | ROS type                             | Gazebo request             | Gazebo response       |
 |--------------------------------------|:--------------------------:| --------------------- |
 | ros_gz_interfaces/srv/ControlWorld   | gz.msgs.WorldControl       | gz.msgs.Boolean       |
+| ros_gz_interfaces/srv/DeleteEntity   | gz.msgs.Entity             | gz.msgs.Boolean       |
+| ros_gz_interfaces/srv/SpawnEntity    | gz.msgs.EntityFactory      | gz.msgs.Boolean       |
+| ros_gz_interfaces/srv/SetEntityPose  | gz.msgs.Pose               | gz.msgs.Boolean       |
 
 Run `ros2 run ros_gz_bridge parameter_bridge -h` for instructions.
 
