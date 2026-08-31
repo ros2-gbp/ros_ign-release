@@ -24,6 +24,7 @@ namespace ros_gz_sim
 {
 
 const rclcpp::Duration duration_zero = rclcpp::Duration(0, 0U);
+rclcpp::Time time_min = rclcpp::Time(0, 0U);
 
 // Private data class
 class StopwatchPrivate
@@ -66,11 +67,11 @@ public:
 
 public:
   /// \brief Time point that marks the start of the real-time clock.
-  rclcpp::Time startTime = rclcpp::Time(0, 0U);
+  rclcpp::Time startTime = time_min;
 
 public:
   /// \brief Time point that marks the stop of the real-time clock.
-  rclcpp::Time stopTime = rclcpp::Time(0, 0U);
+  rclcpp::Time stopTime = time_min;
 
 public:
   /// \brief Amount of stop time.
@@ -83,9 +84,6 @@ public:
 public:
   /// \brief ros clock instance
   rclcpp::Clock::SharedPtr clock = nullptr;
-
-  /// \brief Epoch time point used as a sentinel "min" value, matching the clock type.
-  rclcpp::Time time_min = rclcpp::Time(0, 0U);
 };
 
 //////////////////////////////////////////////////
@@ -182,8 +180,8 @@ bool Stopwatch::Running() const
 void Stopwatch::Reset()
 {
   this->dataPtr->running = false;
-  this->dataPtr->startTime = this->dataPtr->time_min;
-  this->dataPtr->stopTime = this->dataPtr->time_min;
+  this->dataPtr->startTime = time_min;
+  this->dataPtr->stopTime = time_min;
   this->dataPtr->stopDuration = duration_zero;
   this->dataPtr->runDuration = duration_zero;
 }
@@ -212,7 +210,7 @@ rclcpp::Duration Stopwatch::ElapsedStopTime() const
   // If running, then return the stopDuration.
   if (this->dataPtr->running) {
     return this->dataPtr->stopDuration;
-  } else if (this->dataPtr->stopTime > this->dataPtr->time_min) {
+  } else if (this->dataPtr->stopTime > time_min) {
     // The clock is not running, and Stop() has been called.
     return this->dataPtr->stopDuration +
            (this->dataPtr->clock->now() - this->dataPtr->stopTime);

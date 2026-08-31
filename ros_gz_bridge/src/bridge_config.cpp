@@ -176,7 +176,6 @@ std::optional<BridgeConfig> parseEntry(const YAML::Node & yaml_node)
       ret.frame_id = yaml_node[kFrameId].as<std::string>();
     }
 
-
     if (yaml_node[kQosProfile]) {
       const auto qos_profile_str = getValue(kQosProfile);
       if (!qos_profile_str.empty()) {

@@ -52,14 +52,12 @@ SpawnEntity::SpawnEntity(
         gz_request.set_name(request->name);
       }
       gz_request.set_allow_renaming(request->allow_renaming);
-      const auto & resource = request->entity_resource;
-
-      if (!resource.uri.empty()) {
+      if (!request->uri.empty()) {
         // TODO(azeey) The `sdf_filename` field requires absolute paths to the file.
         // Consider resolving the uri using the `/gazebo/resource_paths/resolve`
-        gz_request.set_sdf_filename(resource.uri);
-      } else if (!resource.resource_string.empty()) {
-        gz_request.set_sdf(resource.resource_string);
+        gz_request.set_sdf_filename(request->uri);
+      } else if (!request->resource_string.empty()) {
+        gz_request.set_sdf(request->resource_string);
       } else {
         response->result.result = Result::RESULT_OPERATION_FAILED;
         response->result.error_message =

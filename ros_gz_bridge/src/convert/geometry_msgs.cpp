@@ -161,9 +161,12 @@ convert_gz_to_ros(
 {
   convert_gz_to_ros(gz_msg.pose().position(), ros_msg.pose.position);
   convert_gz_to_ros(gz_msg.pose().orientation(), ros_msg.pose.orientation);
-  if (gz_msg.covariance().data_size() == 36) {
-    const auto & cov = gz_msg.covariance().data();
-    std::copy(cov.begin(), cov.end(), ros_msg.covariance.begin());
+  int data_size = gz_msg.covariance().data_size();
+  if (data_size == 36) {
+    for (int i = 0; i < data_size; i++) {
+      auto data = gz_msg.covariance().data()[i];
+      ros_msg.covariance[i] = data;
+    }
   }
 }
 
@@ -320,9 +323,12 @@ convert_gz_to_ros(
 {
   convert_gz_to_ros(gz_msg.twist().linear(), ros_msg.twist.linear);
   convert_gz_to_ros(gz_msg.twist().angular(), ros_msg.twist.angular);
-  if (gz_msg.covariance().data_size() == 36) {
-    const auto & cov = gz_msg.covariance().data();
-    std::copy(cov.begin(), cov.end(), ros_msg.covariance.begin());
+  int data_size = gz_msg.covariance().data_size();
+  if (data_size == 36) {
+    for (int i = 0; i < data_size; i++) {
+      auto data = gz_msg.covariance().data()[i];
+      ros_msg.covariance[i] = data;
+    }
   }
 }
 
