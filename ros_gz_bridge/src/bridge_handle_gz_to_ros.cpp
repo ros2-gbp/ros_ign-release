@@ -70,7 +70,7 @@ void BridgeHandleGzToRos::StartPublisher()
   this->ros_publisher_ = this->factory_->create_ros_publisher(
     this->RosNode(),
     this->config_.ros_topic_name,
-    this->config_.PublisherQoS());
+    this->config_.publisher_queue_size);
 }
 
 bool BridgeHandleGzToRos::HasSubscriber() const
@@ -81,16 +81,13 @@ bool BridgeHandleGzToRos::HasSubscriber() const
 
 void BridgeHandleGzToRos::StartSubscriber()
 {
-  if (!this->config_.frame_id.empty()) {
-    this->gz_to_ros_parameters_.override_frame_id = this->config_.frame_id;
-  }
   // Start Gazebo subscriber
   this->factory_->create_gz_subscriber(
     this->gz_node_,
     this->config_.gz_topic_name,
-    this->config_.subscriber_queue_size.value_or(kDefaultSubscriberQueue),
+    this->config_.subscriber_queue_size,
     this->ros_publisher_,
-    this->gz_to_ros_parameters_);
+    gz_to_ros_parameters_);
 
   this->gz_subscriber_ = this->gz_node_;
 }
