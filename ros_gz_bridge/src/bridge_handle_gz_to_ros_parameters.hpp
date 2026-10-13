@@ -1,4 +1,4 @@
-// Copyright 2026 Open Source Robotics Foundation, Inc.
+// Copyright 2022 Open Source Robotics Foundation, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 #ifndef BRIDGE_HANDLE_GZ_TO_ROS_PARAMETERS_HPP_
 #define BRIDGE_HANDLE_GZ_TO_ROS_PARAMETERS_HPP_
 
+#include <optional>
 #include <string>
 
 namespace ros_gz_bridge

@@ -5,6 +5,12 @@ This package contains things that make it convenient to integrate ROS with Gazeb
  - Launch files
  - ROS-enabled executables
 
+### `SetEntityState` field flags
+
+`SetEntityState` applies pose, twist, and acceleration fields only when the corresponding
+`set_pose`, `set_twist`, or `set_acceleration` flag is true. Clients must set these flags
+explicitly; a request with all flags false leaves the entity unchanged.
+
 ### Run Gazebo Sim
 
 There's a convenient launch file, try for example:
@@ -29,7 +35,7 @@ ros2 launch ros_gz_sim gz_sim.launch.py
 then spawn a model:
 
 ```
-ros2 run ros_gz_sim create -world default -file 'https://fuel.ignitionrobotics.org/1.0/openrobotics/models/Gazebo'
+ros2 run ros_gz_sim create -world default -file 'https://fuel.gazebosim.org/1.0/openrobotics/models/Gazebo'
 ```
 
 See more options with:
