@@ -47,7 +47,7 @@ rclcpp::Node::SharedPtr BridgeHandle::RosNode() const
 
 bool BridgeHandle::IsLazy() const
 {
-  return config_.is_lazy.value_or(kDefaultLazy);
+  return config_.is_lazy;
 }
 
 void BridgeHandle::Start()

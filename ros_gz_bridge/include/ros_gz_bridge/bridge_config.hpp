@@ -75,9 +75,8 @@ struct BridgeConfig
   /// \brief Depth of the publisher queue
   std::optional<size_t> publisher_queue_size;
 
-  /// \brief Flag to change the "laziness" of the bridge.
-  /// When std::nullopt, the node-level lazy parameter is used as the default.
-  std::optional<bool> is_lazy;
+  /// \brief Flag to change the "laziness" of the bridge
+  bool is_lazy = kDefaultLazy;
 
   /// \brief QoS profile (unresolved, might have wrong depth).
   /// \note Use PublisherQoS() and SubscriberQoS() to get the final QoS.
