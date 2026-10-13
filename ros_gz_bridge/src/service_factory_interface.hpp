@@ -23,12 +23,10 @@
 #include <rclcpp/service.hpp>
 #include <rclcpp/node.hpp>
 
-#include "ros_gz_bridge/visibility_control.hpp"
-
 namespace ros_gz_bridge
 {
 
-class ROS_GZ_BRIDGE_VISIBLE ServiceFactoryInterface
+class ServiceFactoryInterface
 {
 public:
   virtual ~ServiceFactoryInterface() = 0;
