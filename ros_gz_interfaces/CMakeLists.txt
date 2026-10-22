@@ -17,6 +17,7 @@ find_package(geometry_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 set(msg_files
+  "msg/AirSpeed.msg"
   "msg/Altimeter.msg"
   "msg/Contact.msg"
   "msg/Contacts.msg"
@@ -28,6 +29,8 @@ set(msg_files
   "msg/GuiCamera.msg"
   "msg/JointWrench.msg"
   "msg/Light.msg"
+  "msg/LogicalCameraImage.msg"
+  "msg/LogicalCameraImageModel.msg"
   "msg/LogPlaybackStatistics.msg"
   "msg/MaterialColor.msg"
   "msg/ParamVec.msg"
