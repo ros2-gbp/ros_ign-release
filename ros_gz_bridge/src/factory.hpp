@@ -22,7 +22,6 @@
 #include <memory>
 #include <string>
 #include <type_traits>
-#include <utility>
 #include <vector>
 
 #include <gz/transport/Node.hh>
@@ -188,23 +187,21 @@ protected:
     std::shared_ptr<rclcpp::Publisher<ROS_T>> ros_pub,
     const BridgeHandleGzToRosParameters & gz_to_ros_parameters)
   {
-    // Publish by unique_ptr, not const ref: with intra-process comms enabled,
-    // publish(const T &) first makes a full heap copy of the message.
-    auto ros_msg = std::make_unique<ROS_T>();
-    convert_gz_to_ros(gz_msg, *ros_msg);
+    ROS_T ros_msg;
+    convert_gz_to_ros(gz_msg, ros_msg);
     if constexpr (has_header<ROS_T>::value) {
       if (gz_to_ros_parameters.override_timestamps_with_wall_time) {
         auto now = std::chrono::system_clock::now().time_since_epoch();
         auto ns =
           std::chrono::duration_cast<std::chrono::nanoseconds>(now).count();
-        ros_msg->header.stamp.sec = ns / 1e9;
-        ros_msg->header.stamp.nanosec = ns - ros_msg->header.stamp.sec * 1e9;
+        ros_msg.header.stamp.sec = ns / 1e9;
+        ros_msg.header.stamp.nanosec = ns - ros_msg.header.stamp.sec * 1e9;
       }
       if (!gz_to_ros_parameters.override_frame_id.empty()) {
-        ros_msg->header.frame_id = gz_to_ros_parameters.override_frame_id;
+        ros_msg.header.frame_id = gz_to_ros_parameters.override_frame_id;
       }
     }
-    ros_pub->publish(std::move(ros_msg));
+    ros_pub->publish(ros_msg);
   }
 
 public:

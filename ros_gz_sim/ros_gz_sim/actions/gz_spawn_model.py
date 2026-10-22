@@ -34,19 +34,18 @@ class GzSpawnModel(Action):
     def __init__(
         self,
         *,
-        world: Optional[SomeSubstitutionsType] = '',
-        file: Optional[SomeSubstitutionsType] = '',
-        model_string: Optional[SomeSubstitutionsType] = '',
-        topic: Optional[SomeSubstitutionsType] = '',
-        entity_name: Optional[SomeSubstitutionsType] = '',
-        entity_namespace: Optional[SomeSubstitutionsType] = '',
-        allow_renaming: Optional[SomeSubstitutionsType] = 'False',
-        x: Optional[SomeSubstitutionsType] = '0.0',
-        y: Optional[SomeSubstitutionsType] = '0.0',
-        z: Optional[SomeSubstitutionsType] = '0.0',
-        roll: Optional[SomeSubstitutionsType] = '0.0',
-        pitch: Optional[SomeSubstitutionsType] = '0.0',
-        yaw: Optional[SomeSubstitutionsType] = '0.0',
+        world: Optional[SomeSubstitutionsType] = None,
+        file: Optional[SomeSubstitutionsType] = None,
+        model_string: Optional[SomeSubstitutionsType] = None,
+        topic: Optional[SomeSubstitutionsType] = None,
+        entity_name: Optional[SomeSubstitutionsType] = None,
+        allow_renaming: Optional[SomeSubstitutionsType] = None,
+        x: Optional[SomeSubstitutionsType] = None,
+        y: Optional[SomeSubstitutionsType] = None,
+        z: Optional[SomeSubstitutionsType] = None,
+        roll: Optional[SomeSubstitutionsType] = None,
+        pitch: Optional[SomeSubstitutionsType] = None,
+        yaw: Optional[SomeSubstitutionsType] = None,
         **kwargs
     ) -> None:
         """
@@ -60,7 +59,6 @@ class GzSpawnModel(Action):
         :param: model_string XML(SDF) string.
         :param: topic Get XML from this topic.
         :param: entity_name Name of the entity.
-        :param: entity_namespace Namespace for the spawned entity.
         :param: allow_renaming Whether the entity allows renaming or not.
         :param: x X coordinate.
         :param: y Y coordinate.
@@ -75,7 +73,6 @@ class GzSpawnModel(Action):
         self.__model_string = model_string
         self.__topic = topic
         self.__entity_name = entity_name
-        self.__entity_namespace = entity_namespace
         self.__allow_renaming = allow_renaming
         self.__x = x
         self.__y = y
@@ -111,10 +108,6 @@ class GzSpawnModel(Action):
 
         allow_renaming = entity.get_attr(
             'allow_renaming', data_type=str,
-            optional=True)
-
-        entity_namespace = entity.get_attr(
-            'entity_namespace', data_type=str,
             optional=True)
 
         x = entity.get_attr(
@@ -165,10 +158,6 @@ class GzSpawnModel(Action):
             allow_renaming = parser.parse_substitution(allow_renaming)
             kwargs['allow_renaming'] = allow_renaming
 
-        if isinstance(entity_namespace, str):
-            entity_namespace = parser.parse_substitution(entity_namespace)
-            kwargs['entity_namespace'] = entity_namespace
-
         if isinstance(x, str):
             x = parser.parse_substitution(x)
             kwargs['x'] = x
@@ -207,13 +196,12 @@ class GzSpawnModel(Action):
                               ('model_string',   self.__model_string),
                               ('topic',  self.__topic),
                               ('entity_name', self.__entity_name),
-                              ('entity_namespace', self.__entity_namespace),
                               ('allow_renaming', self.__allow_renaming),
                               ('x',   self.__x),
                               ('y',  self.__y),
                               ('z', self.__z),
                               ('roll', self.__roll),
                               ('pitch',   self.__pitch),
-                              ('yaw',  self.__yaw)])
+                              ('yaw',  self.__yaw), ])
 
         return [gz_spawn_model_description]
